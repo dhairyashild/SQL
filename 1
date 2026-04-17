@@ -1,11 +1,11 @@
 ### SQL Commands Overview
+DDL= CARDT --- AUTO COMMITED
+DML=SIDU   ---  NOT AUTO_COMIITED
+DCL=GR  --- AUTOCOMITED
+TCL=CSR
 
-* **DDL (Data Definition Language):** Defines or modifies the **structure/schema** of the database.
-    * `CREATE`: Makes new databases, tables, or indexes.
-    * `ALTER`: Changes the structure (adding/dropping columns) of an existing table.
-    * `DROP`: Completely removes a table or database from the system.
-    * `TRUNCATE`: Removes all records from a table but keeps the structure intact.
-    * `RENAME`: Changes the name of a table or object.
+
+
 
 * **DML (Data Manipulation Language):** Handles the **data itself** within the tables.
     * `SELECT`: Retrieves specific data     SELECT==DQL(DATA QUESRRY LANGUAGE)
@@ -22,3 +22,126 @@
 | **R**ead | `SELECT` | Queries and views data. |
 | **U**pdate | `UPDATE` | Edits existing records. |
 | **D**elete | `DELETE` | Removes specific records. |
+
+TYPES OF SQL COMMANDS
+
+1. DATA CONTROL LANGUAGE (DCL)
+Data Control Language (DCL) consists of the commands used to control access to the data stored in the database.
+- GRANT: Grant permission to a user for database access.
+- REVOKE: Take back granted permission from a user.
+
+2. TRANSACTION CONTROL LANGUAGE (TCL)
+Transaction Control Language (TCL) commands are used to manage the changes made by DML statements.
+- COMMIT: To permanently save the transaction.
+- ROLLBACK: To undo a transaction.
+- SAVEPOINT: To temporarily save a transaction so that you can rollback to that point whenever necessary.
+
+Note: TCL commands are used only for DML commands, while DDL and DCL commands are auto-committed.
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+* **DDL (Data Definition Language):** Defines or modifies the **structure/schema** of the database.
+    * `CREATE`: Makes new databases, tables, or indexes.
+    * `ALTER`: Changes the structure (adding/dropping columns) of an existing table.
+    * `DROP`: Completely removes a table or database from the system.
+    * `TRUNCATE`: Removes all records from a table but keeps the structure intact.
+    * `RENAME`: Changes the name of a table or object.
+    
+-- DATABASE CREATION AND NAVIGATION
+CREATE DATABASE my_db; -- Creates a new database named 'my_db'
+SHOW DATABASES;        -- Lists all available databases
+USE my_db;             -- Selects 'my_db' for active use
+SHOW TABLES;           -- Lists all tables within the selected database
+
+
+-- CREATING A TABLE WITH A PRIMARY KEY     +  TABLE MUST NEED NAME OF COLUMN + DATATYPE
+CREATE TABLE branch (
+    branch_name varchar(15) PRIMARY KEY, -- Unique --- U CAN ALSO ADD SEPARATELY WITH COMMA     primary key(branch_name)
+    branch_city varchar(30),           
+    assets integer CHECK (assets > 0)    -- Ensures assets are positive value   
+);
+-- INSPECTING TABLE STRUCTURE
+DESC branch; -- Displays column names, data types, and constraints
+
+-- SQL DATA TYPES COMBINED (ORDERED BY GENERAL PREFERENCE)
+CREATE TABLE PreferredDataTypes (
+    -- 1. PRIMARY KEYS & IDENTIFIERS
+    RecordID INT PRIMARY KEY,      -- Most common for IDs
+
+    -- 2. TEMPORAL (TIMESTAMP 1st)
+    CreatedAt TIMESTAMP,           -- Preferred for tracking exact moments
+    EntryDate DATE,                -- Preferred for dates without time
+    RecordTime TIME,               -- Used for standalone clock time
+    RecordYear YEAR,               -- Used for simple year values
+
+    -- 3. STRINGS (VARCHAR 1st)
+    UserName VARCHAR(50),          -- Preferred for flexible text length
+    CountryCode CHAR(3),           -- Preferred for fixed-length codes
+
+    -- 4. NUMERICS (INT & NUMERIC 1st)
+    UserAge INT,                   -- Preferred for whole numbers
+    TotalAmount NUMERIC(10,2),     -- Preferred for money/exact decimals
+    BigCount BIGINT,               -- Used for very large whole numbers
+    SmallCode SMALLINT,            -- Used to save space for small numbers
+
+    -- 5. FLOATING POINT
+    PrecisionVal DOUBLE(15,4),     -- Preferred over FLOAT for high accuracy
+    ApproxVal FLOAT(5,2)           -- Used for approximate scientific values
+);
+
+### SQL CONSTRAINTS====to specify rules for the data in a table.
+- Column level constraints apply to a column.
+- Table level constraints apply to the whole table.
+Constraints can be specified with:
+-  CREATE TABLE statement /
+-  ALTER TABLE statement after the table is created
+
+SQL CONSTRAINTS (SHORTEST EXPLANATION)
+- NOT NULL: IMP: No empty cells allowed.
+- DEFAULT: IMP: Auto-fills value if missing.
+- UNIQUE: IMP: All values must be different.
+- PRIMARY KEY: IMP: Unique + Not Null (Row ID).
+- FOREIGN KEY: IMP: Links to another table's ID.
+- CHECK: IMP: Meets specific rule (e.g., > 0).
+- INDEX: IMP: Speeds up data searching.
+
+-- TABLE CREATION WITH ALL CONSTRAINTS
+CREATE TABLE Emp (
+    Emp_ID int NOT NULL,               -- IMP: Cannot be empty
+    Name varchar(20) NOT NULL,         -- IMP: Name required
+    Age int NOT NULL,                  -- IMP: Age required
+    Address varchar(100) DEFAULT 'India', -- IMP: Auto-fills 'India' if blank
+    Salary numeric(10,2) NOT NULL,     -- IMP: Decimal salary required
+    DeptID int,                        -- IMP: Reference column
+    PRIMARY KEY(Emp_ID),               -- IMP: Unique ID for the table
+    FOREIGN KEY(DeptID) REFERENCES Dept(DeptID), -- IMP: Links to Dept table
+    CHECK(Age >= 18)                   -- IMP: Rule: Age must be 18+
+);
+
+
+-- 1. ADD COLUMN: Insert a new column into the table
+ALTER TABLE Emp ADD Email varchar(50);
+
+-- 2. DROP COLUMN: Remove an existing column from the table
+ALTER TABLE Emp DROP COLUMN Email;
+
+-- 3. MODIFY COLUMN: Change data type or constraints of a column
+ALTER TABLE Emp MODIFY COLUMN Name varchar(50) NOT NULL;
+
+-- 4. RENAME COLUMN: Change the name of an existing column
+ALTER TABLE Emp RENAME COLUMN Address TO Home_Address;
+
+--------------------
+-- 1. DROP TABLE: Removes the table and all its data permanently
+DROP TABLE Emp;
+
+-- 2. DROP DATABASE: Deletes the entire database and everything inside it
+DROP DATABASE my_db;
+--------------------
+-- TRUNCATE TABLE: Removes all records but keeps the table structure intact
+TRUNCATE TABLE Emp;
+--------------------
+
+-- RENAME TABLE: Changes the table name in the database
+RENAME TABLE Emp TO Employee;
+--------------------
