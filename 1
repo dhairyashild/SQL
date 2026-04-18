@@ -260,8 +260,56 @@ NULL
 SELECT COUNT(DISTINCT Address) FROM Emp;
 /*
 3   -- (Mumbai, Pune; NULL is treated as one distinct value
+
 -------------------------------------------------
+SQL: AND, OR, NOT Operator | with Examples | DBMS Lecture-47 | Shanu Kuttan | Hindi
 -------------------------------------------------
+AND OPERATOR
+-- ALL must be TRUE for the row to be selected.
+-- Used with WHERE in SELECT, UPDATE, DELETE.
+
+-- Syntax:
+SELECT column1, column2, ... columnN
+FROM table_name
+WHERE condition1 AND condition2 AND conditionN;
+
+-- Example:
+SELECT * FROM Emp
+WHERE City = 'Mumbai' AND Salary > 50000;
+
+OR OPERATOR
+-- AT LEAST ONE must be TRUE for the row to be selected.
+-- Used with WHERE in SELECT, UPDATE, DELETE.
+
+-- Syntax:
+SELECT column1, column2, ... columnN
+FROM table_name
+WHERE condition1 OR condition2 OR conditionN;
+
+-- Example:
+SELECT * FROM Emp
+WHERE City = 'Mumbai' OR City = 'Delhi';
+
+
+NOT OPERATOR
+-- NOT operator reverses the meaning of any condition; it is a negate operator.
+-- It displays a record only if the condition(s) is NOT TRUE.
+-- NOT returns rows where the condition is FALSE.
+-- NOT can be used with =, <>, IN, BETWEEN, LIKE, EXISTS, NULL checks, etc.
+-- Order: WHERE NOT (condition) not WHERE NOT Address 'Mumbai' (your line has a syntax error).
+-- Common patterns: NOT IN, NOT BETWEEN, NOT EXISTS, IS NOT NULL, etc.
+
+-- Syntax:
+SELECT column1, column2, ... columnN
+FROM table_name
+WHERE NOT condition;
+
+-- Example: selects all records where Address is NOT Mumbai
+SELECT *
+FROM Emp
+WHERE NOT Address = 'Mumbai';
+
+-- Notes (short):
 
 
 -------------------------------------------------
