@@ -7,11 +7,6 @@ TCL=CSR
 
 
 
-* **DML (Data Manipulation Language):** Handles the **data itself** within the tables.
-    * `SELECT`: Retrieves specific data     SELECT==DQL(DATA QUESRRY LANGUAGE)
-    * `INSERT`: Adds new rows of data.
-    * `UPDATE`: Modifies existing data within rows.
-    * `DELETE`: Removes specific rows based on a condition.
 
 ---
 
@@ -144,4 +139,27 @@ TRUNCATE TABLE Emp;
 
 -- RENAME TABLE: Changes the table name in the database
 RENAME TABLE Emp TO Employee;
---------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------  SQL DML Commands | SELECT, INSERT, UPDATE, DELETE | SQL Operators | DBMS Lect-45 |Shanu Kuttan|Hindi  ----------------------
+* **DML (Data Manipulation Language):** Handles the **data itself** within the tables.
+
+    
+    * `INSERT`: Adds new rows of data.
+    * `UPDATE`: Modifies existing data within rows.
+    * `DELETE`: Removes specific rows based on a condition.
+
+* `SELECT`: Retrieves specific data     SELECT==DQL(DATA QUESRRY LANGUAGE)
+SELECT= Data Query Language (DQL) command used to retrieve data from a database. It returns data in a structured format known as a result-set.
+----- Key Rules
+* **SELECT**: Identifies the specific columns to retrieve.
+* **FROM**: Specifies the table containing the data.
+* **Asterisk (*)**: Acts as a wildcard to fetch all columns from a table.
+* **Conditions**: Often paired with clauses (like WHERE) to filter results.
+----- Essential Commands
+SELECT column1, column2 FROM table_name;
+SELECT * FROM table_name;
+SELECT DISTINCT column1 FROM table_name;
+SELECT column1 FROM table_name LIMIT 5;
+-------------------------------------------------
