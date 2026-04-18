@@ -237,10 +237,29 @@ WHERE id = 101;
 Always use WHERE, otherwise all records in the table will be deleted.
 
 -------------------------------------------------
+SQL: SELECT DISTINCT | with Example | DBMS Lecture-46 | Shanu Kuttan | Hindi
 -------------------------------------------------
+-- Inside a table, a column often contains many duplicate values & want distinct values.
+SELECT DISTINCT column1, column2, ... columnN FROM table_name;
+SELECT DISTINCT Address FROM Emp;
 
+SELECT COUNT(DISTINCT Address) FROM Emp;                   -- To show NUMBER of distinct (different) addresses in Emp table
+    (1, 'A', 'Mumbai'),
+    (2, 'B', 'Mumbai'),
+    (3, 'C', 'Mumbai'),
+    (4, 'D', NULL),
+    (5, 'E', 'Pune');
 
+SELECT DISTINCT Address FROM Emp;
+/*
+Mumbai
+Pune
+NULL
+*/
 
+SELECT COUNT(DISTINCT Address) FROM Emp;
+/*
+3   -- (Mumbai, Pune; NULL is treated as one distinct value
 -------------------------------------------------
 -------------------------------------------------
 
