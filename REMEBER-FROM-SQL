@@ -1,0 +1,8 @@
+CREATE TABLE Emp (                                     # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
+    Address VARCHAR(100) DEFAULT 'India',
+    Salary NUMERIC(10,2) NOT NULL,                     # HERE () AFTER DATATYPE
+    DeptID INT,
+    PRIMARY KEY (Emp_ID)                               #  ONLY THIS HAS () WITHOUT DATATYPE FOR PRIMARY KEY ONLY
+);
+
+DESC emp;                 # not give desc tables its wrong
