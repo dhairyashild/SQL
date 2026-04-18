@@ -4,11 +4,8 @@ DML=SIDU   ---  NOT AUTO_COMIITED
 DCL=GR  --- AUTOCOMITED
 TCL=CSR
 
-
-
-
-
----
+-------------------------------------------------
+-------------------------------------------------
 
 ### CRUD to SQL Mapping
 | Operation | SQL Command | Description |
@@ -162,4 +159,104 @@ SELECT column1, column2 FROM table_name;
 SELECT * FROM table_name;
 SELECT DISTINCT column1 FROM table_name;
 SELECT column1 FROM table_name LIMIT 5;
+
+
+## WHERE CLAUSE **Purpose**:
+- Filters rows based on condition(s)
+- Works with SELECT, UPDATE, DELETE
+
+**Syntax**:
+SELECT col1, col2
+FROM table_name
+WHERE condition;
+```
+
+**Key Points**:
+- Applies to single table or joined tables
+- Uses comparison operators: =, !=, <, >, <=, >=
+- Uses pattern/range: LIKE, IN, BETWEEN
+- Always sanity‑check UPDATE/DELETE with WHERE
+
+**Examples**:
+```sql
+SELECT * FROM employees WHERE salary > 50000;
+UPDATE employees SET salary = 60000 WHERE id = 101;
+DELETE FROM logs WHERE created_at < '2024-01-01';
+```
+----------------
+## Optional Clauses in SELECT (Short)
+
+[WHERE] – Filters rows by condition.  
+Example:  
+SELECT * FROM employees WHERE salary > 50000;
+
+[GROUP BY] – Groups rows for aggregates.  
+Example:  
+SELECT dept, COUNT(*) FROM employees GROUP BY dept;
+
+[HAVING] – Filters groups (use with GROUP BY).  
+Example:  
+SELECT dept, AVG(salary) FROM employees GROUP BY dept HAVING AVG(salary) > 60000;
+
+[ORDER BY] – Sorts result rows.  
+Example:  
+SELECT name, salary FROM employees ORDER BY salary DESC;
+
+[DISTINCT] – Removes duplicate rows.  
+Example:  
+SELECT DISTINCT dept FROM employees;
+-------------------------------------------------
+-------------------------------------------------
+## 2. INSERT (Short Notes)
+
+INSERT INTO adds new rows to a table.
+
+**Syntax 1 – with column names (recommended):**  
+INSERT INTO employees (id, name, salary)  
+VALUES (1, 'Alice', 60000);
+
+**Syntax 2 – values only (must match column order):**  
+INSERT INTO employees  
+VALUES (2, 'Bob', 55000);
+
+**Tip:** Always use Syntax 1 for clarity and safety in data‑engineering workflows.
+-------------------------------------------------
+-------------------------------------------------
+## SQL UPDATE Commands
+
+UPDATE table_name SET column1 = value1 WHERE condition;
+UPDATE table_name SET column1 = value1, column2 = value2 WHERE condition;
+
+-------------------------------------------------
+-------------------------------------------------
+## 4. DELETE--removes existing ROWS from a table.
+
+DELETE FROM employees  
+WHERE id = 101;
+
+Always use WHERE, otherwise all records in the table will be deleted.
+
+-------------------------------------------------
+-------------------------------------------------
+
+
+
+-------------------------------------------------
+-------------------------------------------------
+
+
+-------------------------------------------------
+-------------------------------------------------
+
+
+-------------------------------------------------
+-------------------------------------------------
+
+
+
+-------------------------------------------------
+-------------------------------------------------
+
+
+-------------------------------------------------
 -------------------------------------------------
