@@ -1,0 +1,41 @@
+# Data Engineer SQL DDL Cheat Sheet (PERFECTED) ✅
+
+## 🔍 Navigation (No Switch Needed!)
+```sql
+SHOW DATABASES;           # All DBs
+USE dev_db;               # Switch DB
+SHOW TABLES;              # Current DB tables
+DESC prod_db.users;       # Table schema ANYWHERE
+```
+
+## 🏗️ CREATE + 6 Constraints (INTERVIEW MUST!)
+```sql
+CREATE TABLE staff (
+    id INT PRIMARY KEY AUTO_INCREMENT,     # 1️⃣ PK + Auto-incr
+    name VARCHAR(50) NOT NULL,             # 2️⃣ Mandatory
+    age INT CHECK (age >= 18),             # 3️⃣ Validation
+    email VARCHAR(100) UNIQUE,             # 4️⃣ No duplicates
+    country VARCHAR(20) DEFAULT 'India',   # 5️⃣ Auto-fill
+    dept_id INT,                           # 
+    FOREIGN KEY (dept_id) REFERENCES depts(id)  # 6️⃣ Ref Integrity
+);
+```
+
+## ⚙️ ALTER (Schema Evolution)
+```sql
+ALTER TABLE staff 
+    ADD phone VARCHAR(15),           # ➕ Add col
+    MODIFY name VARCHAR(100),        # 🔄 Change type
+    RENAME COLUMN phone TO mobile,   # 📝 Rename
+    DROP COLUMN mobile;              # ➖ Delete
+```
+
+## 🧹 Cleanup (Safe Order!)
+```sql
+RENAME TABLE staff TO employees;      # 📛 Rename table
+TRUNCATE TABLE employees;             # 🗑️  Clear data (structure safe)
+DROP TABLE IF EXISTS employees;       # ❌ Delete table
+DROP DATABASE IF EXISTS dev_db;       # 💥 Nuke DB
+```
+
+## 🎯 PRO TIPS (Data Engg Gold!)
