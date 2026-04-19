@@ -1,5 +1,37 @@
-# Data Engineer SQL DDL Cheat Sheet (PERFECTED) ✅
+                                              ✅ Data Engineer SQL DDL Cheat Sheet (PERFECTED) ✅
 
+
+### BEST PRACTICES: THE "EXPERT" STYLE
+1. UPPERCASE Keywords: SELECT, FROM, WHERE, JOIN, GROUP BY. (Makes the logic "pop").
+2. lowercase Identifiers: Table names, column names, and aliases.
+3. Snake_Case: Use underscores for multi-word names (e.g., total_revenue, not totalRevenue).
+4. Semicolons (;): Always end queries with them to signal the execution boundary.
+5. Indentation: Start major clauses (FROM, WHERE) on a new line.
+
+-------------------------------------------------
+
+### DML PHASE 1: THE INSERT COMMAND (The "C" in CRUD)
+Since the structure is ready, let's put data in.
+
+-- 1. STANDARD INSERT (Safest for DE Pipelines)
+INSERT INTO staff (id, name, age) VALUES (1, 'Arjun', 25); # Specific cols
+
+-- 2. BULK INSERT (High Efficiency)
+INSERT INTO staff (id, name, age) VALUES 
+(2, 'Priya', 22), 
+(3, 'Vikram', 30);                                        # Multiple rows at once
+
+-- 3. INSERT FROM ANOTHER TABLE (Data Migration)
+INSERT INTO archive_staff SELECT * FROM staff;            # Copying data DML style
+
+-------------------------------------------------
+
+### DML CHALLENGE: LEVEL 1 (INSERT LOGIC)
+1. If your table has 5 columns but you only want to insert data into 2 of them, 
+   how do you prevent SQL from throwing an error?
+2. You used TRUNCATE on your 'staff' table. Now you INSERT a new row. 
+   If the 'id' column was AUTO_INCREMENT, what is the 'id' of this new row? 
+   (Hint: Does TRUNCATE reset the counter or continue from where it left off?)
 ## 🔍 Navigation (No Switch Needed!)
 ```sql
 SHOW DATABASES;           # All DBs
