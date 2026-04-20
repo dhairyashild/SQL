@@ -9,3 +9,6 @@ DESC emp;                 # not give desc tables its wrong
 
 IN DML --- THERE NO WORD TABLE IN ANY COMMAND DIRECT TABLENAME 
 
+insert into naukar (id , name) values(1,"rahul"), (2, "dhairya");    #forgot    values        ,    
+
+
