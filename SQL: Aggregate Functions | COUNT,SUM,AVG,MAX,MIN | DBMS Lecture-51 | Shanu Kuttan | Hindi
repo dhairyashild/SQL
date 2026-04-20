@@ -1,0 +1,169 @@
+
+SQL: Aggregate Functions | COUNT,SUM,AVG,MAX,MIN | DBMS Lecture-51 | Shanu Kuttan | Hindi
+
+COUNT(): Count function returns the number of rows that matches specified criterion
+
+SELECT COUNT(column_name)
+FROM table_name
+WHERE condition;
+
+
+================================================================
+SAMPLE TABLE: employees
++----+-------+--------+--------+
+| id | name  | dept   | salary |
++----+-------+--------+--------+
+| 1  | Amit  | IT     | 50000  |
+| 2  | NULL  | IT     | 60000  |
+| 3  | Neha  | HR     | NULL   |
+| 4  | Raj   | HR     | 45000  |
+| 5  | NULL  | NULL   | NULL   |
++----+-------+--------+--------+
+
+
+SELECT COUNT(*) FROM employees;        -- All rows fastest: 5
+
+SELECT COUNT(name) FROM employees;     -- Non-NULL IN THAT COLUMN: 5-2 =3        MINUS 2 BECAUSE 2  NULL IN COLUMN NAME
+
+SELECT COUNT(DISTINCT dept) FROM employees; -- Unique non-NULL IN THAT COLUMN → O/P: 2
+
+SELECT COUNT(*) FROM employees WHERE salary > 50000; -- Filtered rows → O/P: 1
+
+SELECT dept, COUNT(*) FROM employees GROUP BY dept; -- Count per group → O/P: IT=2, HR=2, NULL=1
+
+SELECT name, COUNT(*) FROM employees GROUP BY name HAVING COUNT(*) > 1; -- Duplicates → O/P: (NULL,2)
+
+RULE: COUNT(*) = all rows | COUNT(col) = non-NULLs | COUNT(DISTINCT) = unique values
+
+
+================================================================
+SAMPLE TABLE: employees
+
+SELECT * FROM employees;    -------------------->
+
++----+-------+--------+--------+
+| id | name  | dept   | salary |
++----+-------+--------+--------+
+| 1  | Amit  | IT     | 50000  |
+| 2  | NULL  | IT     | 60000  |
+| 3  | Neha  | HR     | NULL   |
+| 4  | Raj   | HR     | 45000  |
+| 5  | NULL  | NULL   | NULL   |
++----+-------+--------+--------+
+
+SELECT name, salary FROM employees;   -------------------->
+
++-------+--------+
+| name  | salary |
++-------+--------+
+| Amit  | 50000  |
+| NULL  | 60000  |
+| Neha  | NULL   |
+| Raj   | 45000  |
+| NULL  | NULL   |
++-------+--------+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+================================================================
+================================================================
+================================================================
+
+
+
+
+
+# SUM() - WITH SAMPLE TABLE & OUTPUT
+
+
+SAMPLE TABLE: Student
++----+------+-------+----------+
+| ID | Name | Marks | Dept     |
++----+------+-------+----------+
+| 1  | A    | 90    | Science  |
+| 2  | B    | 40    | Science  |
+| 3  | C    | 70    | Commerce |
+| 4  | D    | 60    | Commerce |
+| 5  | E    | 70    | Arts     |
+| 6  | F    | NULL  | Arts     |
++----+------+-------+----------+
+
+================================================================
+
+SELECT SUM(Marks) FROM Student;        -- Sum all non-NULL marks → O/P: 330
+
+SELECT SUM(DISTINCT Marks) FROM Student; -- Sum unique non-NULL marks → O/P: 260
+
+SELECT SUM(Marks) FROM Student WHERE Dept = 'Science'; -- Sum filtered by dept → O/P: 130
+
+SELECT Dept, SUM(Marks) FROM Student GROUP BY Dept; -- Sum per group → O/P: Science=130, Commerce=130, Arts=70
+
+SELECT SUM(Marks) AS total_marks FROM Student; -- Renamed output column → O/P: total_marks = 330
+
+SELECT SUM(Marks) / COUNT(*) as avg_marks FROM Student; -- Average including NULLs → O/P: 55
+
+SELECT Dept, SUM(Marks), COUNT(*) FROM Student GROUP BY Dept; -- Sum + count per group → O/P: Science=130,2 | Commerce=130,2 | Arts=70,2
+
+
+RULE: SUM(col) = adds all non-NULLs | SUM(DISTINCT) = adds unique values | NULLs ignored in SUM
+
+================================================================
+================================================================
+================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+# AVG(), MIN(), MAX() - SHORT COMMANDS
+
+================================================================
+
+SAMPLE TABLE: Student
++----+------+-------+----------+
+| ID | Name | Marks | Dept     |
++----+------+-------+----------+
+| 1  | A    | 90    | Science  |
+| 2  | B    | 40    | Science  |
+| 3  | C    | 70    | Commerce |
+| 4  | D    | 60    | Commerce |
+| 5  | E    | 70    | Arts     |
+| 6  | F    | NULL  | Arts     |
++----+------+-------+----------+
+
+================================================================
+
+# AVG() - Average of non-NULL values
+SELECT AVG(Marks) FROM Student;           -- Average all marks → O/P: 66
+SELECT AVG(DISTINCT Marks) FROM Student;  -- Average unique marks → O/P: 65
+SELECT Dept, AVG(Marks) FROM Student GROUP BY Dept; -- Avg per dept → O/P: Science=65, Commerce=65, Arts=70
+
+================================================================
+
+# MIN() - Minimum value
+SELECT MIN(Marks) FROM Student;           -- Lowest mark → O/P: 40
+SELECT Dept, MIN(Marks) FROM Student GROUP BY Dept; -- Min per dept → O/P: Science=40, Commerce=60, Arts=70
+
+================================================================
+
+# MAX() - Maximum value
+SELECT MAX(Marks) FROM Student;           -- Highest mark → O/P: 90
+SELECT Dept, MAX(Marks) FROM Student GROUP BY Dept; -- Max per dept → O/P: Science=90, Commerce=70, Arts=70
+
+================================================================
+
+# COMBINED in one query
+SELECT 
+    AVG(Marks) as avg_marks,
+    MIN(Marks) as min_marks, 
+    MAX(Marks) as max_marks 
+FROM Student;  -- O/P: avg=66, min=40, max=90
+
+================================================================
+RULE: All three ignore NULL values | Use GROUP BY for per-category stats
