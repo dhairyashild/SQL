@@ -6,3 +6,6 @@ CREATE TABLE Emp (                                     # AFTER TABLENAME SPACE G
 );
 
 DESC emp;                 # not give desc tables its wrong
+
+IN DML --- THERE NO WORD TABLE IN ANY COMMAND DIRECT TABLENAME 
+
