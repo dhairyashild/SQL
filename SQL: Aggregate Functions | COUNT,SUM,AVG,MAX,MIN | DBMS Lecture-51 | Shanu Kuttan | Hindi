@@ -206,3 +206,21 @@ HAVING = GROUP BY च्या नंतर वापरतो
 सोपं लक्षात ठेवा:
 WHERE = rows filter
 HAVING = groups filter
+----------------------------------------------------------------------------------
+
+SELECT plant_type, SUM(downtime_minutes) AS total_downtime
+FROM energy_generation
+WHERE location = 'Pune'
+GROUP BY plant_type
+HAVING SUM(downtime_minutes) > 15;
+
+
+What each part does:
+WHERE location = 'Pune'
+- Pune wali rows pehle hi choose karega.
+
+GROUP BY plant_type
+- Pune rows ko plant_type ke hisab se group karega.
+
+HAVING SUM(downtime_minutes) > 15
+- Group banne ke baad total downtime check karega.
