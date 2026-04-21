@@ -165,5 +165,44 @@ SELECT
     MAX(Marks) as max_marks 
 FROM Student;  -- O/P: avg=66, min=40, max=90
 
-================================================================
 RULE: All three ignore NULL values | Use GROUP BY for per-category stats
+================================================================
+-- WHERE example: filter rows before grouping
+SELECT plant_type, SUM(downtime_minutes) AS total_downtime
+FROM energy_generation
+WHERE location = 'Pune'
+GROUP BY plant_type;
+----------------------------------->
+Output:
+plant_type | total_downtime
+solar      | 10
+hydro      | 8
+
+
+-- HAVING example: filter grouped result
+SELECT plant_type, SUM(downtime_minutes) AS total_downtime
+FROM energy_generation
+GROUP BY plant_type
+HAVING SUM(downtime_minutes) > 50;
+----------------------------------->
+Output:
+plant_type | total_downtime
+solar      | 51
+wind       | 77
+hydro      | 41
+
+
+
+WHERE = GROUP BY च्या आधी वापरतो
+- row level filter
+- एकेक रेकॉर्ड तपासतो
+- उदा: location = 'Pune'
+
+HAVING = GROUP BY च्या नंतर वापरतो
+- group level filter
+- SUM, COUNT, AVG सारख्या aggregate वर काम करतो
+- उदा: SUM(downtime_minutes) > 500
+
+सोपं लक्षात ठेवा:
+WHERE = rows filter
+HAVING = groups filter
