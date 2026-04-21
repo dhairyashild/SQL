@@ -1,0 +1,144 @@
+
+
+use practice;
+CREATE TABLE energy_generation (
+    record_id INT PRIMARY KEY,
+    plant_type VARCHAR(20) CHECK (plant_type IN ('solar', 'hydro', 'wind')),
+    location VARCHAR(100),
+    units_generated INT,
+    generation_date DATE,
+    downtime_minutes INT
+);
+
+INSERT INTO energy_generation (record_id, plant_type, location, units_generated, generation_date, downtime_minutes) VALUES
+(1, 'solar', 'Lonavla', 1200, '2026-01-01', 10),
+(2, 'wind', 'Pune', 980, '2026-01-01', 15),
+(3, 'hydro', 'Nashik', 2100, '2026-01-01', 5),
+(4, 'solar', 'Mumbai', 1500, '2026-01-02', 12),
+(5, 'wind', 'Nagpur', 1100, '2026-01-02', 8),
+(6, 'hydro', 'Kolhapur', 2300, '2026-01-02', 6),
+(7, 'solar', 'Aurangabad', 1350, '2026-01-03', 9),
+(8, 'wind', 'Satara', 1020, '2026-01-03', 14),
+(9, 'hydro', 'Ratnagiri', 2500, '2026-01-03', 4),
+(10, 'solar', 'Solapur', 1400, '2026-01-04', 11),
+(11, 'wind', 'Thane', 970, '2026-01-04', 16),
+(12, 'hydro', 'Sangli', 2250, '2026-01-04', 7),
+(13, 'solar', 'Pune', 1600, '2026-01-05', 8),
+(14, 'wind', 'Latur', 990, '2026-01-05', 13),
+(15, 'hydro', 'Jalgaon', 2400, '2026-01-05', 5),
+(16, 'solar', 'Mumbai', 1550, '2026-01-06', 10),
+(17, 'wind', 'Nanded', 1010, '2026-01-06', 12),
+(18, 'hydro', 'Akola', 2350, '2026-01-06', 6),
+(19, 'solar', 'Nagpur', 1450, '2026-01-07', 9),
+(20, 'wind', 'Nashik', 1080, '2026-01-07', 11),
+(21, 'hydro', 'Lonavla', 2450, '2026-01-07', 4),
+(22, 'solar', 'Kolhapur', 1300, '2026-01-08', 14),
+(23, 'wind', 'Satara', 995, '2026-01-08', 15),
+(24, 'hydro', 'Pune', 2200, '2026-01-08', 7),
+(25, 'solar', 'Ratnagiri', 1700, '2026-01-09', 6),
+(26, 'wind', 'Mumbai', 1030, '2026-01-09', 10),
+(27, 'hydro', 'Solapur', 2550, '2026-01-09', 3),
+(28, 'solar', 'Thane', 1420, '2026-01-10', 9),
+(29, 'wind', 'Aurangabad', 1005, '2026-01-10', 14),
+(30, 'hydro', 'Nagpur', 2320, '2026-01-10', 5),
+(31, 'solar', 'Sangli', 1480, '2026-01-11', 8),
+(32, 'wind', 'Lonavla', 975, '2026-01-11', 16),
+(33, 'hydro', 'Pune', 2480, '2026-01-11', 4),
+(34, 'solar', 'Jalgaon', 1520, '2026-01-12', 7),
+(35, 'wind', 'Nashik', 990, '2026-01-12', 13),
+(36, 'hydro', 'Mumbai', 2600, '2026-01-12', 2),
+(37, 'solar', 'Akola', 1375, '2026-01-13', 11),
+(38, 'wind', 'Kolhapur', 1015, '2026-01-13', 12),
+(39, 'hydro', 'Satara', 2380, '2026-01-13', 6),
+(40, 'solar', 'Nanded', 1495, '2026-01-14', 9),
+(41, 'wind', 'Ratnagiri', 980, '2026-01-14', 15),
+(42, 'hydro', 'Thane', 2275, '2026-01-14', 7),
+(43, 'solar', 'Latur', 1410, '2026-01-15', 10),
+(44, 'wind', 'Solapur', 1040, '2026-01-15', 11),
+(45, 'hydro', 'Aurangabad', 2425, '2026-01-15', 5),
+(46, 'solar', 'Pune', 1580, '2026-01-16', 8),
+(47, 'wind', 'Mumbai', 995, '2026-01-16', 14),
+(48, 'hydro', 'Nagpur', 2505, '2026-01-16', 3),
+(49, 'solar', 'Nashik', 1460, '2026-01-17', 9),
+(50, 'wind', 'Lonavla', 1025, '2026-01-17', 12);
+
+select * from energy_generation;
+select plant_type,sum(units_generated) from energy_generation group by plant_type;
+select location, avg(downtime_minutes) from energy_generation group by location;
+select plant_type, max(units_generated) from energy_generation group by plant_type;
+select location, count(downtime_minutes) from energy_generation group by location;
+
+select plant_type, sum(downtime_minutes) from energy_generation  group by plant_type having  sum(downtime_minutes)>500;
+
+
+
+
+CREATE TABLE streaming_stats (
+    session_id INT PRIMARY KEY,
+    genre VARCHAR(50),
+    watch_minutes INT,
+    device_type VARCHAR(20),
+    session_date DATE,
+    content_type VARCHAR(20),
+    CHECK (device_type IN ('mobile', 'tv', 'laptop')),
+    CHECK (content_type IN ('movie', 'series', 'documentary'))
+);
+
+INSERT INTO streaming_stats (session_id, genre, watch_minutes, device_type, session_date, content_type) VALUES
+(1, 'Action', 120, 'mobile', '2026-01-01', 'movie'),
+(2, 'Drama', 95, 'tv', '2026-01-01', 'series'),
+(3, 'Comedy', 45, 'laptop', '2026-01-01', 'movie'),
+(4, 'Thriller', 110, 'mobile', '2026-01-02', 'series'),
+(5, 'Action', 80, 'tv', '2026-01-02', 'movie'),
+(6, 'Romance', 60, 'laptop', '2026-01-02', 'documentary'),
+(7, 'Sci-Fi', 130, 'mobile', '2026-01-03', 'series'),
+(8, 'Drama', 75, 'tv', '2026-01-03', 'movie'),
+(9, 'Comedy', 50, 'laptop', '2026-01-03', 'series'),
+(10, 'Action', 140, 'mobile', '2026-01-04', 'documentary'),
+(11, 'Horror', 55, 'tv', '2026-01-04', 'movie'),
+(12, 'Drama', 100, 'laptop', '2026-01-04', 'series'),
+(13, 'Comedy', 70, 'mobile', '2026-01-05', 'movie'),
+(14, 'Action', 90, 'tv', '2026-01-05', 'series'),
+(15, 'Romance', 65, 'laptop', '2026-01-05', 'movie'),
+(16, 'Sci-Fi', 125, 'mobile', '2026-01-06', 'documentary'),
+(17, 'Thriller', 85, 'tv', '2026-01-06', 'series'),
+(18, 'Drama', 105, 'laptop', '2026-01-06', 'movie'),
+(19, 'Comedy', 40, 'mobile', '2026-01-07', 'series'),
+(20, 'Action', 150, 'tv', '2026-01-07', 'movie'),
+(21, 'Romance', 55, 'laptop', '2026-01-07', 'documentary'),
+(22, 'Horror', 60, 'mobile', '2026-01-08', 'series'),
+(23, 'Drama', 115, 'tv', '2026-01-08', 'movie'),
+(24, 'Sci-Fi', 135, 'laptop', '2026-01-08', 'series'),
+(25, 'Comedy', 75, 'mobile', '2026-01-09', 'movie'),
+(26, 'Thriller', 100, 'tv', '2026-01-09', 'documentary'),
+(27, 'Action', 95, 'laptop', '2026-01-09', 'series'),
+(28, 'Drama', 85, 'mobile', '2026-01-10', 'movie'),
+(29, 'Romance', 50, 'tv', '2026-01-10', 'series'),
+(30, 'Sci-Fi', 145, 'laptop', '2026-01-10', 'movie'),
+(31, 'Comedy', 65, 'mobile', '2026-01-11', 'documentary'),
+(32, 'Action', 130, 'tv', '2026-01-11', 'series'),
+(33, 'Horror', 70, 'laptop', '2026-01-11', 'movie'),
+(34, 'Drama', 120, 'mobile', '2026-01-12', 'series'),
+(35, 'Thriller', 90, 'tv', '2026-01-12', 'movie'),
+(36, 'Romance', 58, 'laptop', '2026-01-12', 'series'),
+(37, 'Sci-Fi', 110, 'mobile', '2026-01-13', 'documentary'),
+(38, 'Comedy', 80, 'tv', '2026-01-13', 'movie'),
+(39, 'Action', 100, 'laptop', '2026-01-13', 'series'),
+(40, 'Drama', 90, 'mobile', '2026-01-14', 'movie'),
+(41, 'Horror', 75, 'tv', '2026-01-14', 'series'),
+(42, 'Thriller', 115, 'laptop', '2026-01-14', 'movie'),
+(43, 'Romance', 62, 'mobile', '2026-01-15', 'documentary'),
+(44, 'Sci-Fi', 140, 'tv', '2026-01-15', 'series'),
+(45, 'Comedy', 55, 'laptop', '2026-01-15', 'movie'),
+(46, 'Action', 125, 'mobile', '2026-01-16', 'series'),
+(47, 'Drama', 98, 'tv', '2026-01-16', 'movie'),
+(48, 'Horror', 68, 'laptop', '2026-01-16', 'documentary'),
+(49, 'Thriller', 105, 'mobile', '2026-01-17', 'series'),
+(50, 'Sci-Fi', 150, 'tv', '2026-01-17', 'movie');
+
+select * from streaming_stats;
+select genre, sum(watch_minutes) from streaming_stats group by genre;
+select device_type, avg(watch_minutes) from streaming_stats group by device_type;
+select content_type, min(watch_minutes) from streaming_stats group by content_type;
+select genre, count(watch_minutes) from streaming_stats group by genre;
+select genre, sum(watch_minutes) from streaming_stats group by genre having sum(watch_minutes)>500;
