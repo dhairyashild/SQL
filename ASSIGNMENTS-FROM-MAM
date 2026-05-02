@@ -1,0 +1,22 @@
+#########################      SQL Assignment: Joins, Aggregates Functions
+
+## Scenario:
+You are working as a database analyst for an online retail company. The company maintains the following tables:
+
+1. **Customers(CustomerID, CustomerName, City)**
+2. **Orders(OrderID, CustomerID, OrderDate)**
+3. **Products(ProductID, ProductName, Price)**
+4. **OrderDetails(OrderDetailID, OrderID, ProductID, Quantity)**
+
+---
+
+## ASSIGNMENT QUESTIONS
+I  
+Q1. Write a query to display customer names along with their order IDs.  
+Q2. Write a query to display customer name, product name, and quantity ordered.  
+Q3. Display total quantity ordered by each customer.  
+Q4. Display total sales amount per customer using aggregate functions.  
+Q5. Display customers who have placed more than 2 orders.  
+Q6. Display the city-wise total sales.  
+Q7. Display the top 3 customers based on total purchase amount.  
+Q8. Display average order value per customer.
