@@ -34,12 +34,12 @@ VALUES (101, 'Alice Smith', 'Engineering', 85000);
 
 -- 4. DELETE: Removes rows from a table
 DELETE FROM employees 
-WHERE id = 101;
+WHERE id = 101;                                         # ROW NUM TO DELETE
 
 -- 3. UPDATE: Modifies existing data within a table
 UPDATE employees 
-SET salary = 90000 
-WHERE id = 101;
+SET salary = 90000                                      # COLUMNNAME = NEW VALUE
+WHERE id = 101;                                         # ROW  NUMBER
 
 
 
