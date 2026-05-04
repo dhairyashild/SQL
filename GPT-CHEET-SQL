@@ -55,7 +55,7 @@ CREATE TABLE staff (
 
 ## ⚙️ ALTER (Schema Evolution)
 ```sql
-ALTER TABLE staff 
+ALTER TABLE staff                                                # ALTER TABLE staff ADMR   (Add Drop Modify Rename)                                                                         
     ADD phone VARCHAR(15),           # ➕ Add col
     MODIFY name VARCHAR(100),        # 🔄 Change type
     RENAME COLUMN phone TO mobile,   # 📝 Rename
