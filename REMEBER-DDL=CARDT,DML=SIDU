@@ -1,0 +1,67 @@
+################  remember 1st 2 line only
+
+*DDL (Data Definition Language) :         CARD T
+**DML (Data Manipulation Language):       SIDU    
+                                     S-from-where      D-from-where    U-s-where    I-into-valueS 
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+*DDL (Data Definition Language) :                                  CARD T
+
+* `CREATE`:         CREATE TABLE Emp (          
+
+* `ALTER`:ADMR      ALTER TABLE Emp ADD Email varchar(50);   ALTER TABLE Emp DROP COLUMN Email;  
+                    ALTER TABLE Emp MODIFY COLUMN Name varchar(50) NOT NULL;     ALTER TABLE Emp RENAME COLUMN Address TO Home_Address;
+    
+* `DROP`:           DROP TABLE Emp;              DROP DATABASE my_db;
+
+* `TRUNCATE`:       TRUNCATE TABLE Emp;
+
+* `RENAME`:         RENAME TABLE Emp TO Employee;
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+**DML (Data Manipulation Language):                 SIDU           S-from-where      D-from-where    U-s-where    I-into-valueS 
+
+
+-- 2. SELECT: Retrieves data from a database
+SELECT name, salary 
+FROM employees 
+WHERE department = 'Engineering';
+
+
+INSERT INTO employees (id, name, department, salary)
+VALUES (101, 'Alice Smith', 'Engineering', 85000);
+
+-- 4. DELETE: Removes rows from a table
+DELETE FROM employees 
+WHERE id = 101;
+
+-- 3. UPDATE: Modifies existing data within a table
+UPDATE employees 
+SET salary = 90000 
+WHERE id = 101;
+
+
+
+
+
+
+CREATE TABLE Emp (                                     # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
+    Address VARCHAR(100) DEFAULT 'India',
+    Salary NUMERIC(10,2) NOT NULL,                     # HERE () AFTER DATATYPE
+    DeptID INT,
+    PRIMARY KEY (Emp_ID)                               #  ONLY THIS HAS () WITHOUT DATATYPE FOR PRIMARY KEY ONLY
+);
+
+DESC emp;                 # not give desc tables its wrong
+
+IN DML --- THERE NO WORD TABLE IN ANY COMMAND DIRECT TABLENAME 
+
+insert into naukar (id , name) values(1,"rahul"), (2, "dhairya");                          #forgot    values        
+
+
+
+
+
+
+
