@@ -43,8 +43,7 @@ DESC branch; -- Displays column names, data types, and constraints
 **DML (Data Manipulation Language):                 SIDU           S-from-where      D-from-where    U-s-where    I-into-valueS 
 
 
--- 2. SELECT: Retrieves data from a database
--- TABLE: naukar (Sample Data)
+-- TABLE: naukar (Updated with NULL values)
 /*
 | name    | salary | department  | job_role  | location |
 |---------|--------|-------------|-----------|----------|
@@ -53,11 +52,13 @@ DESC branch; -- Displays column names, data types, and constraints
 | Priya   | 90000  | Engineering | Manager   | Mumbai   |
 | Rahul   | 60000  | HR          | HR        | Pune     |
 | Sneha   | 80000  | Engineering | Developer | Mumbai   |
+| Vikram  | NULL   | Sales       | NULL      | Delhi    |
+| Rohan   | 50000  | Sales       | NULL      | NULL     |
 */
 
 -- 1. View entire table
 SELECT * FROM naukar; 
-------> Returns all 5 rows and 5 columns shown above.
+------> Returns all 7 rows 
 
 -- 2. Filter by Engineering department
 SELECT name, salary FROM naukar WHERE department = 'Engineering';
@@ -66,17 +67,17 @@ SELECT name, salary FROM naukar WHERE department = 'Engineering';
 ------> Priya   | 90000
 ------> Sneha   | 80000
 
--- 3. Unique job roles
+-- 3. Unique job roles (DISTINCT includes NULL as a unique category)
 SELECT DISTINCT job_role FROM naukar;
 ------> Developer
 ------> Manager
 ------> HR
+------> NULL              ###  DISTICT NOT IGNORE NULL BUT COUNT WITH DISTICT IGNORE NULL SEE BELOW O/P
 
--- 4. Count of unique job roles - below both commands same
+-- 4. Count of unique job roles (COUNT(DISTINCT) IGNORES NULL values)
 SELECT COUNT(DISTINCT job_role) AS total_unique_roles FROM naukar;  
-SELECT COUNT(DISTINCT job_role) FROM naukar;       # work without-->   AS total_unique_roles
-
-------> 3                                 
+SELECT COUNT(DISTINCT job_role) FROM naukar;        # work without-->   AS total_unique_roles
+------> 3                 ### ( NULL is ignored by the COUNT function.)
 
 -- 5. Unique combinations of Role and Location
 SELECT DISTINCT job_role, location FROM naukar;
@@ -84,7 +85,8 @@ SELECT DISTINCT job_role, location FROM naukar;
 ------> Developer | Pune
 ------> Manager   | Mumbai
 ------> HR        | Pune
--- (Note: Sneha's 'Developer | Mumbai' is excluded because it's a duplicate of Dheeraj's combination)
+------> NULL      | Delhi
+------> NULL      | NULL
 
 -------------------------------
 
