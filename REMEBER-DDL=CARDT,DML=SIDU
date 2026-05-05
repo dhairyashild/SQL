@@ -1,18 +1,39 @@
 ################  remember 1st 2 line only
 
-*DDL (Data Definition Language) :         CARD T
-**DML (Data Manipulation Language):       SIDU    
+*DDL (Data Definition Language) :         CARD T  TABLE              - every ddl has TABLE after card t
+**DML (Data Manipulation Language):       SIDU                       - TABLENAME DIRECT  - NO TABLE
                                      S-from-where      D-from-where    U-s-where    I-into-valueS 
 
+
+-- DATABASE CREATION AND NAVIGATION
+CREATE DATABASE my_db; -- Creates a new database named 'my_db'
+SHOW DATABASES;        -- Lists all available databases
+USE my_db;             -- Selects 'my_db' for active use   - use tablename not exist =my error
+SHOW TABLES;           -- Lists all tables within the selected database
 -------------------------------------------------------------------------------------------------------------------------------------------
 
 *DDL (Data Definition Language) :                                  CARD T
 
-* `CREATE`:         CREATE TABLE Emp (          
+* `CREATE`:              
+CREATE TABLE Emp (                                         # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
+    Emp_ID int NOT NULL,               -- IMP: Cannot be empty
+    Name varchar(20) NOT NULL,         -- IMP: Name required
+    Age int NOT NULL,                  -- IMP: Age required
+    Address varchar(100) DEFAULT 'India', -- IMP: Auto-fills 'India' if blank
+    Salary numeric(10,2) NOT NULL,     -- IMP: Decimal salary required
+    DeptID int,                        -- IMP: Reference column
+    PRIMARY KEY(Emp_ID),               -- IMP: Unique ID for the table
+    FOREIGN KEY(DeptID) REFERENCES Dept(DeptID), -- IMP: Links to Dept table
+    CHECK(Age >= 18)                   -- IMP: Rule: Age must be 18+
+);
 
-* `ALTER`:ADMR      ALTER TABLE Emp ADD Email varchar(50);   ALTER TABLE Emp DROP COLUMN Email;  
-                    ALTER TABLE Emp MODIFY COLUMN Name varchar(50) NOT NULL;     ALTER TABLE Emp RENAME COLUMN Address TO Home_Address;
-    
+-- INSPECTING TABLE STRUCTURE
+DESC branch; -- Displays column names, data types, and constraints
+
+
+* ALTER:ADMR  ALTER TABLE Emp ADD Email varchar(50);ALTER TABLE Emp RENAME COLUMN Address TO Home_Address;
+              ALTER TABLE Emp DROP COLUMN Email;  ALTER TABLE Emp MODIFY COLUMN Name varchar(50) NOT NULL;
+
 * `DROP`:           DROP TABLE Emp;              DROP DATABASE my_db;
 
 * `TRUNCATE`:       TRUNCATE TABLE Emp;
@@ -38,26 +59,15 @@ WHERE id = 101;                                         # ROW NUM TO DELETE
 
 -- 3. UPDATE: Modifies existing data within a table
 UPDATE employees 
-SET salary = 90000                                      # COLUMNNAME = NEW VALUE
+SET salary = 90000                                      # SET COLOMN = NEW VALUE
 WHERE id = 101;                                         # ROW  NUMBER
 
+-------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-CREATE TABLE Emp (                                     # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
-    Address VARCHAR(100) DEFAULT 'India',
-    Salary NUMERIC(10,2) NOT NULL,                     # HERE () AFTER DATATYPE
-    DeptID INT,
-    PRIMARY KEY (Emp_ID)                               #  ONLY THIS HAS () WITHOUT DATATYPE FOR PRIMARY KEY ONLY
-);
-
-DESC emp;                 # not give desc tables its wrong
-
-IN DML --- THERE NO WORD TABLE IN ANY COMMAND DIRECT TABLENAME 
-
-insert into naukar (id , name) values(1,"rahul"), (2, "dhairya");                          #forgot    values        
 
 
 
