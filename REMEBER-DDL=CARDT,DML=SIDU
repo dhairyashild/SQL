@@ -88,10 +88,54 @@ SELECT DISTINCT job_role, location FROM naukar;
 ------> NULL      | Delhi
 ------> NULL      | NULL
 
+-- 6. AND OR USED WITH WHERE CLAUSE TO FILTER-- AND OR USE LIKE IN PYTHON + PARENTHESIS TO HAVE SEQUENCE
+SELECT name FROM naukar WHERE (department = 'Engineering' OR department = 'Sales') AND location = 'Mumbai';
+------> Dheeraj
+------> Priya
+------> Sneha
+
+--  7: How do you retrieve records that match a specific set of values?
+SELECT name FROM naukar WHERE location IN ('Mumbai', 'Pune');
+------> Dheeraj, Amit, Priya, Rahul, Sneha
+
+--  8: How do you filter out records that belong to a specific list of categories?
+SELECT name FROM naukar WHERE location NOT IN ('Mumbai', 'Pune');
+------> Vikram 
+
+--  9: How do you select data within a specific numerical range, and are the boundaries included?
+SELECT name, salary FROM naukar WHERE salary BETWEEN 60000 AND 80000;
+------> Dheeraj | 80000
+------> Amit    | 75000
+------> Rahul   | 60000
+------> Sneha   | 80000
+                                          ###      (YES, 60000 and 80000 are included in the result)
+
+--  10: How do you find records that fall outside of a certain range?
+SELECT name, salary FROM naukar WHERE salary NOT BETWEEN 60000 AND 80000;
+------> Priya   | 90000
+------> Rohan   | 50000
+
+--  11: How do you handle multiple conditions where one must be true and another is mandatory?
+SELECT name FROM naukar WHERE (location = 'Mumbai' OR location = 'Pune') AND department = 'Engineering';
+------> Dheeraj, Amit, Priya, Sneha
+
+--  12: How do you find records where a column value is missing or empty?
+SELECT name FROM naukar WHERE job_role IS NULL;
+------> Vikram, Rohan
+
+--  13: How do you search for a specific pattern in a string (e.g., names starting with 'D')?
+SELECT name FROM naukar WHERE name LIKE 'D%';
+------> Dheeraj
+
+--  14: How do you find records where a specific character exists anywhere in the string?
+SELECT name FROM naukar WHERE location LIKE '%u%';
+------> Dheeraj (Mumbai), Amit (Pune), Priya (Mumbai), Rahul (Pune), Sneha (Mumbai)
 -------------------------------
 
 INSERT INTO employees (id, name, department, salary)
 VALUES (101, 'Alice Smith', 'Engineering', 85000);
+
+
 
 -------------------------------
 -- 4. DELETE: Removes rows from a table
