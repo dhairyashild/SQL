@@ -11,8 +11,8 @@ SHOW DATABASES;        -- Lists all available databases
 USE my_db;             -- Selects 'my_db' for active use   - use tablename not exist =my error
 SHOW TABLES;           -- Lists all tables within the selected database
 -------------------------------------------------------------------------------------------------------------------------------------------
-
-*DDL (Data Definition Language) :                                  CARD T
+-------------------------------------------------------------------------------------------------------------------------------------------
+*DDL (Data Definition Language) =         CARD T
 
 * `CREATE`:              
 CREATE TABLE Emp (                                         # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
@@ -26,8 +26,7 @@ CREATE TABLE Emp (                                         # AFTER TABLENAME SPA
     FOREIGN KEY(DeptID) REFERENCES Dept(DeptID), -- IMP: Links to Dept table
     CHECK(Age >= 18)                   -- IMP: Rule: Age must be 18+
 );
-
--- INSPECTING TABLE STRUCTURE
+-------- INSPECTING TABLE STRUCTURE
 DESC branch; -- Displays column names, data types, and constraints
 
 
@@ -45,17 +44,59 @@ DESC branch; -- Displays column names, data types, and constraints
 
 
 -- 2. SELECT: Retrieves data from a database
-SELECT name, salary 
-FROM employees 
-WHERE department = 'Engineering';
+-- TABLE: naukar (Sample Data)
+/*
+| name    | salary | department  | job_role  | location |
+|---------|--------|-------------|-----------|----------|
+| Dheeraj | 80000  | Engineering | Developer | Mumbai   |
+| Amit    | 75000  | Engineering | Developer | Pune     |
+| Priya   | 90000  | Engineering | Manager   | Mumbai   |
+| Rahul   | 60000  | HR          | HR        | Pune     |
+| Sneha   | 80000  | Engineering | Developer | Mumbai   |
+*/
 
+-- 1. View entire table
+SELECT * FROM naukar; 
+------> Returns all 5 rows and 5 columns shown above.
+
+-- 2. Filter by Engineering department
+SELECT name, salary FROM naukar WHERE department = 'Engineering';
+------> Dheeraj | 80000
+------> Amit    | 75000
+------> Priya   | 90000
+------> Sneha   | 80000
+
+-- 3. Unique job roles
+SELECT DISTINCT job_role FROM naukar;
+------> Developer
+------> Manager
+------> HR
+
+-- 4. Count of unique job roles - below both commands same
+SELECT COUNT(DISTINCT job_role) AS total_unique_roles FROM naukar;  
+SELECT COUNT(DISTINCT job_role) FROM naukar;       # work without-->   AS total_unique_roles
+
+------> 3                                 
+
+-- 5. Unique combinations of Role and Location
+SELECT DISTINCT job_role, location FROM naukar;
+------> Developer | Mumbai
+------> Developer | Pune
+------> Manager   | Mumbai
+------> HR        | Pune
+-- (Note: Sneha's 'Developer | Mumbai' is excluded because it's a duplicate of Dheeraj's combination)
+
+-------------------------------
 
 INSERT INTO employees (id, name, department, salary)
 VALUES (101, 'Alice Smith', 'Engineering', 85000);
 
+-------------------------------
 -- 4. DELETE: Removes rows from a table
 DELETE FROM employees 
 WHERE id = 101;                                         # ROW NUM TO DELETE
+
+-------------------------------
 
 -- 3. UPDATE: Modifies existing data within a table
 UPDATE employees 
