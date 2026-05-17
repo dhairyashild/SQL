@@ -1,144 +1,889 @@
 
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 1: BASIC SELECT                                                     │
+│ QUESTION: "Show all employees"                                              │
+│ QUERY: SELECT * FROM employees;                                             │
+│ NOTE: * means all columns. Use this to explore your table first.           │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-use practice;
-CREATE TABLE energy_generation (
-    record_id INT PRIMARY KEY,
-    plant_type VARCHAR(20) CHECK (plant_type IN ('solar', 'hydro', 'wind')),
-    location VARCHAR(100),
-    units_generated INT,
-    generation_date DATE,
-    downtime_minutes INT
-);
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 2: SELECT SPECIFIC COLUMNS                                          │
+│ QUESTION: "Show only employee names and salaries"                           │
+│ QUERY: SELECT emp_name, salary FROM employees;                              │
+│ NOTE: Only listed columns appear. Faster than SELECT * for large tables.   │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-INSERT INTO energy_generation (record_id, plant_type, location, units_generated, generation_date, downtime_minutes) VALUES
-(1, 'solar', 'Lonavla', 1200, '2026-01-01', 10),
-(2, 'wind', 'Pune', 980, '2026-01-01', 15),
-(3, 'hydro', 'Nashik', 2100, '2026-01-01', 5),
-(4, 'solar', 'Mumbai', 1500, '2026-01-02', 12),
-(5, 'wind', 'Nagpur', 1100, '2026-01-02', 8),
-(6, 'hydro', 'Kolhapur', 2300, '2026-01-02', 6),
-(7, 'solar', 'Aurangabad', 1350, '2026-01-03', 9),
-(8, 'wind', 'Satara', 1020, '2026-01-03', 14),
-(9, 'hydro', 'Ratnagiri', 2500, '2026-01-03', 4),
-(10, 'solar', 'Solapur', 1400, '2026-01-04', 11),
-(11, 'wind', 'Thane', 970, '2026-01-04', 16),
-(12, 'hydro', 'Sangli', 2250, '2026-01-04', 7),
-(13, 'solar', 'Pune', 1600, '2026-01-05', 8),
-(14, 'wind', 'Latur', 990, '2026-01-05', 13),
-(15, 'hydro', 'Jalgaon', 2400, '2026-01-05', 5),
-(16, 'solar', 'Mumbai', 1550, '2026-01-06', 10),
-(17, 'wind', 'Nanded', 1010, '2026-01-06', 12),
-(18, 'hydro', 'Akola', 2350, '2026-01-06', 6),
-(19, 'solar', 'Nagpur', 1450, '2026-01-07', 9),
-(20, 'wind', 'Nashik', 1080, '2026-01-07', 11),
-(21, 'hydro', 'Lonavla', 2450, '2026-01-07', 4),
-(22, 'solar', 'Kolhapur', 1300, '2026-01-08', 14),
-(23, 'wind', 'Satara', 995, '2026-01-08', 15),
-(24, 'hydro', 'Pune', 2200, '2026-01-08', 7),
-(25, 'solar', 'Ratnagiri', 1700, '2026-01-09', 6),
-(26, 'wind', 'Mumbai', 1030, '2026-01-09', 10),
-(27, 'hydro', 'Solapur', 2550, '2026-01-09', 3),
-(28, 'solar', 'Thane', 1420, '2026-01-10', 9),
-(29, 'wind', 'Aurangabad', 1005, '2026-01-10', 14),
-(30, 'hydro', 'Nagpur', 2320, '2026-01-10', 5),
-(31, 'solar', 'Sangli', 1480, '2026-01-11', 8),
-(32, 'wind', 'Lonavla', 975, '2026-01-11', 16),
-(33, 'hydro', 'Pune', 2480, '2026-01-11', 4),
-(34, 'solar', 'Jalgaon', 1520, '2026-01-12', 7),
-(35, 'wind', 'Nashik', 990, '2026-01-12', 13),
-(36, 'hydro', 'Mumbai', 2600, '2026-01-12', 2),
-(37, 'solar', 'Akola', 1375, '2026-01-13', 11),
-(38, 'wind', 'Kolhapur', 1015, '2026-01-13', 12),
-(39, 'hydro', 'Satara', 2380, '2026-01-13', 6),
-(40, 'solar', 'Nanded', 1495, '2026-01-14', 9),
-(41, 'wind', 'Ratnagiri', 980, '2026-01-14', 15),
-(42, 'hydro', 'Thane', 2275, '2026-01-14', 7),
-(43, 'solar', 'Latur', 1410, '2026-01-15', 10),
-(44, 'wind', 'Solapur', 1040, '2026-01-15', 11),
-(45, 'hydro', 'Aurangabad', 2425, '2026-01-15', 5),
-(46, 'solar', 'Pune', 1580, '2026-01-16', 8),
-(47, 'wind', 'Mumbai', 995, '2026-01-16', 14),
-(48, 'hydro', 'Nagpur', 2505, '2026-01-16', 3),
-(49, 'solar', 'Nashik', 1460, '2026-01-17', 9),
-(50, 'wind', 'Lonavla', 1025, '2026-01-17', 12);
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 3: WHERE (Row Filtering)                                            │
+│ QUESTION: "Find employees in IT department"                                 │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT';                           │
+│ NOTE: WHERE filters rows BEFORE grouping. String values need quotes ''.    │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-select * from energy_generation;
-select plant_type,sum(units_generated) from energy_generation group by plant_type;
-select location, avg(downtime_minutes) from energy_generation group by location;
-select plant_type, max(units_generated) from energy_generation group by plant_type;
-select location, count(downtime_minutes) from energy_generation group by location;
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 4: WHERE with AND (Multiple conditions)                             │
+│ QUESTION: "Find IT employees in New York"                                   │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT' AND location = 'New York'; │
+│ NOTE: AND means ALL conditions must be TRUE. Both conditions apply.        │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-select plant_type, sum(downtime_minutes) from energy_generation  group by plant_type having  sum(downtime_minutes)>500;
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 5: WHERE with OR (Either condition)                                 │
+│ QUESTION: "Find employees in IT or Sales department"                        │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT' OR dept = 'Sales';         │
+│ NOTE: OR means AT LEAST ONE condition must be TRUE. Use parentheses for     │
+│       mixing AND and OR.                                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 6: ORDER BY (Sorting)                                               │
+│ QUESTION: "Show all employees sorted by highest salary"                     │
+│ QUERY: SELECT emp_name, salary FROM employees ORDER BY salary DESC;         │
+│ NOTE: DESC = highest to lowest. ASC = lowest to highest (default).          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 7: ORDER BY + LIMIT (Top N)                                         │
+│ QUESTION: "Show top 3 highest paid employees"                               │
+│ QUERY: SELECT emp_name, salary FROM employees ORDER BY salary DESC LIMIT 3; │
+│ NOTE: LIMIT restricts number of rows returned. Always use with ORDER BY    │
+│       for meaningful "top N" results.                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 8: GROUP BY (Count per category)                                    │
+│ QUESTION: "Count how many employees in each department"                     │
+│ QUERY: SELECT dept, COUNT(*) AS employee_count FROM employees GROUP BY dept;│
+│ NOTE: GROUP BY collapses rows into unique categories. COUNT(*) counts rows │
+│       per group.                                                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 9: GROUP BY with SUM (Total per group)                              │
+│ QUESTION: "Total salary paid to each department"                            │
+│ QUERY: SELECT dept, SUM(salary) AS total_salary FROM employees GROUP BY dept;│
+│ NOTE: SUM adds up all values in a column per group. Other aggregates:      │
+│       AVG, MIN, MAX.                                                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 10: GROUP BY with AVG (Average per group)                           │
+│ QUESTION: "Average salary by location"                                      │
+│ QUERY: SELECT location, AVG(salary) AS avg_salary FROM employees GROUP BY location;│
+│ NOTE: AVG ignores NULL values automatically. Use ROUND(AVG(salary),2) for  │
+│       decimal places.                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 11: HAVING (Filter groups after GROUP BY)                           │
+│ QUESTION: "Find departments with average salary above $70,000"              │
+│ QUERY: SELECT dept, AVG(salary) AS avg_salary FROM employees GROUP BY dept  │
+│        HAVING AVG(salary) > 70000;                                          │
+│ NOTE: HAVING filters groups (after GROUP BY). WHERE filters rows (before    │
+│       GROUP BY). Cannot use HAVING without GROUP BY.                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 12: DISTINCT (Remove duplicates)                                    │
+│ QUESTION: "List all unique department names"                                │
+│ QUERY: SELECT DISTINCT dept FROM employees;                                 │
+│ NOTE: DISTINCT removes duplicate rows. For multiple columns, combination   │
+│       must be unique.                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 13: WHERE with Comparison Operators                                 │
+│ QUESTION: "Find employees earning more than $70,000"                        │
+│ QUERY: SELECT emp_name, salary FROM employees WHERE salary > 70000;         │
+│ NOTE: Comparison operators: >, <, >=, <=, =, <>(not equal). Always use     │
+│       quotes for strings, no quotes for numbers.                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 14: WHERE with BETWEEN                                              │
+│ QUESTION: "Find employees with salary between $50,000 and $70,000"          │
+│ QUERY: SELECT emp_name, salary FROM employees WHERE salary BETWEEN 50000 AND 70000;│
+│ NOTE: BETWEEN is inclusive (includes boundary values). Alternative:         │
+│       salary >= 50000 AND salary <= 70000.                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 15: WHERE with IN                                                   │
+│ QUESTION: "Find employees in HR or Marketing departments"                   │
+│ QUERY: SELECT * FROM employees WHERE dept IN ('HR', 'Marketing');           │
+│ NOTE: IN is cleaner than multiple OR conditions. Can also use NOT IN.      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 16: WHERE with LIKE (Pattern matching)                              │
+│ QUESTION: "Find employees whose name starts with 'A'"                       │
+│ QUERY: SELECT emp_name FROM employees WHERE emp_name LIKE 'A%';             │
+│ NOTE: % = any characters (including zero). _ = exactly one character.      │
+│       LIKE is case-sensitive in some databases.                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 17: ORDER BY Multiple Columns                                       │
+│ QUESTION: "Sort by department then by salary (highest first)"               │
+│ QUERY: SELECT emp_name, dept, salary FROM employees ORDER BY dept ASC, salary DESC;│
+│ NOTE: First sorts by dept A-Z, then within each dept sorts by salary        │
+│       highest to lowest.                                                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 18: COUNT with WHERE                                                │
+│ QUESTION: "How many employees work in Chicago?"                             │
+│ QUERY: SELECT COUNT(*) AS chicago_employees FROM employees WHERE location = 'Chicago';│
+│ NOTE: COUNT(*) counts rows. COUNT(column) counts non-NULL values. Use      │
+│       WHERE to filter before counting.                                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 19: MIN and MAX                                                     │
+│ QUESTION: "What is the highest and lowest salary in the company?"           │
+│ QUERY: SELECT MAX(salary) AS highest_salary, MIN(salary) AS lowest_salary FROM employees;│
+│ NOTE: MIN/MAX work on numbers, dates, and strings. NULL values are ignored.│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 20: GROUP BY with COUNT and HAVING                                  │
+│ QUESTION: "Find departments with more than 2 employees"                     │
+│ QUERY: SELECT dept, COUNT(*) AS emp_count FROM employees GROUP BY dept HAVING COUNT(*) > 2;│
+│ NOTE: COUNT(*) > 2 filters groups. HAVING applies after GROUP BY.           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 21: UPDATE (Modifying existing data)                                │
+│ QUESTION: "Give all IT employees a 10% salary increase"                     │
+│ QUERY: UPDATE employees SET salary = salary * 1.10 WHERE dept = 'IT';       │
+│ NOTE: ⚠️ ALWAYS use WHERE with UPDATE. Test with SELECT first.              │
+│       Without WHERE, EVERY row updates!                                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 22: DELETE (Removing specific rows)                                 │
+│ QUESTION: "Remove employee with ID 112"                                     │
+│ QUERY: DELETE FROM employees WHERE emp_id = 112;                            │
+│ NOTE: ⚠️ ALWAYS use WHERE with DELETE. Test with SELECT first.              │
+│       Without WHERE, ALL rows are deleted!                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 23: ALIASING (Renaming columns for readability)                     │
+│ QUESTION: "Show employee names as 'Staff Name' and locations as 'City'"     │
+│ QUERY: SELECT emp_name AS "Staff Name", location AS "City" FROM employees;  │
+│ NOTE: AS is optional but recommended. Use double quotes for names with     │
+│       spaces. Aliases only exist for that query.                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 24: CALCULATED COLUMNS (Math in SELECT)                             │
+│ QUESTION: "Show each employee's salary and a 10% bonus amount"              │
+│ QUERY: SELECT emp_name, salary, (salary * 0.10) AS bonus_amount FROM employees;│
+│ NOTE: You can do +, -, *, / in SELECT. Column alias makes output readable. │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 25: HANDLING NULLs (Data Quality)                                   │
+│ QUESTION: "Find employees with no department assigned"                      │
+│ QUERY: SELECT * FROM employees WHERE dept IS NULL;                          │
+│ NOTE: NULL is NOT equal to anything, not even NULL. Use IS NULL or         │
+│       IS NOT NULL. Never use = NULL or != NULL.                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 26: COALESCE (Replace NULL with default value)                      │
+│ QUESTION: "Show all employees with department, replacing NULL with 'Unassigned'"│
+│ QUERY: SELECT emp_name, COALESCE(dept, 'Unassigned') AS department FROM employees;│
+│ NOTE: COALESCE returns the first non-NULL value. Can have multiple args.   │
+│       Great for reports and data cleaning.                                  │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 27: STRING MANIPULATION (Data Cleaning)                             │
+│ QUESTION: "Convert employee names to UPPERCASE and create location code"    │
+│ QUERY: SELECT UPPER(emp_name) AS upper_name, SUBSTR(location, 1, 3) AS loc_code FROM employees;│
+│ NOTE: Functions vary by database: UPPER/LOWER, SUBSTR/SUBSTRING, LENGTH,   │
+│       TRIM, REPLACE. Useful for standardizing text data.                    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 28: CASE STATEMENTS (Conditional Logic)                             │
+│ QUESTION: "Categorize employees into pay grades based on salary"            │
+│ QUERY: SELECT emp_name, salary, CASE WHEN salary > 80000 THEN 'Senior'      │
+│        WHEN salary > 60000 THEN 'Mid' ELSE 'Junior' END AS pay_grade        │
+│        FROM employees;                                                      │
+│ NOTE: CASE evaluates in order - first TRUE condition wins. Always include  │
+│       ELSE for values that don't match any condition.                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 29: DATA TYPE CASTING (Converting between types)                    │
+│ QUESTION: "Create a unique string by combining emp_id and emp_name"         │
+│ QUERY: SELECT CAST(emp_id AS VARCHAR) || '-' || emp_name AS unique_string FROM employees;│
+│ NOTE: || is concatenation. CAST converts data types. Alternative:          │
+│       emp_id::VARCHAR in PostgreSQL. Use CONCAT() in MySQL.                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 30: AGGREGATE FUNCTIONS with NULL handling                          │
+│ QUESTION: "Get salary statistics (COUNT ignores NULLs by default)"          │
+│ QUERY: SELECT COUNT(salary) AS salaried_emps, AVG(salary) AS avg_sal,       │
+│        SUM(salary) AS total_sal FROM employees;                             │
+│ NOTE: COUNT(*) counts rows, COUNT(column) counts non-NULL values. AVG and  │
+│       SUM ignore NULLs automatically. Use COUNT(*) for total row count.    │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          MASTER TABLE: employees                            │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 1: BASIC SELECT                                                     │
+│ QUESTION: "Show all employees"                                              │
+│ QUERY: SELECT * FROM employees;                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_id | emp_name     | dept      | location       | salary
+-------|--------------|-----------|----------------|----------
+101    | Alice Chen   | IT        | New York       | 75000.00
+102    | Bob Smith    | HR        | Boston         | 52000.00
+103    | Carol Davis  | IT        | New York       | 82000.00
+104    | David Lee    | Sales     | Chicago        | 61000.00
+105    | Eva Brown    | IT        | San Francisco  | 90000.00
+106    | Frank White  | Sales     | Chicago        | 58000.00
+107    | Grace Kim    | HR        | Boston         | 49000.00
+108    | Henry Wu     | IT        | New York       | 78000.00
+109    | Irene Zhao   | Marketing | Los Angeles    | 55000.00
+110    | Jack Smith   | Sales     | Chicago        | 63000.00
+111    | Karen Liu    | Marketing | Los Angeles    | 51000.00
+112    | Leo Johnson  | IT        | San Francisco  | 87000.00
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 2: SELECT SPECIFIC COLUMNS                                          │
+│ QUESTION: "Show only employee names and salaries"                           │
+│ QUERY: SELECT emp_name, salary FROM employees;                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary
+-------------|----------
+Alice Chen   | 75000.00
+Bob Smith    | 52000.00
+Carol Davis  | 82000.00
+David Lee    | 61000.00
+Eva Brown    | 90000.00
+Frank White  | 58000.00
+Grace Kim    | 49000.00
+Henry Wu     | 78000.00
+Irene Zhao   | 55000.00
+Jack Smith   | 63000.00
+Karen Liu    | 51000.00
+Leo Johnson  | 87000.00
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 3: WHERE (Row Filtering)                                            │
+│ QUESTION: "Find employees in IT department"                                 │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT';                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_id | emp_name     | dept | location       | salary
+-------|--------------|------|----------------|----------
+101    | Alice Chen   | IT   | New York       | 75000.00
+103    | Carol Davis  | IT   | New York       | 82000.00
+105    | Eva Brown    | IT   | San Francisco  | 90000.00
+108    | Henry Wu     | IT   | New York       | 78000.00
+112    | Leo Johnson  | IT   | San Francisco  | 87000.00
+
+(5 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 4: WHERE with AND (Multiple conditions)                             │
+│ QUESTION: "Find IT employees in New York"                                   │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT' AND location = 'New York'; │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_id | emp_name     | dept | location  | salary
+-------|--------------|------|-----------|----------
+101    | Alice Chen   | IT   | New York  | 75000.00
+103    | Carol Davis  | IT   | New York  | 82000.00
+108    | Henry Wu     | IT   | New York  | 78000.00
+
+(3 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 5: WHERE with OR (Either condition)                                 │
+│ QUESTION: "Find employees in IT or Sales department"                        │
+│ QUERY: SELECT * FROM employees WHERE dept = 'IT' OR dept = 'Sales';         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_id | emp_name     | dept  | location       | salary
+-------|--------------|-------|----------------|----------
+101    | Alice Chen   | IT    | New York       | 75000.00
+103    | Carol Davis  | IT    | New York       | 82000.00
+104    | David Lee    | Sales | Chicago        | 61000.00
+105    | Eva Brown    | IT    | San Francisco  | 90000.00
+106    | Frank White  | Sales | Chicago        | 58000.00
+108    | Henry Wu     | IT    | New York       | 78000.00
+110    | Jack Smith   | Sales | Chicago        | 63000.00
+112    | Leo Johnson  | IT    | San Francisco  | 87000.00
+
+(8 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 6: ORDER BY (Sorting)                                               │
+│ QUESTION: "Show all employees sorted by highest salary"                     │
+│ QUERY: SELECT emp_name, salary FROM employees ORDER BY salary DESC;         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary
+-------------|----------
+Eva Brown    | 90000.00
+Leo Johnson  | 87000.00
+Carol Davis  | 82000.00
+Henry Wu     | 78000.00
+Alice Chen   | 75000.00
+Jack Smith   | 63000.00
+David Lee    | 61000.00
+Frank White  | 58000.00
+Irene Zhao   | 55000.00
+Bob Smith    | 52000.00
+Karen Liu    | 51000.00
+Grace Kim    | 49000.00
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 7: ORDER BY + LIMIT (Top N)                                         │
+│ QUESTION: "Show top 3 highest paid employees"                               │
+│ QUERY: SELECT emp_name, salary FROM employees ORDER BY salary DESC LIMIT 3; │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary
+-------------|----------
+Eva Brown    | 90000.00
+Leo Johnson  | 87000.00
+Carol Davis  | 82000.00
+
+(3 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 8: GROUP BY (Count per category)                                    │
+│ QUESTION: "Count how many employees in each department"                     │
+│ QUERY: SELECT dept, COUNT(*) AS employee_count FROM employees GROUP BY dept;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+dept      | employee_count
+----------|----------------
+IT        | 5
+HR        | 2
+Sales     | 3
+Marketing | 2
+
+(4 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 9: GROUP BY with SUM (Total per group)                              │
+│ QUESTION: "Total salary paid to each department"                            │
+│ QUERY: SELECT dept, SUM(salary) AS total_salary FROM employees GROUP BY dept;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+dept      | total_salary
+----------|---------------
+IT        | 412000.00
+HR        | 101000.00
+Sales     | 182000.00
+Marketing | 106000.00
+
+(4 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 10: GROUP BY with AVG (Average per group)                           │
+│ QUESTION: "Average salary by location"                                      │
+│ QUERY: SELECT location, AVG(salary) AS avg_salary FROM employees GROUP BY location;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+location       | avg_salary
+----------------|-------------
+New York       | 78333.33
+Boston         | 50500.00
+Chicago        | 60666.67
+San Francisco  | 88500.00
+Los Angeles    | 53000.00
+
+(5 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 11: HAVING (Filter groups after GROUP BY)                           │
+│ QUESTION: "Find departments with average salary above $70,000"              │
+│ QUERY: SELECT dept, AVG(salary) AS avg_salary FROM employees GROUP BY dept  │
+│        HAVING AVG(salary) > 70000;                                          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+dept | avg_salary
+-----|-------------
+IT   | 82400.00
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 12: DISTINCT (Remove duplicates)                                    │
+│ QUESTION: "List all unique department names"                                │
+│ QUERY: SELECT DISTINCT dept FROM employees;                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+dept
+----------
+IT
+HR
+Sales
+Marketing
+
+(4 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 13: WHERE with Comparison Operators                                 │
+│ QUESTION: "Find employees earning more than $70,000"                        │
+│ QUERY: SELECT emp_name, salary FROM employees WHERE salary > 70000;         │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary
+-------------|----------
+Alice Chen   | 75000.00
+Carol Davis  | 82000.00
+Eva Brown    | 90000.00
+Henry Wu     | 78000.00
+Leo Johnson  | 87000.00
+
+(5 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 14: WHERE with BETWEEN                                              │
+│ QUESTION: "Find employees with salary between $50,000 and $70,000"          │
+│ QUERY: SELECT emp_name, salary FROM employees WHERE salary BETWEEN 50000 AND 70000;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary
+-------------|----------
+Bob Smith    | 52000.00
+David Lee    | 61000.00
+Frank White  | 58000.00
+Irene Zhao   | 55000.00
+Jack Smith   | 63000.00
+Karen Liu    | 51000.00
+
+(6 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 15: WHERE with IN                                                   │
+│ QUESTION: "Find employees in HR or Marketing departments"                   │
+│ QUERY: SELECT * FROM employees WHERE dept IN ('HR', 'Marketing');           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_id | emp_name     | dept      | location     | salary
+-------|--------------|-----------|--------------|----------
+102    | Bob Smith    | HR        | Boston       | 52000.00
+107    | Grace Kim    | HR        | Boston       | 49000.00
+109    | Irene Zhao   | Marketing | Los Angeles  | 55000.00
+111    | Karen Liu    | Marketing | Los Angeles  | 51000.00
+
+(4 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 16: WHERE with LIKE (Pattern matching)                              │
+│ QUESTION: "Find employees whose name starts with 'A'"                       │
+│ QUERY: SELECT emp_name FROM employees WHERE emp_name LIKE 'A%';             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name
+-----------
+Alice Chen
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 17: ORDER BY Multiple Columns                                       │
+│ QUESTION: "Sort by department then by salary (highest first)"               │
+│ QUERY: SELECT emp_name, dept, salary FROM employees ORDER BY dept ASC, salary DESC;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | dept      | salary
+-------------|-----------|----------
+Grace Kim    | HR        | 49000.00
+Bob Smith    | HR        | 52000.00
+Eva Brown    | IT        | 90000.00
+Leo Johnson  | IT        | 87000.00
+Carol Davis  | IT        | 82000.00
+Henry Wu     | IT        | 78000.00
+Alice Chen   | IT        | 75000.00
+Irene Zhao   | Marketing | 55000.00
+Karen Liu    | Marketing | 51000.00
+Jack Smith   | Sales     | 63000.00
+David Lee    | Sales     | 61000.00
+Frank White  | Sales     | 58000.00
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 18: COUNT with WHERE                                                │
+│ QUESTION: "How many employees work in Chicago?"                             │
+│ QUERY: SELECT COUNT(*) AS chicago_employees FROM employees WHERE location = 'Chicago';│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+chicago_employees
+-------------------
+3
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 19: MIN and MAX                                                     │
+│ QUESTION: "What is the highest and lowest salary in the company?"           │
+│ QUERY: SELECT MAX(salary) AS highest_salary, MIN(salary) AS lowest_salary FROM employees;│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+highest_salary | lowest_salary
+----------------|---------------
+90000.00       | 49000.00
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 20: GROUP BY with COUNT and HAVING                                  │
+│ QUESTION: "Find departments with more than 2 employees"                    │
+│ QUERY: SELECT dept, COUNT(*) AS emp_count FROM employees GROUP BY dept HAVING COUNT(*) > 2;
+select dept, avg(salary) as avg_paisa from employees group by dept having avg_paisa> 70000;   
+######   ABOVE BOTH COMMANDS AFTER HAVING NEEDS alias_name U GAVE 
+└─────────────────────────────────────────────────────────────────────────────┘
+
+dept  | emp_count
+------|-----------
+IT    | 5
+Sales | 3
+
+(2 rows)
 
 
 
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          MASTER TABLE: employees                            │
+│                    EXTRA PATTERNS FOR DATA ENGINEERING                       │
+└─────────────────────────────────────────────────────────────────────────────┘
 
-CREATE TABLE streaming_stats (
-    session_id INT PRIMARY KEY,
-    genre VARCHAR(50),
-    watch_minutes INT,
-    device_type VARCHAR(20),
-    session_date DATE,
-    content_type VARCHAR(20),
-    CHECK (device_type IN ('mobile', 'tv', 'laptop')),
-    CHECK (content_type IN ('movie', 'series', 'documentary'))
-);
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 21: UPDATE (Modifying existing data)                                │
+│ QUESTION: "Give all IT employees a 10% salary increase"                     │
+│ QUERY: UPDATE employees SET salary = salary * 1.10 WHERE dept = 'IT';    # UPDATE MULTIPLE ROWS
 
-INSERT INTO streaming_stats (session_id, genre, watch_minutes, device_type, session_date, content_type) VALUES
-(1, 'Action', 120, 'mobile', '2026-01-01', 'movie'),
-(2, 'Drama', 95, 'tv', '2026-01-01', 'series'),
-(3, 'Comedy', 45, 'laptop', '2026-01-01', 'movie'),
-(4, 'Thriller', 110, 'mobile', '2026-01-02', 'series'),
-(5, 'Action', 80, 'tv', '2026-01-02', 'movie'),
-(6, 'Romance', 60, 'laptop', '2026-01-02', 'documentary'),
-(7, 'Sci-Fi', 130, 'mobile', '2026-01-03', 'series'),
-(8, 'Drama', 75, 'tv', '2026-01-03', 'movie'),
-(9, 'Comedy', 50, 'laptop', '2026-01-03', 'series'),
-(10, 'Action', 140, 'mobile', '2026-01-04', 'documentary'),
-(11, 'Horror', 55, 'tv', '2026-01-04', 'movie'),
-(12, 'Drama', 100, 'laptop', '2026-01-04', 'series'),
-(13, 'Comedy', 70, 'mobile', '2026-01-05', 'movie'),
-(14, 'Action', 90, 'tv', '2026-01-05', 'series'),
-(15, 'Romance', 65, 'laptop', '2026-01-05', 'movie'),
-(16, 'Sci-Fi', 125, 'mobile', '2026-01-06', 'documentary'),
-(17, 'Thriller', 85, 'tv', '2026-01-06', 'series'),
-(18, 'Drama', 105, 'laptop', '2026-01-06', 'movie'),
-(19, 'Comedy', 40, 'mobile', '2026-01-07', 'series'),
-(20, 'Action', 150, 'tv', '2026-01-07', 'movie'),
-(21, 'Romance', 55, 'laptop', '2026-01-07', 'documentary'),
-(22, 'Horror', 60, 'mobile', '2026-01-08', 'series'),
-(23, 'Drama', 115, 'tv', '2026-01-08', 'movie'),
-(24, 'Sci-Fi', 135, 'laptop', '2026-01-08', 'series'),
-(25, 'Comedy', 75, 'mobile', '2026-01-09', 'movie'),
-(26, 'Thriller', 100, 'tv', '2026-01-09', 'documentary'),
-(27, 'Action', 95, 'laptop', '2026-01-09', 'series'),
-(28, 'Drama', 85, 'mobile', '2026-01-10', 'movie'),
-(29, 'Romance', 50, 'tv', '2026-01-10', 'series'),
-(30, 'Sci-Fi', 145, 'laptop', '2026-01-10', 'movie'),
-(31, 'Comedy', 65, 'mobile', '2026-01-11', 'documentary'),
-(32, 'Action', 130, 'tv', '2026-01-11', 'series'),
-(33, 'Horror', 70, 'laptop', '2026-01-11', 'movie'),
-(34, 'Drama', 120, 'mobile', '2026-01-12', 'series'),
-(35, 'Thriller', 90, 'tv', '2026-01-12', 'movie'),
-(36, 'Romance', 58, 'laptop', '2026-01-12', 'series'),
-(37, 'Sci-Fi', 110, 'mobile', '2026-01-13', 'documentary'),
-(38, 'Comedy', 80, 'tv', '2026-01-13', 'movie'),
-(39, 'Action', 100, 'laptop', '2026-01-13', 'series'),
-(40, 'Drama', 90, 'mobile', '2026-01-14', 'movie'),
-(41, 'Horror', 75, 'tv', '2026-01-14', 'series'),
-(42, 'Thriller', 115, 'laptop', '2026-01-14', 'movie'),
-(43, 'Romance', 62, 'mobile', '2026-01-15', 'documentary'),
-(44, 'Sci-Fi', 140, 'tv', '2026-01-15', 'series'),
-(45, 'Comedy', 55, 'laptop', '2026-01-15', 'movie'),
-(46, 'Action', 125, 'mobile', '2026-01-16', 'series'),
-(47, 'Drama', 98, 'tv', '2026-01-16', 'movie'),
-(48, 'Horror', 68, 'laptop', '2026-01-16', 'documentary'),
-(49, 'Thriller', 105, 'mobile', '2026-01-17', 'series'),
-(50, 'Sci-Fi', 150, 'tv', '2026-01-17', 'movie');
+│ QUERY: UPDATE employees SET salary = salary * 1.10 WHERE emp_id = 101;   
+# UPDATE SINGLE ROWS not shown below this line is added by me as my note
 
-select * from streaming_stats;
-select genre, sum(watch_minutes) from streaming_stats group by genre;
-select device_type, avg(watch_minutes) from streaming_stats group by device_type;
-select content_type, min(watch_minutes) from streaming_stats group by content_type;
-select genre, count(watch_minutes) from streaming_stats group by genre;
-select genre, sum(watch_minutes) from streaming_stats group by genre having sum(watch_minutes)>500;
+│ NOTE: ⚠️ Always use WHERE with UPDATE or you'll update EVERY row!          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Before UPDATE:
+emp_id | emp_name     | dept | salary
+-------|--------------|------|--------
+101    | Alice Chen   | IT   | 75000.00
+103    | Carol Davis  | IT   | 82000.00
+105    | Eva Brown    | IT   | 90000.00
+108    | Henry Wu     | IT   | 78000.00
+112    | Leo Johnson  | IT   | 87000.00
+
+After UPDATE:
+emp_id | emp_name     | dept | salary
+-------|--------------|------|--------
+101    | Alice Chen   | IT   | 82500.00  (75000 × 1.10)
+103    | Carol Davis  | IT   | 90200.00  (82000 × 1.10)
+105    | Eva Brown    | IT   | 99000.00  (90000 × 1.10)
+108    | Henry Wu     | IT   | 85800.00  (78000 × 1.10)
+112    | Leo Johnson  | IT   | 95700.00  (87000 × 1.10)
+
+(5 rows updated)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 22: DELETE (Removing specific rows)                                 │
+│ QUESTION: "Remove employee with ID 112 from the database"                   │
+│ QUERY: DELETE FROM employees WHERE emp_id = 112;                            │
+│ NOTE: ⚠️ Always use WHERE with DELETE or you'll delete EVERY row!          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Before DELETE:
+emp_id | emp_name     | dept | location       | salary
+-------|--------------|------|----------------|----------
+112    | Leo Johnson  | IT   | San Francisco  | 95700.00
+
+After DELETE:
+Row 112 is removed permanently
+
+(1 row deleted)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 23: ALIASING (Renaming columns for readability)                     │
+│ QUESTION: "Show employee names as 'Staff Name' and locations as 'City'"     │
+│ QUERY: SELECT emp_name AS "Staff Name", location AS "City" FROM employees;  │
+│ NOTE: AS is optional but recommended for clarity                           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Staff Name     | City
+---------------|-------------
+Alice Chen     | New York
+Bob Smith      | Boston
+Carol Davis    | New York
+David Lee      | Chicago
+Eva Brown      | San Francisco
+Frank White    | Chicago
+Grace Kim      | Boston
+Henry Wu       | New York
+Irene Zhao     | Los Angeles
+Jack Smith     | Chicago
+Karen Liu      | Los Angeles
+
+(11 rows)  (Leo Johnson was deleted)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 24: CALCULATED COLUMNS (Math in SELECT)                             │
+│ QUESTION: "Show each employee's salary and a 10% bonus amount"              │
+│ QUERY: SELECT emp_name, salary, (salary * 0.10) AS bonus_amount FROM employees;│
+│ NOTE: You can do +, -, *, / directly in SELECT                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary  | bonus_amount
+-------------|---------|-------------
+Alice Chen   | 82500.00| 8250.00
+Bob Smith    | 52000.00| 5200.00
+Carol Davis  | 90200.00| 9020.00
+David Lee    | 61000.00| 6100.00
+Eva Brown    | 99000.00| 9900.00
+Frank White  | 58000.00| 5800.00
+Grace Kim    | 49000.00| 4900.00
+Henry Wu     | 85800.00| 8580.00
+Irene Zhao   | 55000.00| 5500.00
+Jack Smith   | 63000.00| 6300.00
+Karen Liu    | 51000.00| 5100.00
+
+(11 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 25: HANDLING NULLs (Data Quality - CRITICAL for Data Engineers)    │
+│ QUESTION: "Find employees with no department assigned"                      │
+│ QUERY: SELECT * FROM employees WHERE dept IS NULL;                          │
+│ NOTE: NULL is NOT equal to anything, not even NULL. Use IS NULL / IS NOT NULL│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+First, let's add a NULL test:
+INSERT INTO employees (emp_id, emp_name, dept, location, salary) 
+VALUES (113, 'Test User', NULL, 'Unknown', 40000.00);
+
+Query Result:
+emp_id | emp_name  | dept | location | salary
+-------|-----------|------|----------|----------
+113    | Test User | NULL | Unknown  | 40000.00
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 26: COALESCE (Replace NULL with default value)                      │
+│ QUESTION: "Show all employees with department, replacing NULL with 'Unassigned'"│
+│ QUERY: SELECT emp_name, COALESCE(dept, 'Unassigned') AS department FROM employees;│
+│ NOTE: COALESCE returns the first non-NULL value in the list                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | department
+-------------|-------------
+Alice Chen   | IT
+Bob Smith    | HR
+Carol Davis  | IT
+David Lee    | Sales
+Eva Brown    | IT
+Frank White  | Sales
+Grace Kim    | HR
+Henry Wu     | IT
+Irene Zhao   | Marketing
+Jack Smith   | Sales
+Karen Liu    | Marketing
+Test User    | Unassigned  (NULL replaced)
+
+(12 rows including test user)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 27: STRING MANIPULATION (Data Cleaning)                             │
+│ QUESTION: "Convert employee names to UPPERCASE and create location code"    │
+│ QUERY: SELECT UPPER(emp_name) AS upper_name, SUBSTR(location, 1, 3) AS loc_code FROM employees;│
+│ NOTE: Functions vary by DB (SUBSTR, LEFT, SUBSTRING)                        │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+upper_name     | loc_code
+---------------|----------
+ALICE CHEN     | New
+BOB SMITH      | Bos
+CAROL DAVIS    | New
+DAVID LEE      | Chi
+EVA BROWN      | San
+FRANK WHITE    | Chi
+GRACE KIM      | Bos
+HENRY WU       | New
+IRENE ZHAO     | Los
+JACK SMITH     | Chi
+KAREN LIU      | Los
+TEST USER      | Unk
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 28: CASE STATEMENTS (Conditional Logic)                             │
+│ QUESTION: "Categorize employees into pay grades based on salary"            │
+│ QUERY: SELECT emp_name, salary,                                             │
+│        CASE WHEN salary > 80000 THEN 'Senior'                               │
+│             WHEN salary > 60000 THEN 'Mid'                                  │
+│             ELSE 'Junior' END AS pay_grade FROM employees;                  │
+│ NOTE: CASE is evaluated in order - first TRUE condition wins               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+emp_name     | salary  | pay_grade
+-------------|---------|-----------
+Alice Chen   | 82500.00| Senior
+Bob Smith    | 52000.00| Junior
+Carol Davis  | 90200.00| Senior
+David Lee    | 61000.00| Mid
+Eva Brown    | 99000.00| Senior
+Frank White  | 58000.00| Junior
+Grace Kim    | 49000.00| Junior
+Henry Wu     | 85800.00| Senior
+Irene Zhao   | 55000.00| Junior
+Jack Smith   | 63000.00| Mid
+Karen Liu    | 51000.00| Junior
+Test User    | 40000.00| Junior
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 29: DATA TYPE CASTING (Converting between types)                    │
+│ QUESTION: "Create a unique string by combining emp_id and emp_name"         │
+│ QUERY: SELECT CAST(emp_id AS VARCHAR) || '-' || emp_name AS unique_string FROM employees;│
+│ NOTE: || is concatenation in SQL (use CONCAT() in some databases)          │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+unique_string
+-------------------
+101-Alice Chen
+102-Bob Smith
+103-Carol Davis
+104-David Lee
+105-Eva Brown
+106-Frank White
+107-Grace Kim
+108-Henry Wu
+109-Irene Zhao
+110-Jack Smith
+111-Karen Liu
+113-Test User
+
+(12 rows)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATTERN 30: AGGREGATE FUNCTIONS with NULL handling                          │
+│ QUESTION: "Get salary statistics (COUNT ignores NULLs by default)"          │
+│ QUERY: SELECT COUNT(salary) AS salaried_emps, AVG(salary) AS avg_sal,       │
+│        SUM(salary) AS total_sal FROM employees;                             │
+│ NOTE: COUNT(*) counts rows, COUNT(column) counts non-NULL values           │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+salaried_emps | avg_sal     | total_sal
+--------------|-------------|------------
+12            | 66416.67    | 797000.00
+
+(1 row)
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              BEST NOTES FOR DATA ENGINEERS - QUICK REFERENCE                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌═════════════════════════════════════════════════════════════════════════════┐
+║                          CRITICAL SAFETY RULES                               ║
+╠═════════════════════════════════════════════════════════════════════════════╣
+║                                                                             ║
+║  1. UPDATE without WHERE = DISASTER (updates ALL rows)                      ║
+║     ✅ ALWAYS: UPDATE table SET col=value WHERE condition                   ║
+║                                                                             ║
+║  2. DELETE without WHERE = DISASTER (deletes ALL rows)                      ║
+║     ✅ ALWAYS: DELETE FROM table WHERE condition                            ║
+║                                                                             ║
+║  3. NULL is not = 'NULL' or empty string                                    ║
+║     ✅ Use: IS NULL / IS NOT NULL                                           ║
+║     ❌ Never: column = NULL                                                 ║
+║                                                                             ║
+║  4. Test with SELECT before UPDATE/DELETE                                   ║
+║     ✅ First: SELECT * FROM table WHERE condition                           ║
+║     Then:  UPDATE/DELETE same condition                                     ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+┌═════════════════════════════════════════════════════════════════════════════┐
+║                         FUNCTION CHEAT SHEET                                 ║
+╠═════════════════════════════════════════════════════════════════════════════╣
+║                                                                             ║
+║  STRING FUNCTIONS:                                                          ║
+║  ┌─────────────────────────────────────────────────────────────────────┐   ║
+║  │ UPPER(str)     → Converts to uppercase                               │   ║
+║  │ LOWER(str)     → Converts to lowercase                               │   ║
+║  │ SUBSTR(str,1,3)→ Extracts first 3 characters                         │   ║
+║  │ LENGTH(str)    → Returns string length                               │   ║
+║  │ TRIM(str)      → Removes leading/trailing spaces                     │   ║
+║  │ REPLACE(str,old,new) → Replaces text                                 │   ║
+║  └─────────────────────────────────────────────────────────────────────┘   ║
+║                                                                             ║
+║  NULL FUNCTIONS:                                                            ║
+║  ┌─────────────────────────────────────────────────────────────────────┐   ║
+║  │ COALESCE(val1, val2, default) → First non-NULL value                 │   ║
+║  │ NULLIF(val1, val2) → Returns NULL if val1 = val2                     │   ║
+║  └─────────────────────────────────────────────────────────────────────┘   ║
+║                                                                             ║
+║  AGGREGATE FUNCTIONS:                                                       ║
+║  ┌─────────────────────────────────────────────────────────────────────┐   ║
+║  │ COUNT(*)     → Counts all rows                                       │   ║
+║  │ COUNT(col)   → Counts non-NULL values                                │   ║
+║  │ SUM(col)     → Adds values                                           │   ║
+║  │ AVG(col)     → Average (ignores NULL)                                │   ║
+║  │ MIN(col)     → Minimum value                                         │   ║
+║  │ MAX(col)     → Maximum value                                         │   ║
+║  └─────────────────────────────────────────────────────────────────────┘   ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+┌═════════════════════════════════════════════════════════════════════════════┐
+║                      DATA ENGINEERING BEST PRACTICES                         ║
+╠═════════════════════════════════════════════════════════════════════════════╣
+║                                                                             ║
+║  ✓ Always use ALIASES (AS) for readability                                 ║
+║  ✓ Use COALESCE to handle NULLs in reports                                 ║
+║  ✓ Use CASE for conditional transformations                                ║
+║  ✓ Test with SELECT before UPDATE/DELETE                                   ║
+║  ✓ Use transactions for critical updates:                                  ║
+║      BEGIN; UPDATE...; COMMIT; or ROLLBACK;                                ║
+║  ✓ Always backup before mass updates                                       ║
+║                                                                             ║
+╚═════════════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│              CLEANUP: Remove test data (Run this to clean up)               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+-- Remove the test user we added
+DELETE FROM employees WHERE emp_id = 113;
+
+-- Note: Leo Johnson (emp_id 112) was deleted earlier and stays deleted
+-- The IT salary updates remain (10% increase applied)
