@@ -1,10 +1,8 @@
 
-
-
-SELECT d.dept_name, e.emp_name           # SELECT HERE COLUMN NAME WITH ALIAS FROM BOTH TABLES
+SELECT d.dept_name, e.emp_name        # SELECT HERE COLUMN NAME WITH ALIAS FROM BOTH TABLES
 FROM departments d                   
 INNER JOIN employees e 
-ON d.dept_name = e.dept;                 
+ON d.dept_name = e.dept;              # IF VALUES IN IT ARE SAME THEN WE CAN USE DIFFERENT COLUMN NAMES        
 
 
 
