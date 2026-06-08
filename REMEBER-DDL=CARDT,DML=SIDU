@@ -30,8 +30,12 @@ CREATE TABLE Emp (                                         # AFTER TABLENAME SPA
 DESC branch; -- Displays column names, data types, and constraints
 
 
-* ALTER:ADMR  ALTER TABLE Emp ADD Email varchar(50);ALTER TABLE Emp RENAME COLUMN Address TO Home_Address;
-              ALTER TABLE Emp DROP COLUMN Email;  ALTER TABLE Emp MODIFY COLUMN Name varchar(50) NOT NULL;
+* ALTER:ADMR 
+ALTER TABLE TABLENAV ADD newcol varchar(50)
+ALTER TABLE TABLENAV DROP COLUMN colnav
+ALTER TABLE TABLENAV MODIFY COLUMN Name varchar(50) NOT NULL;    # modify data type
+ALTER TABLE TABLENAV RENAME COLUMN OLDNAV TO NEWNAV;             # modify col name
+
 
 * `DROP`:           DROP TABLE Emp;              DROP DATABASE my_db;
 
