@@ -69,7 +69,7 @@ SELECT * FROM naukar;
 ------> Returns all 7 rows 
 
 -- 2. Filter by Engineering department
-SELECT name, salary FROM naukar WHERE department = 'Engineering';
+SELECT name, salary FROM naukar WHERE department = 'Engineering';            # WHERE CLAUSE USE COMBO OF     =,!=,>,<,>=,<=      AND OR NOT
 ------> Dheeraj | 80000
 ------> Amit    | 75000
 ------> Priya   | 90000
