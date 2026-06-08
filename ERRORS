@@ -1,8 +1,14 @@
 CREATE TABLE library (
     book_id INT PRIMARY KEY,           # INT ,  #  primary_key        ;
     title VARCHAR(100),                # VARHAR
-    author VARCHAR(100),
-    price DECIMAL(10,2)
+    price DECIMAL(10,2),
+    Emp_ID int NOT NULL,                #  NOT SPACE NULL 
+    Name varchar(20) NOT NULL,          #  WORDS ALSO NOT NULL
+    Address varchar(100) DEFAULT 'India',   #  DEFAULT           
+    Salary numeric(10,2) ,             --  Decimal = NUMERIC BOTH WORKS SAME
+    DeptID int,                        -- IMP: Reference column
+    FOREIGN KEY(DeptID) REFERENCES Dept(DeptID), -- IMP: Links to Dept table
+    Age INT CHECK (Age >= 18)
 );
 
 
