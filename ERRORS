@@ -1,0 +1,12 @@
+CREATE TABLE library (
+    book_id INT PRIMARY KEY,           # INT ,  #  primary_key        ;
+    title VARCHAR(100),                # VARHAR
+    author VARCHAR(100),
+    price DECIMAL(10,2)
+);
+
+
+INSERT INTO library(book_id,title,author,price)values     # () missing  
+(0,"a","a",10);                                           # () miss    # "  " for varchar values
+
+
