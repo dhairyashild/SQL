@@ -33,8 +33,8 @@ DESC branch; -- Displays column names, data types, and constraints
 * ALTER:
 ALTER TABLE TABLENAV A/D/M/R COLUMN .....  -------------- fix for all
 
-ALTER TABLE TABLENAV ADD COLUMN newcol VARCHAR(50);
-ALTER TABLE TABLENAV DROP COLUMN colnav
+ALTER TABLE TABLENAV ADD COLUMN newcol VARCHAR(50);  #ALTER TABLE lib ADD(publisher VARCHAR(100), edition INT);-ADD COLUMN WRONG FOR MULTIPLE COL
+ALTER TABLE TABLENAV DROP COLUMN colnav                          # ALTER TABLE lib DROP COLUMN publisher, DROP COLUMN isbn;  --->multiple delete
 ALTER TABLE TABLENAV MODIFY COLUMN Name varchar(50) NOT NULL;    # modify data type
 ALTER TABLE TABLENAV RENAME COLUMN OLDNAV TO NEWNAV;             # modify col name
 
