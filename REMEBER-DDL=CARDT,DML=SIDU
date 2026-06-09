@@ -165,13 +165,15 @@ SELECT SUM(salary) FROM Emp;
 SELECT AVG(salary) FROM Emp;
 SELECT MIN(salary) FROM Emp;
 SELECT MAX(salary) FROM Emp;
+SELECT DISTINCT name, id FROM Emp;   SELECT DISTINCT column1, column2, ..columnN FROM table_name;   
+SELECT DISTINCT name FROM Emp;
+----------------------------------
 SELECT Address, COUNT(*) FROM Emp GROUP BY Address;
 SELECT Address, COUNT(*) FROM Emp GROUP BY Address HAVING COUNT(*) > 2;
 SELECT Address, GROUP_CONCAT(name) FROM Emp GROUP BY Address;
 SELECT VARIANCE(salary) FROM Emp;
 SELECT STDDEV(salary) FROM Emp;
-SELECT DISTINCT column1, column2, ... columnN FROM table_name;
-SELECT DISTINCT Address FROM Emp;
+
 
 
 SELECT COUNT(*) AS total, MIN(salary) AS min_salary, MAX(salary) AS max_salary FROM Emp;
