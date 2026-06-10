@@ -1,4 +1,4 @@
-CREATE TABLE library (
+CREATE TABLE library (                 # WRONG BELOW ERRORS ALL I DO
     book_id INT PRIMARY KEY,           # INT ,  #  primary_key        ;
     title VARCHAR(100),                # VARHAR
     price DECIMAL(10,2),
