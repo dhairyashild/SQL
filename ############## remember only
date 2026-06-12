@@ -1,0 +1,29 @@
+###############  remember 1st 2 line only
+
+*DDL (Data Definition Language) :         CARD T  TABLE              - every ddl has TABLE after card t
+**DML (Data Manipulation Language):       SIDU                       - TABLENAME DIRECT  - NO TABLE
+                                     S-from-where      D-from-where    U-s-where    I-into-valueS 
+
+
+-- DATABASE CREATION AND NAVIGATION
+CREATE DATABASE my_db; -- Creates a new database named 'my_db'
+SHOW DATABASES;        -- Lists all available databases
+USE my_db;             -- Selects 'my_db' for active use   - use tablename not exist =my error
+SHOW TABLES;           -- Lists all tables within the selected database
+
+
+
+-- AGGREGATE WORKS ONLY ON NUMBERS
+SELECT MIN(amount) FROM sales;  -- 500
+SELECT MAX(amount) FROM sales;  -- 50000
+SELECT AVG(amount) FROM sales;  -- 17833.33
+SELECT SUM(amount) FROM sales;  -- 53500
+SELECT COUNT(*) FROM sales;     -- 3
+SELECT product, SUM(amount) FROM sales GROUP BY product;
+
+
+select city, count(*) from sales group by(city); -- Column मधील प्रत्येक शब्द किती वेळा पुन्हा आला आहे?
+
+
+कोणत्याही विशिष्ट COLUMN नुसार दुसऱ्या COLUMN मधील एकूण रकमेची (Total Amount) बेरीज गटनिहाय मिळवण्यासाठी हे कमांड वापरतात.
+select city, SUM(amount) from sales group by(city);
