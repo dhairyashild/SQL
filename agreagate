@@ -8,11 +8,12 @@ SELECT SUM(amount) FROM sales;  -- 53500
 SELECT COUNT(*) FROM sales;     -- 3
 SELECT product, SUM(amount) FROM sales GROUP BY product;
 
+select city, count(*) from sales group by(city); -- Column मधील प्रत्येक शब्द किती वेळा पुन्हा आला आहे?
 
 
-select city, count(*) from sales group by(city);        --- ekhada shabd kiti vela repeat ahe 1 
-select city, SUM(AMOUNT) from sales group by(city);
-select CATEGORY, count(*) from sales group by(CATEGORY);
+कोणत्याही विशिष्ट COLUMN नुसार दुसऱ्या COLUMN मधील एकूण रकमेची (Total Amount) बेरीज गटनिहाय मिळवण्यासाठी हे कमांड वापरतात.
+select city, SUM(amount) from sales group by(city);
+
 --------------------------------------------------------------------------------------------------
 -- TABLE: sales
 -- id | product  | amount
@@ -79,3 +80,12 @@ select city, SUM(amount) from sales group by(city);
 -- Delhi      | 25500   (500 + 25000)
 -- Bangalore  | 8000    (8000)
 
+कोणत्याही विशिष्ट COLUMN नुसार गट (Group) करून, ज्या COLUMN ची सरासरी (Average) एका ठराविक मूल्यापेक्षा 
+(Value) जास्त आहे, फक्त असाच डेटा फिल्टर करून मिळवण्यासाठी हे कमांड वापरतात.
+SELECT city, AVG(amount) FROM sales_table GROUP BY city HAVING AVG(amount) > 20000;
++--------+-------------+
+| city   | AVG(amount) |
++--------+-------------+
+| Mumbai |  26500.0000 |
+| Delhi  |  12750.0000 |
++--------+-------------+
