@@ -1,0 +1,971 @@
+CREATE DATABaSE practice;
+
+USE practice;
+
+CREATE TABLE library(
+book_id varchar(50) PRIMARY KEY,
+author varchar(50),
+title varchar(50),
+price int);
+
+show tables;
+
+desc library;
+
+ALTER TABLE library
+
+ADD published_year int;
+
+truncate TABLE library;
+
+desc library;
+
+DROP TABLE library;
+
+
+create table data(
+student_id int primary key,
+name varchar(50),
+age int
+);
+
+insert into data values(1,'ram',30), (2,'rahul',29);
+
+show tables;
+
+desc data;
+
+select * from data;
+
+show databases;
+
+use practice;
+
+show tables;
+
+select * from data;
+
+update data set degree='be' where student_id=2;
+
+alter table data add 
+degree varchar(50); 
+
+insert into data values (3,'poii',76,'be');
+
+select * from data; where name='ram' and age >20;
+CREATE DATABase mydata;
+use mydata;
+CREATE TABLE Emp (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    dept VARCHAR(30),
+    salary DECIMAL(10,2),
+    hire_date DATE,
+    manager_id INT,
+    city VARCHAR(20)
+);
+
+show tables;
+
+INSERT INTO Emp VALUES
+(1, 'John Smith', 'HR', 75000, '2020-01-15', NULL, 'Mumbai'),
+(2, 'Jane Doe', 'IT', 85000, '2019-03-10', 1, 'Pune'),
+(3, 'Mike Wilson', 'IT', 78000, '2021-06-22', 2, 'Bangalore'),
+(4, 'Sarah Brown', 'Finance', 68000, '2020-09-05', 1, 'Delhi'),
+(5, 'David Patel', 'Sales', 55000, '2022-02-18', 1, 'Chennai'),
+(6, 'Lisa Chen', 'IT', 92000, '2018-11-30', 2, 'Hyderabad'),
+(7, 'Tom Davis', 'Marketing', 62000, '2021-04-12', 1, 'Mumbai'),
+(8, 'Emma Garcia', 'HR', 71000, '2020-07-25', NULL, 'Pune');
+
+select * from Emp;
+use practice;
+select count(*) from Emp;
+
+select count(dept) from Emp;
+
+select sum(salary) from Emp; 
+
+select avg(salary) from Emp;
+
+select min(salary) from Emp;
+select max(salary) deom Emp;
+
+select * from Emp;
+select sum(city) from Emp;
+
+
+SELECT dept, COUNT(*) as emp_count 
+FROM Emp GROUP BY dept;
+
+SELECT dept, SUM(salary) as total_salary
+FROM Emp GROUP BY dept;
+
+SELECT dept, AVG(salary) as avg_salary
+FROM Emp GROUP BY dept;
+
+SELECT city, MAX(salary) as max_salary
+FROM Emp GROUP BY city;
+
+
+-- GROUP BY with HAVING salary > 50000
+SELECT dept, COUNT(*) as emp_count, AVG(salary) as avg_salary FROM Emp 
+GROUP BY dept 
+HAVING avg(salary) > 70000;
+
+select * from Emp;
+
+
+
+######################## ASSIGNMENT ANS 
+
+# 8Q
+show databases;
+use practice;
+
+create table dept(
+id int PRIMARY KEY
+);
+
+# 9Q
+alter table dept
+ADD location varchar(50);
+
+select * from dept;
+
+#11Q
+truncate table dept;
+
+#10Q
+DROP TABLE dept;
+show tables;
+
+# 12
+create table naukar(
+id int primary key,
+name varchar(50)
+);
+
+insert into naukar (id , name) values(1,"rahul"), (2, "dhairya");
+
+
+#14Q
+delete from  naukar where id=2;
+
+#13Q
+update naukar set sal=51000 where id=1;
+
+alter table naukar
+add sal int;
+
+alter table naukar
+add dept varchar(50);
+
+# 16 Q
+select * from naukar;
+
+#17Q
+select dept, name from naukar;
+
+# 18 Q
+update naukar set dept="IT" where id=1;
+
+select name from naukar where dept="IT" and sal>50000;
+
+
+# 20Q   -  UNIQUE
+
+#21Q       NOT NULL
+
+# 23 Q       Default
+
+# 24 Q  
+
+
+
+
+
+
+
+
+
+SHOW DATABASES;
+USE practice;
+CREATE TABLE parking_sessions (
+    session_id INT PRIMARY KEY,
+    vehicle_type VARCHAR(10) CHECK (vehicle_type IN ('Car', 'Bike', 'Truck', 'EV')),
+    parking_zone VARCHAR(10) CHECK (parking_zone IN ('Zone_A', 'Zone_B', 'Zone_C')),
+    entry_time TIMESTAMP,
+    exit_time TIMESTAMP,
+    parking_fee DECIMAL(10, 2)
+);
+
+show tables;
+
+INSERT INTO parking_sessions (session_id, vehicle_type, parking_zone, entry_time, exit_time, parking_fee) VALUES
+(1, 'Car', 'Zone_A', '2026-04-20 08:00:00', '2026-04-20 10:30:00', 15.50),
+(2, 'Bike', 'Zone_B', '2026-04-20 09:15:00', '2026-04-20 09:45:00', 5.00),
+(3, 'EV', 'Zone_C', '2026-04-20 10:00:00', '2026-04-20 14:00:00', 25.00),
+(4, 'Truck', 'Zone_A', '2026-04-20 07:30:00', '2026-04-20 12:00:00', 45.00),
+(5, 'Car', 'Zone_B', '2026-04-20 11:00:00', '2026-04-20 13:00:00', 12.00),
+(6, 'Bike', 'Zone_C', '2026-04-20 12:45:00', '2026-04-20 13:15:00', 4.50),
+(7, 'EV', 'Zone_A', '2026-04-20 13:30:00', '2026-04-20 15:30:00', 18.00),
+(8, 'Truck', 'Zone_B', '2026-04-20 06:00:00', '2026-04-20 11:00:00', 50.00),
+(9, 'Car', 'Zone_C', '2026-04-20 14:15:00', '2026-04-20 16:45:00', 14.50),
+(10, 'Bike', 'Zone_A', '2026-04-20 15:00:00', '2026-04-20 16:00:00', 6.00),
+(11, 'EV', 'Zone_B', '2026-04-20 16:30:00', '2026-04-20 19:00:00', 22.00),
+(12, 'Truck', 'Zone_C', '2026-04-20 08:30:00', '2026-04-20 13:30:00', 48.00),
+(13, 'Car', 'Zone_A', '2026-04-20 17:00:00', '2026-04-20 18:30:00', 10.00),
+(14, 'Bike', 'Zone_B', '2026-04-20 18:15:00', '2026-04-20 19:15:00', 5.50),
+(15, 'EV', 'Zone_C', '2026-04-20 19:45:00', '2026-04-20 22:00:00', 19.50),
+(16, 'Truck', 'Zone_A', '2026-04-20 20:00:00', '2026-04-20 23:30:00', 40.00),
+(17, 'Car', 'Zone_B', '2026-04-21 07:00:00', '2026-04-21 09:00:00', 12.00),
+(18, 'Bike', 'Zone_C', '2026-04-21 07:30:00', '2026-04-21 08:15:00', 4.00),
+(19, 'EV', 'Zone_A', '2026-04-21 08:45:00', '2026-04-21 11:45:00', 24.00),
+(20, 'Truck', 'Zone_B', '2026-04-21 05:00:00', '2026-04-21 10:00:00', 55.00),
+(21, 'Car', 'Zone_C', '2026-04-21 10:15:00', '2026-04-21 12:30:00', 13.50),
+(22, 'Bike', 'Zone_A', '2026-04-21 11:30:00', '2026-04-21 12:00:00', 5.00),
+(23, 'EV', 'Zone_B', '2026-04-21 12:15:00', '2026-04-21 15:15:00', 21.00),
+(24, 'Truck', 'Zone_C', '2026-04-21 13:00:00', '2026-04-21 17:00:00', 42.00),
+(25, 'Car', 'Zone_A', '2026-04-21 14:00:00', '2026-04-21 16:30:00', 14.00),
+(26, 'Bike', 'Zone_B', '2026-04-21 15:45:00', '2026-04-21 16:45:00', 6.50),
+(27, 'EV', 'Zone_C', '2026-04-21 16:15:00', '2026-04-21 18:45:00', 20.00),
+(28, 'Truck', 'Zone_A', '2026-04-21 09:30:00', '2026-04-21 14:30:00', 46.00),
+(29, 'Car', 'Zone_B', '2026-04-21 17:30:00', '2026-04-21 19:30:00', 11.00),
+(30, 'Bike', 'Zone_C', '2026-04-21 18:00:00', '2026-04-21 19:00:00', 5.00),
+(31, 'EV', 'Zone_A', '2026-04-21 19:15:00', '2026-04-21 21:15:00', 18.50),
+(32, 'Truck', 'Zone_B', '2026-04-21 15:00:00', '2026-04-21 22:00:00', 60.00),
+(33, 'Car', 'Zone_C', '2026-04-21 20:30:00', '2026-04-21 23:00:00', 15.00),
+(34, 'Bike', 'Zone_A', '2026-04-21 21:45:00', '2026-04-21 22:45:00', 6.00),
+(35, 'EV', 'Zone_B', '2026-04-21 22:15:00', '2026-04-21 23:45:00', 14.00),
+(36, 'Truck', 'Zone_C', '2026-04-21 04:00:00', '2026-04-21 10:00:00', 52.00),
+(37, 'Car', 'Zone_A', '2026-04-20 06:15:00', '2026-04-20 08:15:00', 12.50),
+(38, 'Bike', 'Zone_B', '2026-04-20 07:45:00', '2026-04-20 08:30:00', 4.50),
+(39, 'EV', 'Zone_C', '2026-04-20 08:00:00', '2026-04-20 12:00:00', 26.00),
+(40, 'Truck', 'Zone_A', '2026-04-20 11:30:00', '2026-04-20 16:30:00', 44.00),
+(41, 'Car', 'Zone_B', '2026-04-20 12:00:00', '2026-04-20 15:00:00', 16.00),
+(42, 'Bike', 'Zone_C', '2026-04-20 13:45:00', '2026-04-20 14:15:00', 5.00),
+(43, 'EV', 'Zone_A', '2026-04-20 15:15:00', '2026-04-20 17:45:00', 20.50),
+(44, 'Truck', 'Zone_B', '2026-04-20 16:00:00', '2026-04-20 20:00:00', 38.00),
+(45, 'Car', 'Zone_C', '2026-04-20 17:30:00', '2026-04-20 19:30:00', 13.00),
+(46, 'Bike', 'Zone_A', '2026-04-20 18:45:00', '2026-04-20 19:45:00', 6.00),
+(47, 'EV', 'Zone_B', '2026-04-20 20:15:00', '2026-04-20 22:45:00', 23.00),
+(48, 'Truck', 'Zone_C', '2026-04-20 21:00:00', '2026-04-21 01:00:00', 41.00),
+(49, 'Car', 'Zone_A', '2026-04-21 06:00:00', '2026-04-21 07:30:00', 9.50),
+(50, 'Bike', 'Zone_B', '2026-04-21 06:45:00', '2026-04-21 07:45:00', 5.50);
+
+desc parking_sessions;
+select * from parking_sessions;
+
+select parking_zone, SUM(parking_fee) from parking_sessions GROUP BY parking_zone;
+
+select vehicle_type, AVG(parking_fee) from parking_sessions GROUP BY vehicle_type;
+
+SELECT parking_zone, max(parking_fee) from parking_sessions GROUP BY parking_zone;
+
+select parking_zone, COUNT(*) from parking_sessions GROUP BY parking_zone;
+select parking_zone, COUNT(*) as total_count from parking_sessions GROUP BY parking_zone;
+
+select parking _zone, AVG(parking_fee) from parking_sessions GROUP BY parking_zone having AVG(parking_fee)>100;
+
+
+CREATE TABLE course_activity (
+    activity_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    student_id INT,
+    activity_type VARCHAR(20) CHECK (activity_type IN ('Video', 'Quiz', 'Assignment')),
+    time_spent_minutes INT,
+    activity_date DATE
+);
+
+INSERT INTO course_activity (activity_id, course_name, student_id, activity_type, time_spent_minutes, activity_date) VALUES
+(1, 'Python for DE', 101, 'Video', 45, '2026-04-01'),
+(2, 'SQL Masters', 102, 'Quiz', 15, '2026-04-01'),
+(3, 'Cloud Arch', 103, 'Assignment', 120, '2026-04-02'),
+(4, 'Generative AI', 104, 'Video', 30, '2026-04-02'),
+(5, 'Python for DE', 105, 'Quiz', 10, '2026-04-02'),
+(6, 'SQL Masters', 101, 'Assignment', 90, '2026-04-03'),
+(7, 'Cloud Arch', 102, 'Video', 60, '2026-04-03'),
+(8, 'Generative AI', 103, 'Quiz', 20, '2026-04-03'),
+(9, 'Python for DE', 104, 'Assignment', 150, '2026-04-04'),
+(10, 'SQL Masters', 105, 'Video', 40, '2026-04-04'),
+(11, 'Cloud Arch', 101, 'Quiz', 15, '2026-04-04'),
+(12, 'Generative AI', 102, 'Assignment', 180, '2026-04-05'),
+(13, 'Python for DE', 103, 'Video', 55, '2026-04-05'),
+(14, 'SQL Masters', 104, 'Quiz', 12, '2026-04-05'),
+(15, 'Cloud Arch', 105, 'Assignment', 110, '2026-04-06'),
+(16, 'Generative AI', 101, 'Video', 35, '2026-04-06'),
+(17, 'Python for DE', 102, 'Quiz', 18, '2026-04-06'),
+(18, 'SQL Masters', 103, 'Assignment', 95, '2026-04-07'),
+(19, 'Cloud Arch', 104, 'Video', 70, '2026-04-07'),
+(20, 'Generative AI', 105, 'Quiz', 25, '2026-04-07'),
+(21, 'Python for DE', 101, 'Assignment', 130, '2026-04-08'),
+(22, 'SQL Masters', 102, 'Video', 50, '2026-04-08'),
+(23, 'Cloud Arch', 103, 'Quiz', 10, '2026-04-08'),
+(24, 'Generative AI', 104, 'Assignment', 200, '2026-04-09'),
+(25, 'Python for DE', 105, 'Video', 45, '2026-04-09'),
+(26, 'SQL Masters', 101, 'Quiz', 15, '2026-04-09'),
+(27, 'Cloud Arch', 102, 'Assignment', 140, '2026-04-10'),
+(28, 'Generative AI', 103, 'Video', 30, '2026-04-10'),
+(29, 'Python for DE', 104, 'Quiz', 20, '2026-04-10'),
+(30, 'SQL Masters', 105, 'Assignment', 85, '2026-04-11'),
+(31, 'Cloud Arch', 101, 'Video', 65, '2026-04-11'),
+(32, 'Generative AI', 102, 'Quiz', 12, '2026-04-11'),
+(33, 'Python for DE', 103, 'Assignment', 160, '2026-04-12'),
+(34, 'SQL Masters', 104, 'Video', 40, '2026-04-12'),
+(35, 'Cloud Arch', 105, 'Quiz', 15, '2026-04-12'),
+(36, 'Generative AI', 101, 'Assignment', 175, '2026-04-13'),
+(37, 'Python for DE', 102, 'Video', 55, '2026-04-13'),
+(38, 'SQL Masters', 103, 'Quiz', 18, '2026-04-13'),
+(39, 'Cloud Arch', 104, 'Assignment', 105, '2026-04-14'),
+(40, 'Generative AI', 105, 'Video', 30, '2026-04-14'),
+(41, 'Python for DE', 101, 'Quiz', 10, '2026-04-14'),
+(42, 'SQL Masters', 102, 'Assignment', 115, '2026-04-15'),
+(43, 'Cloud Arch', 103, 'Video', 60, '2026-04-15'),
+(44, 'Generative AI', 104, 'Quiz', 22, '2026-04-15'),
+(45, 'Python for DE', 105, 'Assignment', 125, '2026-04-16'),
+(46, 'SQL Masters', 101, 'Video', 45, '2026-04-16'),
+(47, 'Cloud Arch', 102, 'Quiz', 14, '2026-04-16'),
+(48, 'Generative AI', 103, 'Assignment', 190, '2026-04-17'),
+(49, 'Python for DE', 104, 'Video', 50, '2026-04-17'),
+(50, 'SQL Masters', 105, 'Quiz', 11, '2026-04-17');
+
+select * from course_activity;
+select course_name, sum(time_spent_minutes) from course_activity group by course_name;
+
+select course_name, avg(time_spent_minutes) from course_activity group by course_name;
+
+select course_name, count(time_spent_minutes) from course_activity group by course_name;
+select course_name, sum(time_spent_minutes) from course_activity where time_spent_minutes>100 group by course_name;
+select course_name, min(time_spent_minutes) from course_activity group by course_name;
+
+
+
+
+CREATE TABLE ward_usage (
+    record_id INT PRIMARY KEY,
+    ward_name VARCHAR(20) CHECK (ward_name IN ('ICU', 'Emergency', 'General')),
+    bed_id VARCHAR(10),
+    patient_days INT,
+    treatment_cost DECIMAL(10, 2),
+    discharge_status VARCHAR(20)
+);
+
+
+INSERT INTO ward_usage VALUES
+(1, 'ICU', 'ICU001', 5, 25000.00, 'Discharged'),
+(2, 'ICU', 'ICU002', 8, 42000.50, 'Discharged'),
+(3, 'Emergency', 'EM001', 2, 8500.00, 'Transferred'),
+(4, 'General', 'G001', 3, 4500.75, 'Discharged'),
+(5, 'ICU', 'ICU003', 12, 68000.00, 'Expired'),
+(6, 'Emergency', 'EM002', 1, 3200.00, 'Discharged'),
+(7, 'General', 'G002', 7, 9800.25, 'Discharged'),
+(8, 'ICU', 'ICU004', 3, 18000.00, 'Discharged'),
+(9, 'Emergency', 'EM003', 4, 12500.50, 'Discharged'),
+(10, 'General', 'G003', 5, 7200.00, 'Discharged'),
+(11, 'ICU', 'ICU005', 10, 55000.75, 'Discharged'),
+(12, 'Emergency', 'EM004', 3, 9800.00, 'Transferred'),
+(13, 'General', 'G004', 9, 14200.50, 'Discharged'),
+(14, 'ICU', 'ICU006', 6, 32000.00, 'Discharged'),
+(15, 'Emergency', 'EM005', 2, 6500.25, 'Discharged'),
+(16, 'General', 'G005', 4, 5800.00, 'Discharged'),
+(17, 'ICU', 'ICU007', 15, 78000.00, 'Discharged'),
+(18, 'Emergency', 'EM006', 5, 16800.75, 'Discharged'),
+(19, 'General', 'G006', 6, 8900.50, 'Discharged'),
+(20, 'ICU', 'ICU008', 4, 22000.00, 'Transferred'),
+(21, 'Emergency', 'EM007', 1, 2800.00, 'Discharged'),
+(22, 'General', 'G007', 8, 11800.25, 'Discharged'),
+(23, 'ICU', 'ICU009', 7, 38500.50, 'Discharged'),
+(24, 'Emergency', 'EM008', 6, 21000.00, 'Discharged'),
+(25, 'General', 'G008', 2, 3100.75, 'Discharged'),
+(26, 'ICU', 'ICU010', 9, 48000.00, 'Expired'),
+(27, 'Emergency', 'EM009', 3, 11200.50, 'Transferred'),
+(28, 'General', 'G009', 11, 16500.00, 'Discharged'),
+(29, 'ICU', 'ICU011', 2, 14500.25, 'Discharged'),
+(30, 'Emergency', 'EM010', 4, 13800.00, 'Discharged'),
+(31, 'General', 'G010', 5, 7400.50, 'Discharged'),
+(32, 'ICU', 'ICU012', 11, 62000.75, 'Discharged'),
+(33, 'Emergency', 'EM011', 2, 7200.00, 'Discharged'),
+(34, 'General', 'G011', 7, 10200.25, 'Discharged'),
+(35, 'ICU', 'ICU013', 5, 27500.00, 'Discharged'),
+(36, 'Emergency', 'EM012', 7, 24500.50, 'Discharged'),
+(37, 'General', 'G012', 3, 4800.00, 'Discharged'),
+(38, 'ICU', 'ICU014', 13, 71000.75, 'Discharged'),
+(39, 'Emergency', 'EM013', 1, 4100.00, 'Transferred'),
+(40, 'General', 'G013', 10, 15200.50, 'Discharged'),
+(41, 'ICU', 'ICU015', 4, 19800.00, 'Discharged'),
+(42, 'Emergency', 'EM014', 5, 17200.25, 'Discharged'),
+(43, 'General', 'G014', 6, 9200.00, 'Discharged'),
+(44, 'ICU', 'ICU016', 8, 44000.50, 'Expired'),
+(45, 'Emergency', 'EM015', 3, 10500.75, 'Discharged'),
+(46, 'General', 'G015', 4, 6100.00, 'Discharged'),
+(47, 'ICU', 'ICU017', 6, 34000.25, 'Discharged'),
+(48, 'Emergency', 'EM016', 2, 6800.50, 'Discharged'),
+(49, 'General', 'G016', 9, 13500.00, 'Discharged'),
+(50, 'ICU', 'ICU018', 10, 52000.75, 'Discharged');
+
+select * from ward_usage;
+select ward_name, SUM(treatment_cost) from ward_usage GROUP BY ward_name;
+select ward_name, AVG(patient_days) from ward_usage group by ward_name;
+select ward_name, count(*) from ward_usage  where discharge_status='Discharged' group by ward_name;
+
+select ward_name, count(discahrge_status) from ward_usage  where discharge_status='Discharged' group by ward_name;
+
+
+use practice;
+CREATE TABLE energy_generation (
+    record_id INT PRIMARY KEY,
+    plant_type VARCHAR(20) CHECK (plant_type IN ('solar', 'hydro', 'wind')),
+    location VARCHAR(100),
+    units_generated INT,
+    generation_date DATE,
+    downtime_minutes INT
+);
+
+INSERT INTO energy_generation (record_id, plant_type, location, units_generated, generation_date, downtime_minutes) VALUES
+(1, 'solar', 'Lonavla', 1200, '2026-01-01', 10),
+(2, 'wind', 'Pune', 980, '2026-01-01', 15),
+(3, 'hydro', 'Nashik', 2100, '2026-01-01', 5),
+(4, 'solar', 'Mumbai', 1500, '2026-01-02', 12),
+(5, 'wind', 'Nagpur', 1100, '2026-01-02', 8),
+(6, 'hydro', 'Kolhapur', 2300, '2026-01-02', 6),
+(7, 'solar', 'Aurangabad', 1350, '2026-01-03', 9),
+(8, 'wind', 'Satara', 1020, '2026-01-03', 14),
+(9, 'hydro', 'Ratnagiri', 2500, '2026-01-03', 4),
+(10, 'solar', 'Solapur', 1400, '2026-01-04', 11),
+(11, 'wind', 'Thane', 970, '2026-01-04', 16),
+(12, 'hydro', 'Sangli', 2250, '2026-01-04', 7),
+(13, 'solar', 'Pune', 1600, '2026-01-05', 8),
+(14, 'wind', 'Latur', 990, '2026-01-05', 13),
+(15, 'hydro', 'Jalgaon', 2400, '2026-01-05', 5),
+(16, 'solar', 'Mumbai', 1550, '2026-01-06', 10),
+(17, 'wind', 'Nanded', 1010, '2026-01-06', 12),
+(18, 'hydro', 'Akola', 2350, '2026-01-06', 6),
+(19, 'solar', 'Nagpur', 1450, '2026-01-07', 9),
+(20, 'wind', 'Nashik', 1080, '2026-01-07', 11),
+(21, 'hydro', 'Lonavla', 2450, '2026-01-07', 4),
+(22, 'solar', 'Kolhapur', 1300, '2026-01-08', 14),
+(23, 'wind', 'Satara', 995, '2026-01-08', 15),
+(24, 'hydro', 'Pune', 2200, '2026-01-08', 7),
+(25, 'solar', 'Ratnagiri', 1700, '2026-01-09', 6),
+(26, 'wind', 'Mumbai', 1030, '2026-01-09', 10),
+(27, 'hydro', 'Solapur', 2550, '2026-01-09', 3),
+(28, 'solar', 'Thane', 1420, '2026-01-10', 9),
+(29, 'wind', 'Aurangabad', 1005, '2026-01-10', 14),
+(30, 'hydro', 'Nagpur', 2320, '2026-01-10', 5),
+(31, 'solar', 'Sangli', 1480, '2026-01-11', 8),
+(32, 'wind', 'Lonavla', 975, '2026-01-11', 16),
+(33, 'hydro', 'Pune', 2480, '2026-01-11', 4),
+(34, 'solar', 'Jalgaon', 1520, '2026-01-12', 7),
+(35, 'wind', 'Nashik', 990, '2026-01-12', 13),
+(36, 'hydro', 'Mumbai', 2600, '2026-01-12', 2),
+(37, 'solar', 'Akola', 1375, '2026-01-13', 11),
+(38, 'wind', 'Kolhapur', 1015, '2026-01-13', 12),
+(39, 'hydro', 'Satara', 2380, '2026-01-13', 6),
+(40, 'solar', 'Nanded', 1495, '2026-01-14', 9),
+(41, 'wind', 'Ratnagiri', 980, '2026-01-14', 15),
+(42, 'hydro', 'Thane', 2275, '2026-01-14', 7),
+(43, 'solar', 'Latur', 1410, '2026-01-15', 10),
+(44, 'wind', 'Solapur', 1040, '2026-01-15', 11),
+(45, 'hydro', 'Aurangabad', 2425, '2026-01-15', 5),
+(46, 'solar', 'Pune', 1580, '2026-01-16', 8),
+(47, 'wind', 'Mumbai', 995, '2026-01-16', 14),
+(48, 'hydro', 'Nagpur', 2505, '2026-01-16', 3),
+(49, 'solar', 'Nashik', 1460, '2026-01-17', 9),
+(50, 'wind', 'Lonavla', 1025, '2026-01-17', 12);
+
+select * from energy_generation;
+select plant_type,sum(units_generated) from energy_generation group by plant_type;
+select location, avg(downtime_minutes) from energy_generation group by location;
+select plant_type, max(units_generated) from energy_generation group by plant_type;
+select location, count(downtime_minutes) from energy_generation group by location;
+
+select plant_type, sum(downtime_minutes) from energy_generation  group by plant_type having  sum(downtime_minutes)>500;
+
+
+
+
+CREATE TABLE streaming_stats (
+    session_id INT PRIMARY KEY,
+    genre VARCHAR(50),
+    watch_minutes INT,
+    device_type VARCHAR(20),
+    session_date DATE,
+    content_type VARCHAR(20),
+    CHECK (device_type IN ('mobile', 'tv', 'laptop')),
+    CHECK (content_type IN ('movie', 'series', 'documentary'))
+);
+
+INSERT INTO streaming_stats (session_id, genre, watch_minutes, device_type, session_date, content_type) VALUES
+(1, 'Action', 120, 'mobile', '2026-01-01', 'movie'),
+(2, 'Drama', 95, 'tv', '2026-01-01', 'series'),
+(3, 'Comedy', 45, 'laptop', '2026-01-01', 'movie'),
+(4, 'Thriller', 110, 'mobile', '2026-01-02', 'series'),
+(5, 'Action', 80, 'tv', '2026-01-02', 'movie'),
+(6, 'Romance', 60, 'laptop', '2026-01-02', 'documentary'),
+(7, 'Sci-Fi', 130, 'mobile', '2026-01-03', 'series'),
+(8, 'Drama', 75, 'tv', '2026-01-03', 'movie'),
+(9, 'Comedy', 50, 'laptop', '2026-01-03', 'series'),
+(10, 'Action', 140, 'mobile', '2026-01-04', 'documentary'),
+(11, 'Horror', 55, 'tv', '2026-01-04', 'movie'),
+(12, 'Drama', 100, 'laptop', '2026-01-04', 'series'),
+(13, 'Comedy', 70, 'mobile', '2026-01-05', 'movie'),
+(14, 'Action', 90, 'tv', '2026-01-05', 'series'),
+(15, 'Romance', 65, 'laptop', '2026-01-05', 'movie'),
+(16, 'Sci-Fi', 125, 'mobile', '2026-01-06', 'documentary'),
+(17, 'Thriller', 85, 'tv', '2026-01-06', 'series'),
+(18, 'Drama', 105, 'laptop', '2026-01-06', 'movie'),
+(19, 'Comedy', 40, 'mobile', '2026-01-07', 'series'),
+(20, 'Action', 150, 'tv', '2026-01-07', 'movie'),
+(21, 'Romance', 55, 'laptop', '2026-01-07', 'documentary'),
+(22, 'Horror', 60, 'mobile', '2026-01-08', 'series'),
+(23, 'Drama', 115, 'tv', '2026-01-08', 'movie'),
+(24, 'Sci-Fi', 135, 'laptop', '2026-01-08', 'series'),
+(25, 'Comedy', 75, 'mobile', '2026-01-09', 'movie'),
+(26, 'Thriller', 100, 'tv', '2026-01-09', 'documentary'),
+(27, 'Action', 95, 'laptop', '2026-01-09', 'series'),
+(28, 'Drama', 85, 'mobile', '2026-01-10', 'movie'),
+(29, 'Romance', 50, 'tv', '2026-01-10', 'series'),
+(30, 'Sci-Fi', 145, 'laptop', '2026-01-10', 'movie'),
+(31, 'Comedy', 65, 'mobile', '2026-01-11', 'documentary'),
+(32, 'Action', 130, 'tv', '2026-01-11', 'series'),
+(33, 'Horror', 70, 'laptop', '2026-01-11', 'movie'),
+(34, 'Drama', 120, 'mobile', '2026-01-12', 'series'),
+(35, 'Thriller', 90, 'tv', '2026-01-12', 'movie'),
+(36, 'Romance', 58, 'laptop', '2026-01-12', 'series'),
+(37, 'Sci-Fi', 110, 'mobile', '2026-01-13', 'documentary'),
+(38, 'Comedy', 80, 'tv', '2026-01-13', 'movie'),
+(39, 'Action', 100, 'laptop', '2026-01-13', 'series'),
+(40, 'Drama', 90, 'mobile', '2026-01-14', 'movie'),
+(41, 'Horror', 75, 'tv', '2026-01-14', 'series'),
+(42, 'Thriller', 115, 'laptop', '2026-01-14', 'movie'),
+(43, 'Romance', 62, 'mobile', '2026-01-15', 'documentary'),
+(44, 'Sci-Fi', 140, 'tv', '2026-01-15', 'series'),
+(45, 'Comedy', 55, 'laptop', '2026-01-15', 'movie'),
+(46, 'Action', 125, 'mobile', '2026-01-16', 'series'),
+(47, 'Drama', 98, 'tv', '2026-01-16', 'movie'),
+(48, 'Horror', 68, 'laptop', '2026-01-16', 'documentary'),
+(49, 'Thriller', 105, 'mobile', '2026-01-17', 'series'),
+(50, 'Sci-Fi', 150, 'tv', '2026-01-17', 'movie');
+
+select * from streaming_stats;
+select genre, sum(watch_minutes) from streaming_stats group by genre;
+select device_type, avg(watch_minutes) from streaming_stats group by device_type;
+select content_type, min(watch_minutes) from streaming_stats group by content_type;
+select genre, count(watch_minutes) from streaming_stats group by genre;
+select genre, sum(watch_minutes) from streaming_stats group by genre having sum(watch_minutes)>500;
+
+
+#################################
+show databases;
+use practice;
+show tables;
+use naukar;
+select * from naukar;
+#######################
+
+-- Create Department table
+CREATE TABLE department (
+    dept_no INT PRIMARY KEY,
+    dept_name VARCHAR(50),
+    dept_loc VARCHAR(50)
+);
+
+-- Create Employee table
+CREATE TABLE employee (
+    emp_no INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    salary DECIMAL(10,2),
+    dept_no INT,
+    FOREIGN KEY (dept_no) REFERENCES department(dept_no)
+);
+
+-- Insert 10 departments (some will have no employees)
+INSERT INTO department VALUES
+(10, 'Marketing', 'Mumbai'),
+(20, 'HR', 'Pune'),
+(30, 'Sales', 'Delhi'),
+(40, 'Finance', 'Bangalore'),
+(50, 'IT', 'Hyderabad'),
+(60, 'Operations', 'Chennai'),
+(70, 'R&D', 'Kolkata'),
+(80, 'Legal', 'Mumbai'),
+(90, 'Quality', 'Pune'),
+(100, 'Admin', 'Delhi');
+
+-- Insert 40 employee records (leaving some departments empty)
+INSERT INTO employee VALUES
+(1, 'Rahul Sharma', 50000, 10),
+(2, 'Priya Patel', 55000, 10),
+(3, 'Amit Kumar', 60000, 20),
+(4, 'Sneha Gupta', 52000, 20),
+(5, 'Vikram Singh', 75000, 30),
+(6, 'Neha Desai', 68000, 30),
+(7, 'Rohan Joshi', 80000, 30),
+(8, 'Meera Nair', 45000, 40),
+(9, 'Kiran Reddy', 90000, 50),
+(10, 'Suresh Babu', 85000, 50),
+(11, 'Anita Menon', 70000, 50),
+(12, 'Rajesh Iyer', 65000, 10),
+(13, 'Pooja Shah', 72000, 20),
+(14, 'Deepak Roy', 78000, 30),
+(15, 'Lata Mishra', 48000, 40),
+(16, 'Arjun Das', 82000, 50),
+(17, 'Kavita Bose', 69000, 10),
+(18, 'Manish Verma', 76000, 20),
+(19, 'Rita Sen', 83000, 30),
+(20, 'Vijay Rao', 51000, 40),
+(21, 'Sunita Pillai', 88000, 50),
+(22, 'Prakash Naidu', 67000, 10),
+(23, 'Geeta Solanki', 74000, 20),
+(24, 'Sanjay Bhat', 79000, 30),
+(25, 'Nisha Kadam', 46000, 40),
+(26, 'Mohan Pai', 91000, 50),
+(27, 'Divya Shetty', 71000, 10),
+(28, 'Ravi Hegde', 77000, 20),
+(29, 'Anjali Pawar', 84000, 30),
+(30, 'Bharat Mistry', 53000, 40),
+(31, 'Tara Jadhav', 86000, 50),
+(32, 'Yogesh Sawant', 66000, 10),
+(33, 'Reena Salvi', 73000, 20),
+(34, 'Kunal Thakur', 81000, 30),
+(35, 'Shweta Gaikwad', 47000, 40),
+(36, 'Nitin Salunkhe', 87000, 50),
+(37, 'Prajakta Koli', 68000, 20),
+(38, 'Akshay More', 95000, 50),
+(39, 'Swati Jadhav', 62000, 10),
+(40, 'Chetan Rane', 59000, 20);
+
+SELECT d.dept_name, d.dept_loc
+FROM department d
+LEFT JOIN employee e ON d.dept_no = e.dept_no
+WHERE e.dept_no IS NULL;
+
+#############################3 HOME PRACTICE
+
+
+SHOW DATABASES;
+USE practice;
+
+show tables;
+DROP TABLE orders;
+DROP TABLE customers;
+DROP TABLE sales;
+DROP TABLE products;
+
+-- Create Customers table
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    CustomerName VARCHAR(50),
+    City VARCHAR(50)
+);
+
+-- Create Orders table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT,
+    OrderDate DATE,
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+-- Create Products table
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(50),
+    Price DECIMAL(10,2)
+);
+
+-- Create OrderDetails table
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    ProductID INT,
+    Quantity INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+);
+
+
+
+
+
+
+-- Insert into Customers
+INSERT INTO Customers VALUES
+(1, 'Rajesh Sharma', 'Mumbai'),
+(2, 'Priya Patel', 'Delhi'),
+(3, 'Amit Kumar', 'Bangalore'),
+(4, 'Sneha Reddy', 'Mumbai'),
+(5, 'Vikram Singh', 'Delhi');
+
+-- Insert into Products
+INSERT INTO Products VALUES
+(101, 'Laptop', 45000),
+(102, 'Mouse', 500),
+(103, 'Keyboard', 1200),
+(104, 'Monitor', 8000),
+(105, 'USB Cable', 300);
+
+-- Insert into Orders
+INSERT INTO Orders VALUES
+(1001, 1, '2025-01-10'),
+(1002, 2, '2025-01-12'),
+(1003, 1, '2025-01-15'),
+(1004, 3, '2025-01-18'),
+(1005, 2, '2025-01-20'),
+(1006, 4, '2025-01-22'),
+(1007, 1, '2025-01-25'),
+(1008, 5, '2025-01-28');
+
+-- Insert into OrderDetails
+INSERT INTO OrderDetails VALUES
+(1, 1001, 101, 1),   -- Rajesh bought 1 Laptop
+(2, 1001, 102, 2),   -- Rajesh bought 2 Mouse
+(3, 1002, 103, 1),   -- Priya bought 1 Keyboard
+(4, 1002, 105, 3),   -- Priya bought 3 USB Cables
+(5, 1003, 104, 1),   -- Rajesh bought 1 Monitor
+(6, 1004, 101, 1),   -- Amit bought 1 Laptop
+(7, 1004, 102, 1),   -- Amit bought 1 Mouse
+(8, 1005, 103, 2),   -- Priya bought 2 Keyboards
+(9, 1006, 105, 5),   -- Sneha bought 5 USB Cables
+(10, 1007, 104, 1),  -- Rajesh bought 1 Monitor
+(11, 1008, 101, 1);  -- Vikram bought 1 Laptop
+
+
+
+
+SELECT * FROM Customers;
+SELECT * FROM Orders;
+SELECT * FROM Products;
+SELECT * FROM OrderDetails;
+
+select c.CustomerName, o.OrderID
+from Customers as c
+INNER JOIN Orders as o
+on c.CustomerID=o.CustomerID;
+
+
+
+-- Q2: Customer name, product name, and quantity ordered
+SELECT c.CustomerName, p.ProductName, od.Quantity
+FROM Customers c
+INNER JOIN Orders o ON c.CustomerID = o.CustomerID
+INNER JOIN OrderDetails od ON o.OrderID = od.OrderID
+INNER JOIN Products p ON od.ProductID = p.ProductID;
+show databases;
+USE practice;
+show tables;
+use table naukar;
+rename table naukar to emplyeee;
+
+-- 1. Create a simple table and insert 5 rows
+CREATE TABLE naukar (
+    id INT,
+    job_role TEXT,
+    location TEXT
+);
+
+INSERT INTO naukar (id, job_role, location) VALUES
+(1, 'Developer', 'Mumbai'),
+(2, 'Developer', 'Pune'),
+(3, 'Manager',   'Mumbai'),
+(4, 'HR',        'Pune'),
+(5, 'Developer', 'Mumbai');
+desc naukar;
+select * from naukar where location="Mumbai";
+
+-- 2. Select only DISTINCT (removes duplicate job_role rows)
+SELECT DISTINCT job_role FROM naukar;
+
+-- 3. COUNT DISTINCT (counts unique roles: Developer, Manager, HR)
+SELECT COUNT(DISTINCT job_role) AS total_unique_roles FROM naukar;
+
+-- 4. Select DISTINCT with 2 columns
+-- This looks for unique COMBINATIONS of job_role AND location
+SELECT DISTINCT job_role, location FROM naukar;
+
+
+######################## 13/5/2026
+
+show databases;
+
+use practice;
+
+show tables;
+
+select * from  awards;
+
+###############################
+
+CREATE TABLE employees (
+    emp_id      INTEGER PRIMARY KEY,
+    emp_name    VARCHAR(50) NOT NULL,
+    dept        VARCHAR(30) NOT NULL,
+    location    VARCHAR(50) NOT NULL,
+    salary      DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO employees (emp_id, emp_name, dept, location, salary) VALUES
+(101, 'Alice Chen',   'IT',        'New York',      75000.00),
+(102, 'Bob Smith',    'HR',        'Boston',        52000.00),
+(103, 'Carol Davis',  'IT',        'New York',      82000.00),
+(104, 'David Lee',    'Sales',     'Chicago',       61000.00),
+(105, 'Eva Brown',    'IT',        'San Francisco', 90000.00),
+(106, 'Frank White',  'Sales',     'Chicago',       58000.00),
+(107, 'Grace Kim',    'HR',        'Boston',        49000.00),
+(108, 'Henry Wu',     'IT',        'New York',      78000.00),
+(109, 'Irene Zhao',   'Marketing', 'Los Angeles',   55000.00),
+(110, 'Jack Smith',   'Sales',     'Chicago',       63000.00),
+(111, 'Karen Liu',    'Marketing', 'Los Angeles',   51000.00),
+(112, 'Leo Johnson',  'IT',        'San Francisco', 87000.00);
+
+
+SELECT * FROM employees;
+DESC employees;
+SELECT emp_name, salary FROM employees ORDER BY salary DESC;
+select * from employees order by salary desc; 
+select * from employees order by salary desc limit 3;
+select dept , count(*) as dept_count from employees group by dept;
+select dept, sum(salary) as total_salary from employees group by dept;  # not * in round bracket
+select dept, avg(salary) as avg_paisa from employees group by dept having avg_paisa> 70000;
+
+select emp_name , salary from employees where salary between 50000 and 70000;
+----------------------------------------------------------------------------------
+
+show databases;
+
+create database khiladi420;
+
+use khiladi420;
+
+show tables;
+
+create table khiladi;
+select * from employees
+;
+
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100) NOT NULL,
+    age INT,
+    department VARCHAR(50),
+    salary DECIMAL(10,2),
+    city VARCHAR(50),
+    joining_date DATE,
+    experience INT,
+    rating DECIMAL(3,1)
+);
+
+-- Insert 20 diverse records
+INSERT INTO employees VALUES
+(1, 'Rajesh Kumar', 32, 'IT', 75000.00, 'Mumbai', '2019-03-15', 5, 4.5),
+(2, 'Priya Sharma', 28, 'HR', 55000.00, 'Delhi', '2020-07-10', 3, 4.2),
+(3, 'Amit Patel', 35, 'Finance', 85000.00, 'Mumbai', '2017-11-20', 8, 4.8),
+(4, 'Neha Singh', 26, 'IT', 48000.00, 'Bangalore', '2021-01-05', 2, 3.9),
+(5, 'Vikram Reddy', 40, 'Sales', 68000.00, 'Hyderabad', '2015-09-12', 12, 4.1),
+(6, 'Deepa Nair', 29, 'Marketing', 62000.00, 'Chennai', '2018-04-18', 5, 4.3),
+(7, 'Rahul Jain', 24, 'IT', 42000.00, 'Pune', '2022-06-30', 1, 3.7),
+(8, 'Anjali Verma', 33, 'Finance', 72000.00, 'Delhi', '2016-12-01', 9, 4.6),
+(9, 'Suresh Gupta', 38, 'Sales', 59000.00, 'Mumbai', '2014-08-22', 13, 3.8),
+(10, 'Kavita Joshi', 27, 'HR', 51000.00, 'Bangalore', '2019-10-14', 4, 4.0),
+(11, 'Manish Tiwari', 31, 'IT', 81000.00, 'Pune', '2018-02-28', 6, 4.7),
+(12, 'Sunita Rao', 34, 'Marketing', 64000.00, 'Chennai', '2017-05-09', 8, 4.4),
+(13, 'Alok Mishra', 29, 'Finance', 56000.00, 'Hyderabad', '2020-11-16', 3, 4.0),
+(14, 'Shweta Patil', 25, 'IT', 47000.00, 'Mumbai', '2021-08-25', 2, 3.8),
+(15, 'Ramesh Iyer', 42, 'Sales', 71000.00, 'Delhi', '2013-04-07', 14, 4.2),
+(16, 'Pooja Mehta', 30, 'HR', 53000.00, 'Pune', '2018-09-03', 5, 4.1),
+(17, 'Kunal Khanna', 36, 'IT', 92000.00, 'Bangalore', '2015-06-19', 10, 4.9),
+(18, 'Divya Menon', 26, 'Marketing', 49000.00, 'Chennai', '2020-03-27', 3, 3.9),
+(19, 'Tarun Saxena', 33, 'Finance', 78000.00, 'Hyderabad', '2016-10-12', 9, 4.5),
+(20, 'Meera Krishnan', 28, 'Sales', 54000.00, 'Mumbai', '2019-12-01', 4, 3.9);
+
+-- Practice queries:
+-- 1. SELECT * FROM employees;
+-- 2. SELECT emp_name, salary FROM employees WHERE salary > 60000;
+-- 3. SELECT department, AVG(salary) FROM employees GROUP BY department;
+-- 4. SELECT * FROM employees ORDER BY salary DESC LIMIT 5;
+-- 5. SELECT department, COUNT(*) FROM employees GROUP BY department;
+-- 6. SELECT * FROM employees WHERE city = 'Mumbai' AND salary > 50000;
+-- 7. SELECT emp_name, salary, rating FROM employees WHERE rating >= 4.5;
+-- 8. SELECT city, MAX(salary) FROM employees GROUP BY city;
+-- 9. SELECT * FROM employees WHERE joining_date > '2020-01-01';
+-- 10. SELECT emp_name, experience, salary * 12 AS annual_salary FROM employees;
+
+
+-- 1. Create a table named library with columns: book_id, title, author, price.
+create table library(
+book_id int primary key,
+title varchar(100),
+author varchar(100),
+price decimal(10,2));
+
+
+INSERT INTO library(book_id,title,author,price)values
+(0,"a","a",10);
+
+INSERT INTO library (book_id, title, author, price) VALUES
+(1, 'The Great Gatsby', 'F. Scott Fitzgerald', 299.99),
+(2, 'To Kill a Mockingbird', 'Harper Lee', 399.50),
+(3, '1984', 'George Orwell', 249.75),
+(4, 'Pride and Prejudice', 'Jane Austen', 199.00),
+(5, 'The Catcher in the Rye', 'J.D. Salinger', 349.25),
+(6, 'Harry Potter', 'J.K. Rowling', 599.99),
+(7, 'The Hobbit', 'J.R.R. Tolkien', 449.00),
+(8, 'Fahrenheit 451', 'Ray Bradbury', 279.50),
+(9, 'Jane Eyre', 'Charlotte Bronte', 319.00),
+(10, 'Animal Farm', 'George Orwell', 189.99);
+
+insert into library  (book_id,title,author,price) values
+(11,'s',"b",1);
+
+select * from library;
+alter table library add column genre varchar(50);
+
+alter table library rename  
+
+alter table library add 
+(publishe_year int);
+
+-- 1. Add a new column 'genre' of type VARCHAR(50)
+
+
+-- 2. Add a new column 'pages' of type INT
+alter table library add column pages int;
+
+-- 3. Add a new column 'rating' of type DECIMAL(3,2) with default value 0.00
+-- 4. Add a new column 'isbn' of type VARCHAR(20) and make it UNIQUE
+-- 5. Add two columns simultaneously: 'publisher' and 'edition'
+-- 6. Drop the column 'edition' from the table
+-- 7. Drop column 'publisher' and 'isbn' together
+-- 8. Rename column 'genre' to 'category'
+-- 9. Rename column 'pages' to 'total_pages'
+-- 10. Rename column 'rating' to 'book_rating'
+
+
+
+----------------------------------------------------------------
+
+CREATE DATABASE practice_db;
+
+USE practice_db;
+
+CREATE TABLE Emp (
+    id INT,
+    name VARCHAR(100),
+    salary INT
+);
+
+INSERT INTO Emp VALUES 
+(1, 'John', 50000),
+(2, 'Jane', 60000),
+(3, 'Bob', 45000),
+(4, 'Alice', 70000),
+(5, 'Charlie', 55000);
+
+select * from emp;
+
+-- Distinct combination of name and id together
+SELECT DISTINCT name, id FROM Emp;
+
+SELECT COUNT(1) AS total_rows FROM Emp;
+
+
