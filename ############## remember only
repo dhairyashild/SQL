@@ -27,3 +27,7 @@ select city, count(*) from sales group by(city); -- Column मधील प्�
 
 कोणत्याही विशिष्ट COLUMN नुसार दुसऱ्या COLUMN मधील एकूण रकमेची (Total Amount) बेरीज गटनिहाय मिळवण्यासाठी हे कमांड वापरतात.
 select city, SUM(amount) from sales group by(city);
+
+ोणत्याही विशिष्ट COLUMN नुसार गट (Group) करून, ज्या COLUMN ची सरासरी (Average) एका ठराविक मूल्यापेक्षा 
+(Value) जास्त आहे, फक्त असाच डेटा फिल्टर करून मिळवण्यासाठी हे कमांड वापरतात.
+SELECT city, AVG(amount) FROM sales_table GROUP BY city HAVING AVG(amount) > 20000;
