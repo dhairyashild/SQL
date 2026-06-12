@@ -1,3 +1,19 @@
+REMEMBER ONLY
+
+-- AGGREGATE WORKS ONLY ON NUMBERS
+SELECT MIN(amount) FROM sales;  -- 500
+SELECT MAX(amount) FROM sales;  -- 50000
+SELECT AVG(amount) FROM sales;  -- 17833.33
+SELECT SUM(amount) FROM sales;  -- 53500
+SELECT COUNT(*) FROM sales;     -- 3
+SELECT product, SUM(amount) FROM sales GROUP BY product;
+
+
+
+select city, count(*) from sales group by(city);        --- ekhada shabd kiti vela repeat ahe 1 
+select city, SUM(AMOUNT) from sales group by(city);
+select CATEGORY, count(*) from sales group by(CATEGORY);
+--------------------------------------------------------------------------------------------------
 -- TABLE: sales
 -- id | product  | amount
 -- 1  | Laptop   | 50000
@@ -35,3 +51,31 @@ SELECT product, SUM(amount) FROM sales GROUP BY product HAVING SUM(amount) > 100
 -- product  | SUM(amount)
 -- Laptop   | 50000
 -- Chair    | 3000
+--------------------------------------------------------------------------------------------------
+
+#sales TABLE
+
+-- id | product | category    | amount | city
+-- 1  | Laptop  | Electronics | 50000  | Mumbai
+-- 2  | Mouse   | Electronics | 500    | Delhi
+-- 3  | Chair   | Furniture   | 3000   | Mumbai
+-- 4  | Table   | Furniture   | 8000   | Bangalore
+-- 5  | Phone   | Electronics | 25000  | Delhi
+
+
+select city, count(*) from sales group by(city); -- Column मधील प्रत्येक शब्द किती वेळा पुन्हा आला आहे?
+
+-- city       | count(*)
+-- Mumbai     | 2    
+-- Delhi      | 2   
+-- Bangalore  | 1    
+
+कोणत्याही विशिष्ट COLUMN नुसार दुसऱ्या COLUMN मधील एकूण रकमेची (Total Amount) बेरीज गटनिहाय मिळवण्यासाठी हे कमांड वापरतात.
+select city, SUM(amount) from sales group by(city);
+
+-- Output:
+-- city       | SUM(amount)
+-- Mumbai     | 53000   (50000 + 3000)
+-- Delhi      | 25500   (500 + 25000)
+-- Bangalore  | 8000    (8000)
+
