@@ -12,7 +12,34 @@ CREATE TABLE library (                 # WRONG BELOW ERRORS ALL I DO
 );
 
 
-INSERT INTO library(book_id,title,author,price)values     # () missing  
-(0,"a","a",10);                                           # () miss    # "  " for varchar values
+INSERT INTO library(book_id,title,author,price)values     # () missing   ###REMEMBER II NAME() V
+(0,"a","a",10);                                           # () miss  # " varchar-sathi alpviram"
+
+SELECT * FROM emp;                           #  (*)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
