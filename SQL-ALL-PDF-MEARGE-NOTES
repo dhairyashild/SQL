@@ -1,0 +1,1804 @@
+# DATABASE & SQL COMPLETE NOTES (Beginner to Advanced)
+
+## PART 1: DATABASE FUNDAMENTALS
+
+### 1. What is Data and Database
+
+Data refers to raw facts and figures that do not have meaning on their own. Examples include numbers, text, images, and dates.
+
+Real-Time Examples of Data:
+- Student roll number, name, marks, and attendance
+- Customer name, mobile number, and email ID
+- Product price and quantity in a shopping app
+
+A Database is an organized collection of related data stored electronically so that it can be easily accessed, managed, and updated.
+
+Real-Time Database Examples:
+- College database storing student information
+- Bank database storing account and transaction details
+- E-commerce database storing customer orders and payments
+
+### 2. Need for Databases
+
+Before databases, data was stored in files or registers, which caused problems like duplication and data loss. Databases help overcome these issues.
+
+Why Databases are Needed (Real-Time View):
+- Banks: To securely manage millions of customer transactions daily
+- Hospitals: To store patient records, reports, and prescriptions
+- Companies: To manage employee records and payroll
+- Online Apps: To store user login details and activities
+
+Databases provide security, accuracy, fast searching, and easy backup and recovery.
+
+### 4. DBMS vs RDBMS
+
+DBMS (Database Management System) allows users to store and manage data, usually in file format.
+
+RDBMS (Relational Database Management System) stores data in tables and maintains relationships between tables using keys.
+
+Real-Time Example:
+- DBMS: Storing employee data in a single file without relation
+- RDBMS: Employee table linked with Department table using Department ID
+
+### 4. Introduction to SQL
+
+SQL (Structured Query Language) is a language used to communicate with databases. It helps users perform operations like inserting data, retrieving data, updating records, and deleting records.
+
+Real-Time SQL Usage:
+- HR retrieves employee salary details
+- Bank checks customer account balance
+- Online shopping app fetches order history
+
+Example SQL Query:
+SELECT * FROM student;
+This retrieves all student records from the database.
+
+### 5. Types of SQL Commands
+
+SQL commands are grouped based on their functionality to make database operations easier.
+
+DDL (Data Definition Language): Used to create or modify database structures.
+Real-Time Example: Creating a student table for a new batch
+Commands: CREATE, ALTER, DROP, TRUNCATE
+
+## PART 2: TABLES, KEYS & DATA TYPES
+
+### 1. Tables, Rows, and Columns
+
+In SQL, data is stored inside tables. A table looks similar to an Excel sheet and is used to store information about one specific subject such as students, employees, or products.
+
+Table: A table is a collection of related data stored in rows and columns.
+Row: A row represents a single record or entry in a table.
+Column: A column represents a specific attribute or field.
+
+Example: Students Table
+
+StudentID | Name | Age | Course | City
+1 | Aisha | 20 | SQL | Pune
+2 | Rahul | 22 | Python | Mumbai
+
+### 2. Primary Key and Foreign Key
+
+A Primary Key is used to uniquely identify each record in a table. It ensures that no duplicate or empty values exist.
+
+Rules of Primary Key:
+- Must be unique
+- Cannot contain NULL values
+- Only one primary key allowed per table
+
+Example: StudentID as Primary Key in Students table
+
+A Foreign Key is used to create a relationship between two tables. It refers to the primary key of another table.
+
+Example Tables: Orders and Customers
+
+Customers Table: CustomerID (Primary Key), CustomerName
+Orders Table: OrderID (Primary Key), CustomerID (Foreign Key), OrderDate
+
+Real-Time Example: In an online shopping website, customer details are stored in one table and order details are stored in another table. The CustomerID connects both tables.
+
+### 3. SQL Data Types
+
+SQL Data Types define the type of data that can be stored in a column. Choosing the correct data type improves performance and data accuracy.
+
+#### 3.1 Numeric Data Types
+
+Numeric data types are used to store numbers.
+
+INT: Used for whole numbers (Example: Age, Quantity)
+DECIMAL(p,s): Used for exact decimal values (Example: Salary, Price)
+
+Real-Time Example: In a payroll system, salary is stored using DECIMAL.
+
+#### 3.2 Character Data Types
+
+Character data types are used to store text or strings.
+
+CHAR(n): Fixed length text (Example: Gender)
+VARCHAR(n): Variable length text (Example: Name, Email)
+
+Real-Time Example: In a registration form, names and emails are stored using VARCHAR.
+
+#### 3.3 Date and Time Data Types
+
+Date data types are used to store dates and time information.
+
+DATE: Stores only date (Example: Date of Birth)
+TIME: Stores only time (Example: Login Time)
+
+### 4. Complete Real-Time Example Table
+
+CREATE TABLE Employees (
+EmpID INT PRIMARY KEY,
+EmpName VARCHAR(50),
+Salary DECIMAL(10,2),
+DateOfJoining DATE,
+Department VARCHAR(30)
+);
+
+### 5. Summary
+
+Tables store data, rows represent records, and columns represent fields. Primary keys uniquely identify records, while foreign keys connect related tables. SQL data types define what kind of data can be stored and help design efficient databases.
+
+## PART 3: DDL COMMANDS (Data Definition Language)
+
+### 1. Introduction to DDL
+
+DDL (Data Definition Language) commands in SQL are used to define, create, modify, and delete database structures such as tables. These commands affect the database schema (structure) and not the data stored inside the tables.
+
+Common DDL Commands:
+CREATE ALTER DROP TRUNCATE
+
+### 2. CREATE Command
+
+The CREATE command is used to create new tables in a database.
+Syntax:
+CREATE TABLE table_name (column_name datatype, ...);
+
+Example: Student Table
+CREATE TABLE student (
+student_id INT,
+student_name VARCHAR(50),
+age INT
+);
+
+### 3. ALTER Command
+
+The ALTER command is used to modify the structure of an existing table.
+Add a new column:
+ALTER TABLE student ADD email VARCHAR(50);
+
+Rename a column:
+ALTER TABLE student RENAME COLUMN student_name TO full_name;
+
+Add column:
+Add age column with datatype as varchar
+
+Change datatype:
+Modify datatype of age to INT
+
+### 4. DROP Command
+
+The DROP command permanently removes a table and all its data from the database.
+Example:
+DROP TABLE student;
+
+### 5. TRUNCATE Command
+
+The TRUNCATE command removes all rows from a table but keeps the table structure.
+
+### 6. DROP vs TRUNCATE
+
+DROP deletes both the table structure and the data permanently.
+TRUNCATE deletes only the data and keeps the table structure.
+
+### 7. Student Assignments
+
+1. Create a table named library with columns: book_id, title, author, price.
+2. Add a column published_year to the library table.
+3. Remove all records from the library table.
+4. Remove the library table completely.
+
+CREATE TABLE library(
+book_id INT PRIMARY KEY,
+title VARCHAR(100),
+author VARCHAR(50),
+price DECIMAL(6,2)
+);
+
+ALTER TABLE library ADD published_year INT;
+
+TRUNCATE TABLE library;
+
+DROP TABLE library;
+
+A project is completed and the project_details table is no longer required. What SQL command would you use, and why?
+
+Empty Table but Keep Structure
+
+A new requirement says every student must have an email ID. The student table already exists. How will you handle this?
+
+In the employee table, column name should be renamed to employee_name. Which command will you use?
+
+Drop One Column Only
+
+You need to quickly remove millions of rows from a log table. Performance is important. What will you use? -> truncate
+
+DDL commands like TRUNCATE and DROP are auto-commit and cannot be rolled back. Can you truncate the orders table if it has a foreign key relationship with customers?
+
+## PART 4: DML COMMANDS (Data Manipulation Language)
+
+### 1. Introduction to DML Commands
+
+DML (Data Manipulation Language) commands are used to insert, update, and delete data in tables. These commands affect data only, not the table structure.
+
+### 2. INSERT Command
+
+Used to insert new records into a table.
+
+Example:
+INSERT INTO student (student_id, name, age) VALUES (1, 'Rahul', 22);
+INSERT INTO student (student_id, name, age) VALUES (2, 'Asha', 21), (3, 'Kiran', 23);
+INSERT INTO student_bkp SELECT * FROM student; (you should have student_bkp table created before which has same structure like student table)
+
+Inserting data in few columns:
+Insert only employee_id and employee_name into employee.
+INSERT INTO employee (employee_id, employee_name) values (1, 'Rahul')
+
+### 3. UPDATE Command
+
+Used to modify existing records.
+
+Example:
+UPDATE student SET age = 23 WHERE student_id = 1;
+
+Dangerous example (without WHERE):
+UPDATE student SET age = 25;
+
+Update multiple cols in a table:
+UPDATE student SET age = 23, email = 'abc.xyz@gmail.com' WHERE student_id = 1;
+
+### 4. DELETE Command
+
+Used to delete records from a table.
+DELETE FROM student WHERE student_id = 3;
+
+4. Increase salary by 10% for IT department.
+UPDATE employee SET salary = salary * 1.10 WHERE department_id = 10; (IT department belong to department_id = 10)
+
+Q: Create Order.user and Customer, archive orders table
+Generate more scenarios on update (complex ones)
+
+5. Delete inactive customers.
+DELETE FROM customer WHERE status = 'inactive';
+
+6. Archive old orders.
+INSERT INTO archive_orders SELECT * FROM orders WHERE order_date < '2022-01-01';
+
+Complex Scenarios
+
+7. Mark orders as closed if delivered.
+
+8. Delete duplicate users based on email.
+DELETE FROM users WHERE user_id NOT IN (SELECT MIN(user_id) FROM users GROUP BY email);
+
+9. Increase salary for employees earning below department average.
+UPDATE employee e SET salary = salary * 1.10 WHERE salary < (SELECT AVG(salary) FROM employee WHERE department = e.department);
+
+### 7. Key Takeaways
+
+INSERT adds data, UPDATE modifies data, DELETE removes data. WHERE clause is critical for safe data manipulation.
+
+## PART 5: DQL (SELECT) & OPERATORS
+
+### 1. SELECT Statement
+
+The SELECT statement is used to retrieve data from one or more tables in a database. It allows users to specify which columns they want to view or analyze.
+
+Example:
+SELECT employee_id, employee_name, salary FROM employees;
+The above query retrieves employee id, name, and salary from the employees table.
+
+### 2. WHERE Clause
+
+The WHERE clause is used to filter records based on specific conditions. It ensures that only rows that satisfy the condition are returned.
+
+Example:
+SELECT * FROM employees WHERE department <> "IT";
+This query returns only employees who belong to the IT department.
+
+### 3. Comparison Operators
+
+Comparison operators are used in the WHERE clause to compare column values with
+1. = (Equal to)
+2. != or <> (Not equal to)
+3. > (Greater than)
+4. < (Less than)
+5. >= (Greater than or equal to)
+6. <= (Less than or equal to)
+Example:
+SELECT * FROM employees WHERE salary >= 50000;
+
+### 4. Logical Operators
+
+Logical operators are used to combine multiple conditions within a WHERE clause. They help in constructing complex queries.
+
+Logical Operators:
+1. AND
+2. OR
+3. NOT
+
+Example using AND operator:
+SELECT * FROM employees WHERE department = "IT" AND salary > 60000;
+
+Example using OR operator:
+SELECT * FROM employees WHERE department = "IT" OR department = "HR";
+SELECT * FROM employees WHERE department = "IT" OR salary > 60000;
+
+Example using NOT operator:
+SELECT * FROM employees WHERE NOT department = "Finance";
+
+### 5. Combining Logical and Comparison Operators
+
+Complex conditions can be constructed by combining logical and comparison operators using parentheses for clarity.
+
+Example:
+SELECT employee_name, department, salary
+FROM employees
+WHERE (department = 'IT' OR department = 'HR') AND salary > 50000;
+
+## PART 6: SQL CONSTRAINTS
+
+### What are Constraints?
+
+Constraints are rules applied to table columns to control the type of data that can be inserted into a table.
+In simple words, constraints protect your data from becoming wrong or messy.
+
+### Why Do We Need Constraints?
+
+Imagine you are maintaining data without any rules:
+- Student ID can be repeated
+- Marks cannot be negative
+- Phone number can be NULL
+- Orders cannot exist without a customer
+
+This makes the database unreliable and incorrect.
+So, constraints are used to maintain data accuracy and reliability.
+
+#### 1 To Avoid Duplicate Data
+
+Without constraints, the same data can be entered multiple times.
+Example: Two students having the same StudentID
+Primary Key prevents this.
+
+#### 2 Maintain Data Accuracy
+
+Constraints ensure valid data only is stored.
+Example:
+Salary should not be negative
+Age should be greater than 0
+CHECK constraint handles this.
+
+#### 3 To Avoid Missing Important Data
+
+Some data is mandatory.
+Example: Student name, Order date, Employee ID
+NOT NULL ensures important data is always present.
+
+#### 4 To Maintain Relationship Between Tables
+
+Databases usually have multiple related tables.
+Example:
+Orders table depends on Customers table
+A student must belong to a valid class
+FOREIGN KEY ensures data consistency between tables.
+
+#### 5 To Automatically Assign Values
+
+Sometimes we don't want users to insert values manually.
+Example: Country = India
+
+### 1. Primary Key
+
+A PRIMARY KEY uniquely identifies each record in a table. It cannot contain NULL values and must be unique.
+
+Scenario 1:
+You have a STUDENTS table and want to uniquely identify each student.
+Answer:
+CREATE TABLE Students (StudentID INT PRIMARY KEY, Name VARCHAR(50));
+
+Scenario 2:
+Add primary key to existing table.
+Answer:
+ALTER TABLE Students ADD PRIMARY KEY (StudentID);
+
+Q: Can a table have multiple primary keys?
+Answer: No, but it can have a composite primary key.
+
+### 2. Foreign Key
+
+A FOREIGN KEY enforces a relationship between two tables.
+
+Scenario 1: Orders table linked to Customers table.
+CREATE TABLE Customers (CustomerID INT PRIMARY KEY, CustomerName VARCHAR(100));
+CREATE TABLE Orders (OrderID INT PRIMARY KEY, CustomerID INT, FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID));
+
+### 3. NOT NULL Constraint
+
+Ensures column cannot contain NULL values.
+
+Scenario:
+Employee name must be mandatory.
+Answer:
+CREATE TABLE Employees (EmpID INT, EmpName VARCHAR(50) NOT NULL);
+
+Q: Difference between NOT NULL and PRIMARY KEY?
+Answer: Primary key is unique + not null; NOT NULL only restricts null.
+
+### 4. UNIQUE Constraint
+
+Ensures all values in column are different.
+
+Scenario:
+Email IDs must be unique.
+Answer:
+CREATE TABLE Users (UserID INT, Email VARCHAR(100) UNIQUE);
+
+Q: Can UNIQUE accept NULL?
+Answer: Yes (one NULL allowed in most DBs).
+
+### 5. CHECK Constraint
+
+Ensures values meet specific condition.
+
+Scenario:
+Salary must be greater than 5000.
+Answer:
+CREATE TABLE Employees (Salary INT CHECK (Salary > 5000));
+
+### 6. DEFAULT Constraint
+
+Provides a default value when none is specified.
+Scenario: Default country as India.
+Answer:
+CREATE TABLE Customers (id INT, Country VARCHAR(50) DEFAULT 'India');
+
+### Scenario Questions on SQL Constraints
+
+A company database stores employee details, and every employee must have a name.
+1. Which SQL constraint should be applied to the emp_name column?
+2. While inserting data into a table, a user skips entering the phone number, but the system does not allow it. Which constraint is defined on table?
+3. An email ID must be different for every user in a registration table.
+4. A college wants to make sure no two students have the same registration number.
+5. A product price should always be greater than zero.
+6. An employee's age must be between 18 and 60.
+7. If no value is provided for status, it should automatically be set to 'Active'. Which constraint can be used?
+
+## PART 7: SCENARIO-BASED SQL PRACTICE QUESTIONS
+
+### Day 1: Introduction to Databases & SQL Basics
+
+1. A school maintains student details like name, roll number, class, and marks. Why is storing this information in a database better than maintaining it in separate files?
+2. A small shop owner stores customer details in a file system but faces data duplication. Which type of database system (DBMS or RDBMS) would solve this problem and why?
+3. An organization wants to insert employee records, update salaries, and view employee lists. Identify which types of SQL commands would be used for each operation.
+
+### Day 2: SQL Architecture & Data Types
+
+4. A company database stores employee information in tabular form. Identify what represents rows, columns, and the table in this scenario.
+5. A college assigns a unique roll number to each student and uses it to identify records. Which key should be applied and why?
+6. An order table stores CustomerID to connect orders with customers. Which key is required to maintain this relationship?
+7. Choose appropriate SQL data types for storing product price, customer name, and employee joining date.
+
+### Day 3: DDL Commands
+
+8. A new company wants to store department details for the first time. Which DDL command should be used to create the table?
+9. The company decides to add a new column 'Location' to the department table. Which SQL command should be used?
+10. The company no longer wants to maintain the department table permanently. Which command should be used to remove it?
+11. The company wants to delete all department records but keep the table structure. Which DDL command should be used?
+
+### Day 4: DML Commands
+
+12. An HR executive wants to add a new employee record into the database. Which SQL command should be used?
+13. An employee receives a promotion and their salary needs to be changed. Which command should be used and why is the WHERE clause important?
+14. A resigned employee's record must be removed from the database. Which SQL command should be used?
+15. What could happen if the WHERE clause is not used while updating employee salaries?
+
+### Day 5: DQL Commands
+
+16. A manager wants to view all employee records from the database. Which SQL command should be used?
+17. The manager only wants to see employee names and departments, not all columns. How should the SELECT statement be written conceptually?
+18. HR wants to view employees whose salary is greater than 40,000. Which type of operator is required?
+19. The company wants to find employees who work in the IT department and have a salary above 50,000. Which logical operator will be used?
+
+### Day 6: Constraints
+
+20. A Student table must ensure each student has a unique roll number. Which constraint should be applied?
+21. A bank database should not allow NULL values for account numbers. Which constraint is suitable?
+22. A product table should not allow product price to be less than zero. Which constraint enforces this rule?
+23. A Status column should have a default value of 'Active'. Which constraint should be applied?
+24. An order table should allow only Customer IDs that already exist in the Customer table. Which constraint ensures this relationship?
+
+## PART 8: JOINS
+
+### 1. Introduction to Databases, JOINs, Redundancy & Integrity
+
+In relational databases, data is stored across multiple tables to keep it organized, accurate, and easy to maintain. JOINs help us retrieve related data spread across these tables.
+
+Why We Do NOT Store Everything in One Table: Because of Redundancy and Integrity issues.
+
+### 2. What is Redundancy?
+
+Definition: Redundancy means unnecessary repetition of the same data in multiple places.
+
+Example (Without Normalization - Bad Design)
+emp_id | emp_name | dept_name | dept_location
+1 | Rahul | IT | Pune
+2 | Vikram | IT | Pune
+
+- Dept information is repeated for every employee.
+
+Problems Due to Redundancy:
+- More storage usage
+- Data inconsistency
+- Update issues
+
+### 3. What is Data Integrity?
+
+Definition: Integrity ensures data is accurate, consistent, and reliable.
+
+Example: If an employee has dept_id = 10, that department must exist in Departments table.
+
+Types of Integrity:
+- Entity Integrity: Primary key cannot be NULL
+- Referential Integrity: Foreign key must exist in parent table
+- Domain Integrity: Valid data types and values
+
+JOINS rely heavily on referential integrity.
+
+### 4. INNER JOIN
+
+Definition: Returns only matching rows from both tables.
+
+Query:
+SELECT e.emp_name, d.dept_name
+FROM Employees e
+INNER JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+Expected Output:
+emp_name | dept_name
+Rahul | IT
+Vikram | IT
+Anika | HR
+(Neha excluded because dept_id is NULL)
+
+Scenario Question & Answer: List employees who belong to valid departments. INNER JOIN
+
+### 5. LEFT JOIN (LEFT OUTER JOIN)
+
+Definition: Returns all rows from left table, matched rows from right table.
+
+Query:
+SELECT e.emp_name, d.dept_name
+FROM Employees e
+LEFT JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+Expected Output:
+emp_name | dept_name
+Rahul | IT
+Vikram | IT
+Anika | HR
+Neha | NULL
+
+### 6. RIGHT JOIN (RIGHT OUTER JOIN)
+
+Definition: Returns all rows from right table, matching rows from left table.
+
+Query:
+SELECT e.emp_name, d.dept_name
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+Expected Output:
+emp_name | dept_name
+Rahul | IT
+Vikram | IT
+Anika | HR
+NULL | Finance
+
+Scenario Question & Answer: Find departments without employees.
+SELECT d.dept_name
+FROM Employees e
+RIGHT JOIN Departments d
+ON e.dept_id = d.dept_id
+WHERE e.emp_id IS NULL;
+
+### 7. FULL OUTER JOIN
+
+Definition: Returns all records from both tables.
+
+Query:
+SELECT e.emp_name, d.dept_name
+FROM Employees e
+FULL OUTER JOIN Departments d
+ON e.dept_id = d.dept_id;
+
+Expected Output:
+emp_name | dept_name
+Rahul | IT
+Vikram | IT
+Anika | HR
+Neha | NULL
+NULL | Finance
+
+Scenario Question & Answer: Show all mismatched records from both tables. FULL OUTER JOIN
+
+### 8. SELF JOIN
+
+Definition: Joining a table with itself.
+
+Query:
+SELECT e.emp_name AS employee, m.emp_name AS manager
+FROM Employees e
+LEFT JOIN Employees m
+ON e.manager_id = m.emp_id;
+
+Expected Output:
+employee | manager
+Rahul | NULL
+Anika | Rahul
+Vikram | Rahul
+Neha | Anika
+
+Scenario Question & Answer: Display employee-manager mapping. SELF JOIN
+
+### 9. CROSS JOIN
+
+Definition: Returns Cartesian product.
+
+Query:
+SELECT emp_name, dept_name
+FROM Employees
+CROSS JOIN Departments;
+
+Output: 4 employees x 3 departments = 12 rows
+
+Scenario Question & Answer: Generate all employee-department combinations. CROSS JOIN
+
+### 10. NULL Handling in JOINS
+
+Important Rules:
+- NULL never equals NULL
+- INNER JOIN removes NULLs automatically
+- LEFT/RIGHT JOIN keeps NULLs
+
+Example:
+WHERE dept_id IS NULL;
+Used to find missing relationships.
+❌ dept_id = NULL (Wrong)
+✅ dept_id IS NULL (Correct)
+
+### 11. JOIN with ON vs WHERE (Very Important)
+
+Difference:
+- ON filters data while joining
+- WHERE filters data after join
+
+Using WHERE on right table after LEFT JOIN converts it to INNER JOIN.
+
+### 12. Practice Questions WITH Answers
+
+Easy: List employees with department names. INNER JOIN
+Medium: Find departments without employees. RIGHT JOIN + IS NULL
+Advanced: Find employees earning more than managers. SELF JOIN
+
+### 13. Interview Tips
+
+INNER JOIN = common data
+LEFT JOIN = missing on right
+FULL JOIN = audit & reconciliation
+SELF JOIN = hierarchy
+
+## PART 9: JOIN PRACTICE SCENARIOS
+
+Purpose: This document is designed for student practice and hands-on learning. The scenarios avoid common examples (Employee, Department, Student, Course) and focus on real-world business cases to strengthen JOIN selection skills.
+
+For each scenario:
+1. Read the requirement carefully
+2. Identify which table is primary
+3. Choose the correct JOIN type
+4. Write the SQL query
+5. Validate output logically (rows included & excluded)
+6. Encourage students to sketch table relationships before coding
+
+### INNER JOIN - Practice Scenarios
+
+Use INNER JOIN when you need only matching records from both tables.
+
+#### Scenario 1: Customers & Orders
+
+Tables:
+Customers(customer_id, customer_name, city)
+Orders(order_id, customer_id, order_date, amount)
+
+Practice Questions:
+1. Display customers who have placed at least one order.
+2. Retrieve order ID, order date, amount, and customer name.
+3. Show customers who placed orders worth more than ₹10,000.
+4. Display orders placed by customers from Mumbai.
+
+#### Scenario 2: Doctors & Appointments
+
+Tables:
+- Doctors(doctor_id, doctor_name, specialization)
+- Appointments(appointment_id, doctor_id, patient_name, appointment_date)
+
+Practice Questions:
+1. List doctors who have appointments scheduled.
+2. Show doctor name, specialization, and patient name.
+3. Display all appointments for doctors specialized in Neurology.
+4. Find doctors who treated more than one patient.
+
+#### Scenario 3: Users & Payments
+
+Tables:
+- Users(user_id, username, registration_date)
+- Payments(payment_id, user_id, amount, payment_date)
+
+Practice Questions:
+1. Find users who have made payments.
+2. Display username along with payment amount and date.
+3. Show payments made by users registered in the last 6 months.
+4. Identify users who made payments above ₹5,000.
+
+### LEFT JOIN - Practice Scenarios
+
+Use LEFT JOIN when all records from the left table must appear, even without matches.
+
+#### Scenario 4: Products & Sales
+
+Tables:
+Products(product_id, product_name, price)
+Sales(sale_id, product_id, quantity, sale_date)
+
+Practice Questions:
+1. Display all products including those never sold.
+2. Find products that do not have any sales records.
+3. Display product name and quantity sold (NULL allowed).
+4. Show products priced above ₹1,000 with or without sales.
+
+#### Scenario 5: Mobile Apps & Reviews
+
+Tables:
+- Apps(app_id, app_name, category)
+- Reviews(review_id, app_id, rating, review_date)
+
+Practice Questions:
+1. Show all apps along with their ratings.
+2. Identify apps that have not received any reviews.
+3. Display app name, category, and review rating.
+4. Find apps in the "Finance" category without reviews.
+
+#### Scenario 6: Countries & Vaccination Records
+
+Tables:
+Countries(country_id, country_name, region)
+Vaccinations(vacc_id, country_id, vaccinated_count, report_date)
+
+Practice Questions:
+1. Display all countries including those without vaccination data.
+2. Find countries where vaccination records are missing.
+3. Display country name with vaccinated count.
+4. Identify countries in Asia without vaccination records.
+
+### RIGHT JOIN - Practice Scenarios
+
+Use RIGHT JOIN when all records from the right table must be preserved.
+
+#### Scenario 7: Movies & Awards
+
+Tables:
+Movies(movie_id, movie_name, release_year)
+Awards(award_id, movie_id, award_name, award_year)
+
+Practice Questions:
+1. Display all awards including ones not linked to any movie.
+2. Find awards that do not have corresponding movie records.
+3. Display award name along with movie name (if available).
+4. Identify awards given after 2020 with or without movie info.
+
+#### Scenario 8: Purchase Contracts & Vendors
+
+Tables:
+Contracts(contract_id, vendor_id, contract_value)
+Vendors(vendor_id, vendor_name)
+
+Practice Questions:
+1. Display all purchase contracts with vendor details.
+2. Identify contracts where vendor information is missing.
+3. Display vendor name (if exists) and contract value.
+4. Show all contracts worth more than £50 lakhs.
+
+#### Scenario 9: Warehouses & Shipments
+
+Tables:
+Warehouses(warehouse_id, location)
+Shipments(shipment_id, warehouse_id, shipment_date)
+
+Practice Questions:
+1. Display all shipments including those without warehouse info.
+2. Identify shipments linked to non-existing warehouses.
+3. Display shipment date and warehouse location (NULL allowed).
+4. Find shipments made in the last 30 days.
+
+### JOIN IDENTIFICATION CHALLENGE
+
+Choose only the correct JOIN type (no SQL required).
+
+1. Show all products and their sales details (even unsold ones)
+2. Display users who completed payments
+3. Show all awards issued by the organization
+4. Find apps that never received reviews
+5. Display all contracts even if vendor data is missing
+
+Expected JOIN Types:
+1. LEFT JOIN
+2. INNER JOIN
+3. RIGHT JOIN
+4. LEFT JOIN + IS NULL
+5. RIGHT JOIN
+
+## PART 10: ADVANCED SQL - SUBQUERIES
+
+### 1. What Is a Subquery?
+
+A subquery is a query written inside another SQL query. The result of the inner query is used by the outer query.
+
+Key Points:
+- Subqueries are also called nested queries
+- The inner query executes first
+- The result is passed to the outer query
+
+Can return:
+- A single value
+- Multiple values
+- A table-like result
+
+Basic Syntax:
+SELECT column_name
+FROM table_name
+WHERE column_name OPERATOR (
+SELECT column_name
+FROM table_name
+WHERE condition
+);
+
+### 2. Real-Time Scenario for Subqueries
+
+Scenario: Employee & Department
+
+Tables: Employees (emp_id, name, salary, dept_id)
+Departments (dept_id, dept_name, location)
+
+Example:
+SELECT name
+FROM Employees
+WHERE dept_id = (
+SELECT dept_id
+FROM Departments
+WHERE dept_name = 'IT'
+);
+
+### 3. Types of Subqueries
+
+#### 3.1 Single-Row Subquery
+
+Returns one value. Outer query compares with =, >, <.
+
+Example:
+SELECT name
+FROM Employees
+WHERE salary > (
+SELECT AVG(salary)
+FROM Employees
+);
+
+#### 3.2 Multi-Row Subquery
+
+Returns multiple values. Outer query uses IN / NOT IN.
+
+Example:
+SELECT name
+FROM Employees
+WHERE dept_id IN (
+SELECT dept_id
+FROM Departments
+WHERE location = 'Pune'
+);
+
+### 4. IN and NOT IN (With Diagrams)
+
+IN Operator:
+Employee.dept_id = 10
+IN (10, 20, 30) -> TRUE
+IN (40, 50) -> FALSE
+
+Example:
+SELECT name
+FROM Employees
+WHERE dept_id IN (
+SELECT dept_id
+FROM Departments
+WHERE dept_name IN ('IT', 'HR')
+);
+
+NOT IN:
+Employee dept_id = 10
+NOT IN (20, 30, 40) -> TRUE
+NOT IN (10, 50) -> FALSE
+
+NULL Problem in NOT IN:
+Subquery Result -> (10, 20, NULL)
+NOT IN comparison -> UNKNOWN -> No rows returned
+
+Example:
+SELECT name
+FROM Employees
+WHERE dept_id NOT IN (
+SELECT dept_id
+FROM Departments
+WHERE dept_name = 'Finance'
+);
+
+### 5. Correlated Subqueries
+
+A correlated subquery depends on the outer query and executes once per outer row.
+
+Real-Time Scenario: Find employees earning more than department average
+
+Example:
+SELECT e1.name, e1.salary, e1.dept_id
+FROM Employees e1
+WHERE e1.salary > (
+SELECT AVG(e2.salary)
+FROM Employees e2
+WHERE e2.dept_id = e1.dept_id
+);
+Subquery uses value from outer query
+
+### 6. EXISTS and NOT EXISTS
+
+EXISTS:
+Subquery returns rows? YES -> EXISTS = TRUE, NO -> EXISTS = FALSE
+
+Example:
+SELECT name
+FROM Departments d
+WHERE EXISTS (
+SELECT 1
+FROM Employees e
+WHERE e.dept_id = d.dept_id
+);
+
+NOT EXISTS:
+Subquery returns rows? YES -> NOT EXISTS = FALSE, NO -> NOT EXISTS = TRUE
+
+Example:
+SELECT dept_name
+FROM Departments d
+WHERE NOT EXISTS (
+SELECT 1
+FROM Employees e
+WHERE e.dept_id = d.dept_id
+);
+
+### 7. IN vs EXISTS - Visual Comparison
+
+IN: Compares VALUES, NULL causes issue, Good for small data sets
+EXISTS: Checks ROW presence, NULL-safe, Good for large data sets
+
+### 8. Practice Questions
+
+Level 1:
+1. Find employees earning more than maximum salary in HR department
+2. Find employees working in departments located in Mumbai
+
+Level 2:
+1. Find employees whose salary is higher than the department average
+2. Find departments that have no employees
+
+Level 3 (Correlated Queries):
+1. Find employees who are the highest paid in their department
+2. Find departments where average salary is above company average
+
+## PART 11: SET OPERATIONS (UNION, INTERSECT)
+
+### 1. Sample Tables Used
+
+CREATE TABLE students_2024 (
+student_id INT,
+student_name VARCHAR(50)
+);
+
+CREATE TABLE students_2025 (
+student_id INT,
+student_name VARCHAR(50)
+);
+
+### 2. UNION
+
+UNION is used to combine results of two SELECT queries and removes duplicate rows automatically.
+
+UNION Rules:
+- Same number of columns
+- Matching data types
+- Same column order
+
+Example: UNION
+SELECT student_id, student_name FROM students_2024
+UNION
+SELECT student_id, student_name FROM students_2025;
+
+1. Data is fetched from students_2024
+2. Data is fetched from students_2025
+3. Results are merged
+4. Duplicate rows are removed
+
+### 3. UNION ALL
+
+UNION ALL combines results but does not remove duplicates. It is faster than UNION.
+
+SELECT student_id, student_name FROM students_2024
+UNION ALL
+SELECT student_id, student_name FROM students_2025;
+
+### 4. INTERSECT
+
+INTERSECT returns only rows that appear in both SELECT query results.
+
+Example: INTERSECT
+SELECT student_id, student_name FROM students_2024
+INTERSECT
+SELECT student_id, student_name FROM students_2025;
+
+### 5. Visual Explanation
+
+UNION: Table A + Table B = All unique rows
+INTERSECT: Table A + Table B = Common rows only
+
+### 6. Assignment
+
+1. Display all unique students from both years.
+2. Display all students including duplicates.
+3. Display students common in both tables.
+4. Explain UNION vs UNION ALL.
+
+### 7. Answer Key with Explanation
+
+Answer 1:
+SELECT student_id, student_name FROM students_2024
+UNION
+SELECT student_id, student_name FROM students_2025;
+Explanation: Returns all students without duplicates.
+
+Answer 2:
+SELECT student_id, student_name FROM students_2024
+UNION ALL
+SELECT student_id, student_name FROM students_2025;
+Explanation: Returns all records including duplicates.
+
+## PART 12: ORDER BY AND LIMIT
+
+### SQL ORDER BY and LIMIT Clause
+
+HOW SQL QUERY EXECUTION WORKS:
+SQL is NOT executed top-to-bottom
+FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT
+
+### 1. Introduction
+
+In SQL, ORDER BY and LIMIT are used together very frequently to:
+- Sort data in a meaningful way
+- Display top / bottom records
+- Implement pagination
+- Answer real-world business questions (latest orders, highest salary, lowest sales, etc.)
+
+### 2. Sample Table Used Throughout
+
+CREATE TABLE orders (
+order_id INT,
+customer_name VARCHAR(50),
+order_amount DECIMAL(10,2),
+order_date DATE,
+city VARCHAR(30)
+);
+
+### 3. ORDER BY Clause
+
+3.1 What is ORDER BY?
+ORDER BY is used to sort the result set based on one or more columns.
+✓ Sorting happens after WHERE and before LIMIT
+
+3.2 Syntax
+SELECT column_list
+FROM table_name
+ORDER BY column1 [ASC|DESC], column2 [ASC|DESC];
+
+### 4. LIMIT Clause
+
+SELECT * FROM orders LIMIT 5;
+
+ORDER BY decides which rows come first, LIMIT decides how many of those rows you want.
+
+Sample Table: orders
+order_id | customer | amount
+1 | Ravi | 5000
+2 | Anita | 12000
+3 | Neha | 3000
+4 | Amit | 15000
+5 | John | 8000
+
+SELECT * FROM orders ORDER BY amount DESC LIMIT 2;
+
+LIMIT without ORDER BY -> result may be random
+ORDER BY + LIMIT -> correct and meaningful result
+
+### 5. STUDENT ASSIGNMENT
+
+Assignment-1: Basic Level
+1. Display all orders sorted by customer_name in ascending order.
+2. Display all orders sorted by order_amount from highest to lowest.
+3. Display the lowest order amount using ORDER BY and LIMIT.
+
+Assignment-2: Intermediate Level
+1. Display the top 3 highest orders.
+2. Display the latest 2 orders based on order_date.
+3. Display orders sorted by city first, then by order_amount descending.
+
+## PART 13: CASTING
+
+### 1. What is Casting?
+
+Casting in SQL means converting one data type into another data type.
+Example: Converting text ('100') into a number (100) so calculations can be performed.
+
+### 2. Why Casting is Required
+
+Casting is required when:
+- Data is stored in incorrect format
+- Need to perform calculations
+- Data comes from different systems
+
+Example:
+SELECT CAST('100' AS INT) + 50;
+Result: 150
+
+### 3. Syntax
+
+Standard Syntax: CAST(expression AS datatype)
+Example: SELECT CAST('5000' AS INT);
+
+### 4. Types of Casting
+
+String to Number:
+SELECT CAST('5000' AS INT);
+
+### 5. Real-Time Scenario 1 - Salary Stored as Text
+
+Problem: Salary is stored as text and cannot be used in calculations.
+Solution:
+SELECT emp_name, CAST(salary AS INT) + 5000 FROM employee;
+
+### 6. Scenario 2 - Data from Excel
+
+Problem: Dates are stored as text in Excel.
+Solution:
+SELECT CAST(order_date AS DATE) FROM orders;
+
+### 7. Scenario 3 - Joining Tables
+
+Problem: emp_id stored as INT in one table and VARCHAR in another.
+Solution: Use CAST to match types.
+
+### 8. Scenario 4 - Reporting
+
+Convert number to string for display.
+SELECT emp_name, CAST(salary AS VARCHAR) FROM employee;
+
+### 9. Scenario 5 - Calculations
+
+SELECT SUM(CAST(order_amount AS DECIMAL(10,2))) FROM orders;
+
+### 10. Casting with Filters
+
+SELECT * FROM orders WHERE CAST(order_amount AS INT) > 3000;
+
+### 11. Casting with Date
+
+SELECT YEAR(CAST('2024-05-01' AS DATE));
+
+### 12. Errors in Casting
+
+Example Error:
+SELECT CAST('ABC' AS INT);
+Solution:
+SELECT TRY_CAST('ABC' AS INT);
+
+### 13. Best Practices
+
+- Store correct data types
+- Avoid casting in JOIN when possible
+- Use TRY_CAST for safety
+- Avoid unnecessary conversions
+
+### 14. Practice Questions
+
+1. Convert salary from text to number
+2. Convert string date to DATE
+3. Perform join with different types
+4. Calculate total after casting
+
+## PART 14: ADVANCED SNOWFLAKE CONCEPTS
+
+### What is Time Travel?
+
+- Access historical data versions
+- Recover deleted/updated data
+- Restore dropped objects
+- Retention: 1–90 days
+
+### Practical Scenario
+
+- Use Time Travel to recover:
+  - Accidental DELETE in production
+  - Need immediate recovery
+  - No traditional backup available
+
+### Recovery using AT
+
+SELECT * FROM table AT (OFFSET => -300)
+Query past data instantly
+
+### Restore Data
+
+- INSERT INTO table SELECT * FROM table AT (...)
+- Recover deleted records immediately
+
+### Retention Confusion Explained
+
+- Enterprise supports up to 90 days
+- Default is 1 day
+- Actual retention depends on configuration
+- Configured via ALTER TABLE
+
+### What does Immutable Mean?
+
+- Micro-partitions are never updated
+- No overwrite of existing data
+- New version created for every change
+- Old data remains preserved
+
+1. Old micro-partition remains unchanged
+2. New micro-partition created with updated data
+3. Old partition marked inactive but not deleted
+4. Maintains multiple versions of data
+
+### How Time Travel Works Internally
+
+- Snowflake stores data versions in partitions
+- AT query reads older partitions
+- No data copy or restore required
+- Metadata controls version access
+
+### Why This is Powerful
+
+- No data loss due to overwrite
+- Instant recovery without backup
+- Efficient storage (only changed partitions updated)
+
+### Key Takeaway
+
+- Time Travel works because of immutable micro-partitions
+- Snowflake never updates data in place
+- It creates new versions instead
+- Old versions are reused for recovery
+
+### What is Zero Copy Cloning
+
+- Creates instant copy of table/schema/database
+- No physical data copy
+- Uses metadata pointers
+- Built on immutable micro-partitions
+
+### Internal Working
+
+- Data stored in micro-partitions
+- Cloning points to same partitions
+- No duplication initially
+- Works via metadata layer
+
+### Architecture Idea
+
+- Original -> Partitions A B C
+- Clone -> Same A B C
+- After update -> new partition D
+- Copy-on-write principle
+
+### Step 1: Create Table
+
+- CREATE TABLE customer(id INT, name STRING);
+- INSERT INTO customer VALUES (1,'John'),(2,'Mary');
+
+### Step 2: Clone Table
+
+CREATE TABLE customer_clone CLONE customer;
+Instant creation
+No storage cost initially
+
+### Verify Clone
+
+- SELECT * FROM customer_clone;
+- Same data as original
+
+### Modify Clone
+
+INSERT INTO customer_clone VALUES (3,'David');
+Clone diverges
+Original unchanged
+
+### Check Differences
+
+- SELECT * FROM customer;
+- SELECT * FROM customer_clone;
+- Shows independent data
+
+### Clone using Time Travel
+
+CREATE TABLE customer_backup
+CLONE customer AT (OFFSET => -3600);
+Creates historical snapshot
+
+### Schema Clone
+
+CREATE SCHEMA dev_schema CLONE prod_schema;
+- Copies all objects
+- Used for dev/test
+
+### Database Clone
+
+CREATE DATABASE dev_db CLONE prod_db;
+- Entire environment copied
+- Instant provisioning
+
+### Why Not Just Time Travel?
+
+- Time Travel = read-only historical view
+- Cloning = independent working copy
+- Time Travel limited by retention
+- Clone is permanent object
+
+### Cost Model
+
+- No cost during clone
+- Cost only when data changes
+- Stores only delta
+- Highly efficient
+
+### Corporate Use Cases
+
+- Dev/Test environment setup
+- Safe experimentation
+- Backup before changes
+- Sandbox for analytics/ML
+
+1. Use cloning before major updates
+2. Use for testing pipelines
+3. Combine with Time Travel
+4. Monitor storage after changes
+
+### Advanced Insight
+
+- Works due to immutable partitions
+- Metadata layer controls visibility
+- Copy-on-write enables independence
+- Scales for petabyte data
+
+### Key Takeaways
+
+Instant and zero copy
+Enables parallel environments
+Cost efficient
+Critical enterprise feature
+
+## PART 15: STREAMS IN SNOWFLAKE
+
+### 1. Introduction
+
+A Stream in Snowflake is a Change Data Capture (CDC) object that tracks changes (INSERT, UPDATE, DELETE) on tables using metadata. It enables incremental processing without scanning full datasets.
+
+### 2. Types of Streams
+
+There are two main types of streams:
+1. Standard Stream
+2. Append-only Stream
+
+### 3. Standard Stream
+
+Tracks INSERT, UPDATE and DELETE operations. UPDATE is captured as DELETE + INSERT because of immutable micro-partitions.
+
+Example:
+CREATE STREAM sales_stream ON TABLE sales;
+UPDATE sales SET amount=250 WHERE id=2;
+SELECT * METADATA$ACTION FROM sales_stream;
+
+Real-time Use Case:
+Banking system where transactions are updated frequently and must be tracked precisely.
+
+### 4. Append Only Stream
+
+Tracks only INSERT operations. Does not track UPDATE or DELETE. Useful for log or event data.
+
+Example:
+CREATE STREAM sales_stream ON TABLE sales APPEND ONLY=TRUE;
+INSERT INTO sales VALUES (3,'David',300);
+
+### 5. Comparison
+
+Standard Stream: Full CDC
+Append-Only Stream: Insert-only tracking
+
+### 6. Why Streams Instead of JOIN-Based Detection
+
+JOIN-based comparison requires scanning full tables, complex logic, and high cost. Streams provide precomputed change data using metadata, improving performance and reducing cost.
+
+### 7. RAW vs FACT vs Stream
+
+RAW stores source data, FACT stores transformed data, Stream tracks changes. This is not duplication but layered architecture.
+
+### 8. Behavior with TRUNCATE
+
+TRUNCATE causes stream to register DELETE for all rows and INSERT for reload, breaking incremental benefits.
+
+### 9. Best Practices
+
+Use incremental loads, avoid truncate-load with streams, consume streams regularly
+
+## PART 16: TASKS IN SNOWFLAKE
+
+### 1. Introduction to Tasks
+
+A Task in Snowflake is a database object that automates execution of SQL statements on a schedule or based on dependencies. Tasks are a core component of Snowflake ELT pipelines and remove the need for external schedulers.
+
+### 2. Why Tasks are Used
+
+Traditional ETL pipelines rely on external orchestrators such as Airflow or cron. Snowflake Tasks provide native orchestration.
+
+Key benefits:
+- Automation of pipelines
+- Incremental processing using Streams
+- Reduced operational effort
+- Better cost optimization
+- Fully managed inside Snowflake
+
+### 3. Architecture Flow
+
+Typical ELT pipeline:
+RAW TABLE -> STREAM -> TASK -> FACT TABLE
+Task picks incremental data from stream and loads into target table.
+
+### 5. Technical Implementation
+
+Step 1: Create RAW Table
+CREATE TABLE sales_raw (id INT, name STRING, amount NUMBER);
+
+Step 2: Load Data
+INSERT INTO sales_raw VALUES (1, 'John', 100), (2, 'Mary', 200);
+
+Step 3: Create Stream
+CREATE STREAM sales_stream ON TABLE sales_raw;
+
+Step 4: Create FACT Table
+CREATE TABLE sales_fact (id INT, name STRING, amount NUMBER);
+
+Step 5: Create Task
+CREATE TASK sales_task
+WAREHOUSE = COMPUTE_WH
+SCHEDULE = '5 MINUTE'
+AS
+INSERT INTO sales_fact
+SELECT id, name, amount
+FROM sales_stream
+WHERE METADATA$ACTION = 'INSERT';
+
+Step 6: Start Task
+ALTER TASK sales_task RESUME;
+
+### 6. How Tasks Work
+
+- Executes based on schedule
+- Reads only incremental data via stream
+- Inserts into output table
+- Marks stream data consumed
+- Runs continuously
+
+### 7. Task Dependency
+
+Tasks can be chained.
+Example:
+CREATE TASK task2 AFTER task1 AS SELECT ...
+Used to build multi-step pipelines.
+
+### 8. Why Not Manual or External Scheduling
+
+Manual or join-based solutions require full scan of data, are complex, and costly. Tasks with Streams process only changes, making them scalable and efficient.
+
+### 9. Best Practices
+
+Always use Streams with Tasks
+Prefer incremental processing
+Monitor using task history
+Configure warehouse properly
+
+### Summary
+
+Tasks automate data pipelines in Snowflake. Combined with Streams, they enable efficient incremental ELT processing, reduce cost, and eliminate need for external schedulers.
+
+## PART 17: TABLE TYPES IN SNOWFLAKE
+
+### Why Different Table Types?
+
+- Balance cost, performance, and recovery
+- Different lifecycle requirements
+- ETL pipelines need multiple storage layers
+- Choosing right table = efficient architecture
+
+### 1. Permanent Tables
+
+- Default table type
+- Supports Time Travel (1-90 days)
+- Supports Fail-safe (7 days)
+- Highest data protection
+- Used for business-critical data
+
+### Permanent Table - Usage & Need
+
+- Used for FACT and DIM tables
+- Required for audit and compliance
+- Supports recovery from accidental deletion
+- Best for production systems
+
+### Permanent Table Example
+
+- CREATE TABLE sales_fact (id INT, amount NUMBER);
+- Stores final transformed data
+- Used in reporting and dashboards
+
+### 2. Transient Tables
+
+No Fail-safe
+Limited Time Travel (usually 1 day)
+Lower storage cost
+Faster cleanup
+Used for non-critical data
+
+### Transient Table - Usage & Need
+
+- Used for staging layer in ELT
+- Temporary business processing tables
+- Used where recovery is not critical
+- Helps reduce storage cost
+
+### Transient Table Example
+
+- CREATE TRANSIENT TABLE stage_sales (id INT, name STRING);
+- Used between RAW and FACT
+- Intermediate transformation layer
+
+### 3. Temporary Tables
+
+Session-based tables
+Dropped automatically after session ends
+No Time Travel
+No Fail-safe
+
+### Temporary Table - Usage & Need
+
+- Used for intermediate query results
+- Used in complex transformations
+- Useful for debugging and testing
+
+### Temporary Table Example
+
+CREATE TEMP TABLE temp_calc (id INT, value STRING);
+- Used during transformations
+- Exists only in current session
+
+### Comparison (Important)
+
+- Permanent: High safety, higher cost
+- Transient: Medium safety, lower cost
+- Temporary: No safety, session-based
+- Choose based on data importance
+
+### How to Choose Table Type
+
+- Need recovery? -> Permanent
+- Need cost optimization? -> Transient
+- Need temporary computation? -> Temporary
+- Always design based on use case
+
+### Key Takeaways
+
+- Each table type serves different purpose
+- Do not use permanent for everything
+- Optimize cost vs recovery trade-off
+- Critical concept for real projects
+
+## PART 18: WINDOW FUNCTIONS ASSIGNMENT
+
+### SQL Window Functions - Student Assignment
+
+Instructions:
+1. Use the given employee table for all questions.
+2. Write SQL queries using window functions.
+3. Execute queries in an online SQL editor (DB Fiddle, SQLite Online, etc.).
+4. Submit queries along with outputs.
+
+Employee Table:
+CREATE TABLE employee (
+emp_id INT PRIMARY KEY,
+emp_name VARCHAR(100),
+department VARCHAR(50),
+job_title VARCHAR(50),
+salary INT,
+hire_date DATE,
+email VARCHAR(100)
+);
+
+Assignment Questions:
+1. Assign a row number for each employee within their department based on salary (highest first).
+2. Rank employees based on salary (including ties).
+3. Assign dense rankings for employees by salary.
+4. Find the previous employee's salary based on hire date.
+5. Find the next employee's salary based on salary order.
+6. Display highest salary in each department for every employee.
+7. Display lowest salary in each department for every employee.
+8. Calculate running total of salaries based on hire date.
+9. Calculate average salary for each department while showing all employees.
+10. Identify employees whose salary is greater than department average.
+
+Advanced Questions (Optional):
+11. Find difference between current salary and previous salary using LAG().
+12. Show salary difference between current and next employee using LEAD().
+13. Find top 2 highest paid employees in each department using window functions.
+14. Compare each employee salary with highest salary in department.
+15. Find employees who have same salary using window functions.
+
+## PART 19: ADDITIONAL PRACTICE SCENARIOS
+
+### Scenario 1: Smart City Parking System
+
+Table: parking_sessions
+Columns:
+- session_id
+- vehicle_type (Car, Bike, Truck, EV)
+- parking_zone (Zone_A, Zone_B, Zone_C)
+- entry_time
+- exit_time
+- parking_fee
+
+Tasks:
+- Find the total parking revenue collected per parking zone.
+- Calculate the average parking fee for each vehicle type.
+- Identify the maximum parking fee charged in each zone.
+- Count how many vehicles parked in each zone.
+- Display parking zones where average parking fee is greater than 100.
+
+### Scenario 2: Online Learning Platform - Course Engagement
+
+Table: course_activity
+Columns:
+- activity_id
+- course_name
+- student_id
+- activity_type (Video, Quiz, Assignment)
+- time_spent_minutes
+- activity_date
+
+Tasks:
+(Student to write queries based on aggregation and grouping)
+
+### Scenario 3: Hospital Resource Utilization
+
+Table: ward_usage
+Columns:
+- record_id
+- ward_name (ICU, Emergency, General)
+- bed_id
+- patient_days
+- treatment_cost
+- discharge_status
+
+Tasks:
+- Find total treatment cost per ward.
+- Calculate the average patient stay per ward.
+- Identify the maximum treatment cost per ward.
+- Count total discharges per ward.
+- Display wards where average patient stay exceeds 5 days.
+
+### Scenario 4: Renewable Energy Plant Monitoring
+
+Table: energy_generation
+Columns:
+- record_id
+- plant_type (Solar, Wind, Hydro)
+- location
+- units_generated
+- generation_date
+- downtime_minutes
+
+Tasks:
+- Calculate total energy generated per plant type.
+- Find average downtime per location.
+- Identify maximum energy generated in a single day per plant type.
+- Count generation records per location.
+- Display plant types with total downtime greater than 500 minutes.
+
+## PART 20: SQL QUERY EXECUTION INTERNALS
+
+### 1. When a User Writes an SQL Query
+
+Example query:
+SELECT * FROM Employees WHERE DeptId = 10;
+
+The database does not directly read data from disk. The query goes through internal steps before execution.
+
+Query Flow:
+User Query
+↓
+SQL Parser (checks syntax and object names)
+↓
+Query Optimizer (chooses best execution plan)
+↓
+Execution Engine (fetches data from memory or disk)
+
+### 2. How Data Is Stored on Disk
+
+Databases store data on disk in fixed-size units called pages (or blocks). Each table or index uses many pages.
+
+Indexes are stored separately and contain pointers to table data pages, allowing faster search.
+
+### 3. How Data Is Retrieved (Disk vs Memory)
+
+Before reading from disk, the database checks memory (buffer cache).
+
+Data retrieval flow:
+Query Execution -> Check Buffer Cache (Memory) -> If not found -> Read Page from Disk
+
+### 4. What Happens During INSERT / UPDATE / DELETE
+
+Data modification operations use transactions to guarantee correctness.
+
+DML flow:
+INSERT / UPDATE / DELETE
+↓
+Write Change to Transaction Log
+↓
+Modify Data Page in Memory
+↓
+Commit -> Changes Written to Disk
+
+### 5. Memory Usage in SQL Database
+
+Main memory areas:
+Buffer Cache - Stores data pages
+Shared Pool - Stores SQL plans
+Execution Memory - Used for sorting and joins
+
+### 6. End-to-End Example Summary
+
+User Query -> Parsed and Optimized -> Data Checked in Memory -> Fetched from Disk if Needed -> Result Returned to User
+
+## END OF NOTES
