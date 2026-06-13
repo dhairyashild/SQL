@@ -20,3 +20,60 @@ Q5. Display customers who have placed more than 2 orders.
 Q6. Display the city-wise total sales.  
 Q7. Display the top 3 customers based on total purchase amount.  
 Q8. Display average order value per customer.
+################################################################
+
+-- CREATE TABLE
+CREATE TABLE ps(
+    session_id INT PRIMARY KEY,
+    vehicle_type VARCHAR(20),
+    parking_zone VARCHAR(20),
+    entry_time DATETIME,
+    exit_time DATETIME,
+    parking_fee DECIMAL(10,2)
+);
+
+-- INSERT VALUES
+INSERT INTO ps (session_id, vehicle_type, parking_zone, entry_time, exit_time, parking_fee) VALUES
+(1, 'Car', 'Zone_A', '2026-06-01 08:00:00', '2026-06-01 10:00:00', 120.00),
+(2, 'Bike', 'Zone_A', '2026-06-01 09:00:00', '2026-06-01 11:00:00', 60.00),
+(3, 'Truck', 'Zone_B', '2026-06-01 07:00:00', '2026-06-01 14:00:00', 350.00),
+(4, 'Car', 'Zone_B', '2026-06-01 10:00:00', '2026-06-01 13:00:00', 180.00),
+(5, 'EV', 'Zone_C', '2026-06-01 08:30:00', '2026-06-01 12:00:00', 150.00),
+(6, 'Bike', 'Zone_B', '2026-06-01 11:00:00', '2026-06-01 12:30:00', 45.00),
+(7, 'Car', 'Zone_C', '2026-06-01 09:00:00', '2026-06-01 15:00:00', 300.00),
+(8, 'Truck', 'Zone_A', '2026-06-01 06:00:00', '2026-06-01 18:00:00', 600.00),
+(9, 'EV', 'Zone_A', '2026-06-01 10:30:00', '2026-06-01 13:30:00', 135.00),
+(10, 'Car', 'Zone_B', '2026-06-01 12:00:00', '2026-06-01 14:00:00', 120.00),
+(11, 'Bike', 'Zone_C', '2026-06-01 14:00:00', '2026-06-01 15:00:00', 30.00),
+(12, 'Truck', 'Zone_C', '2026-06-01 08:00:00', '2026-06-01 16:00:00', 480.00),
+(13, 'Car', 'Zone_A', '2026-06-02 09:00:00', '2026-06-02 11:00:00', 110.00),
+(14, 'EV', 'Zone_B', '2026-06-02 08:00:00', '2026-06-02 10:00:00', 100.00),
+(15, 'Bike', 'Zone_A', '2026-06-02 10:00:00', '2026-06-02 12:00:00', 50.00);
+
+-- VIEW ALL DATA
+
+
+-- Q1. Find the total parking revenue collected per parking zone.
+select parking_zone,sum(parking_fee) from ps group by parking_zone;
+
+-- Q2. Calculate the average parking fee for each vehicle type.
+select vehicle_type,avg(parking_fee) from ps group  by vehicle_type;
+
+-- Q3. Identify the maximum parking fee charged in each zone.
+
+select parking_zone,max(parking_fee) from ps group by parking_zone;
+
+
+
+-- Q4. Count how many vehicles parked in each zone.
+select parking_zone, count(*) from ps group by parking_zone;
+
+
+
+
+-- Q5. Display parking zones where average parking fee is greater than 100.
+
+select parking_zone,avg(parking_fee) from ps group by parking_zone having avg(parking_fee)>100;
+
+
+#################################################################################################
