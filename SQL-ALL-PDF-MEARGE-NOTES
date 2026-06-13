@@ -4,23 +4,19 @@
 
 ### 1. What is Data and Database
 
-Data refers to raw facts and figures that do not have meaning on their own. Examples include numbers, text, images, and dates.
-
-Real-Time Examples of Data:
+Data refers to raw facts and figures that do not have meaning on their own. 
 - Student roll number, name, marks, and attendance
-- Customer name, mobile number, and email ID
-- Product price and quantity in a shopping app
 
-A Database is an organized collection of related data stored electronically so that it can be easily accessed, managed, and updated.
 
-Real-Time Database Examples:
+Database = organized collection of related data stored electronically so that 
+it can be easily accessed, managed, and updated.
+Examples:
 - College database storing student information
 - Bank database storing account and transaction details
-- E-commerce database storing customer orders and payments
 
-### 2. Need for Databases
-
-Before databases, data was stored in files or registers, which caused problems like duplication and data loss. Databases help overcome these issues.
+### 2. Need for Databases----- duplication and data loss
+Before databases, data was stored in files or registers, 
+which caused problems like duplication and data loss. Databases help overcome these issues.
 
 Why Databases are Needed (Real-Time View):
 - Banks: To securely manage millions of customer transactions daily
@@ -34,7 +30,8 @@ Databases provide security, accuracy, fast searching, and easy backup and recove
 
 DBMS (Database Management System) allows users to store and manage data, usually in file format.
 
-RDBMS (Relational Database Management System) stores data in tables and maintains relationships between tables using keys.
+RDBMS (Relational Database Management System) stores data in tables and maintains 
+relationships between tables using keys.
 
 Real-Time Example:
 - DBMS: Storing employee data in a single file without relation
@@ -42,12 +39,7 @@ Real-Time Example:
 
 ### 4. Introduction to SQL
 
-SQL (Structured Query Language) is a language used to communicate with databases. It helps users perform operations like inserting data, retrieving data, updating records, and deleting records.
-
-Real-Time SQL Usage:
-- HR retrieves employee salary details
-- Bank checks customer account balance
-- Online shopping app fetches order history
+SQL (Structured Query Language) is a language used to communicate with databases. 
 
 Example SQL Query:
 SELECT * FROM student;
@@ -64,9 +56,6 @@ Commands: CREATE, ALTER, DROP, TRUNCATE
 ## PART 2: TABLES, KEYS & DATA TYPES
 
 ### 1. Tables, Rows, and Columns
-
-In SQL, data is stored inside tables. A table looks similar to an Excel sheet and is used to store information about one specific subject such as students, employees, or products.
-
 Table: A table is a collection of related data stored in rows and columns.
 Row: A row represents a single record or entry in a table.
 Column: A column represents a specific attribute or field.
@@ -79,7 +68,8 @@ StudentID | Name | Age | Course | City
 
 ### 2. Primary Key and Foreign Key
 
-A Primary Key is used to uniquely identify each record in a table. It ensures that no duplicate or empty values exist.
+A Primary Key = unique KEY TO  identify each record in a table. 
+It ensures that no duplicate or empty values exist.
 
 Rules of Primary Key:
 - Must be unique
@@ -88,7 +78,8 @@ Rules of Primary Key:
 
 Example: StudentID as Primary Key in Students table
 
-A Foreign Key is used to create a relationship between two tables. It refers to the primary key of another table.
+A Foreign Key == used to create a relationship between two tables. 
+It refers to the primary key of another table.
 
 Example Tables: Orders and Customers
 
@@ -99,7 +90,8 @@ Real-Time Example: In an online shopping website, customer details are stored in
 
 ### 3. SQL Data Types
 
-SQL Data Types define the type of data that can be stored in a column. Choosing the correct data type improves performance and data accuracy.
+SQL Data Types define the type of data that can be stored in a column. 
+Choosing the correct data type improves performance and data accuracy.
 
 #### 3.1 Numeric Data Types
 
