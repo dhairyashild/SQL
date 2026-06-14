@@ -63,6 +63,20 @@ SELECT *                                                        S
 FROM employees                                                  F
 FULL OUTER JOIN departments
 ON e.dept_id = d.dept_id;                                       O
+
+
+-- WHERE on each row vs GROUP BY only work with HAVING on group condition:    REMEMBER THIS ONLY
+
+1. WHERE: प्रत्येक पंक्ती (row) वर अट तपासतो, GROUP BY च्या आधी लागू होतो
+- WHERE मध्ये SUM, AVG, COUNT वापरता येत नाही; 
+- HAVING मध्ये SUM, AVG, COUNT वापरता येते
+
+-- 2. HAVING: GROUP BY नंतर गटावर (group) अट तपासतो
+
+-- Examples:
+SELECT * FROM orders WHERE amount > 10000;
+SELECT customer_id, SUM(amount) FROM orders GROUP BY customer_id HAVING SUM(amount) > 50000;
+ी
 ##################
 
 
