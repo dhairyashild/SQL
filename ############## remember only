@@ -10,8 +10,7 @@ CREATE DATABASE my_db; -- Creates a new database named 'my_db'
 SHOW DATABASES;        -- Lists all available databases
 USE my_db;             -- Selects 'my_db' for active use   - use tablename not exist =my error
 SHOW TABLES;           -- Lists all tables within the selected database
-
-
+###########################
 
 -- AGGREGATE WORKS ONLY ON NUMBERS
 SELECT MIN(amount) FROM sales;  -- 500
@@ -31,3 +30,39 @@ select city, SUM(amount) from sales group by(city);
 ोणत्याही विशिष्ट COLUMN नुसार गट (Group) करून, ज्या COLUMN ची सरासरी (Average) एका ठराविक मूल्यापेक्षा 
 (Value) जास्त आहे, फक्त असाच डेटा फिल्टर करून मिळवण्यासाठी हे कमांड वापरतात.
 SELECT city, AVG(amount) FROM sales_table GROUP BY city HAVING AVG(amount) > 20000;
+###################
+
+JOIN  ###  remember    SFO  in all
+
+s   e.columnname, d.columnname                -- u can see particular column only      
+f
+
+o     in leftside this =  right side this     -- must beboth same values
+
+-- INNER JOIN--------                              
+SELECT *                                                        S
+FROM employees as e                                             F
+INNER JOIN departments as d                                         
+ON e.dept_id = d.dept_id;                                       O        
+
+
+-- LEFT JOIN (4 lines)
+SELECT *                                                        S
+FROM employees                                                  F
+LEFT JOIN departments
+ON e.dept_id = d.dept_id;                                       O
+
+-- RIGHT JOIN (4 lines)
+SELECT *                                                        S
+FROM employees                                                  F
+RIGHT JOIN departments
+ON e.dept_id = d.dept_id;                                       O
+
+-- FULL OUTER JOIN (4 lines)
+SELECT *                                                        S
+FROM employees                                                  F
+FULL OUTER JOIN departments
+ON e.dept_id = d.dept_id;                                       O
+##################
+
+
