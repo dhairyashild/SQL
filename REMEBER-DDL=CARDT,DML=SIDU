@@ -16,15 +16,16 @@ SHOW TABLES;           -- Lists all tables within the selected database
 
 * `CREATE`:              
 CREATE TABLE Emp (                                         # AFTER TABLENAME SPACE GIVEN/NOT GIVEN ITS OK
-    Emp_ID int NOT NULL,               -- IMP: Cannot be empty
-    Name varchar(20) NOT NULL,         -- IMP: Name required
-    Age int NOT NULL,                  -- IMP: Age required
-    Address varchar(100) DEFAULT 'India', -- IMP: Auto-fills 'India' if blank
-    Salary numeric(10,2) NOT NULL,     -- IMP: Decimal salary required
-    DeptID int,                        -- IMP: Reference column
-    PRIMARY KEY(Emp_ID),               -- IMP: Unique ID for the table
+    Emp_ID int NOT NULL,                       -- IMP: Cannot be empty
+    Name varchar(20) NOT NULL,        
+    Age int NOT NULL,                  
+    Address varchar(100) DEFAULT 'India',      -- IMP: Auto-fills 'India' if blank
+    Salary numeric(10,2) NOT NULL,             -- IMP: Decimal salary required
+    DeptID int,                        
+    Test int CHECK(Test > 100),                -- IMP: Inline rule: Test field must be > 100
+    PRIMARY KEY(Emp_ID),                       -- IMP: Unique ID for the table
     FOREIGN KEY(DeptID) REFERENCES Dept(DeptID), -- IMP: Links to Dept table
-    CHECK(Age >= 18)                   -- IMP: Rule: Age must be 18+
+    CHECK(Age >= 18)                             -- IMP: Rule: Age must be 18+
 );
 -------- INSPECTING TABLE STRUCTURE
 DESC branch; -- Displays column names, data types, and constraints
