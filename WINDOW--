@@ -85,7 +85,27 @@
    | 300    | Vayu    | 1000     | 333.33   | 3          | 200      | 500      | 2500       | 357.14     | 7            | 100        | 700        |
    | 500    | Vayu    | 1000     | 333.33   | 3          | 200      | 500      | 2500       | 357.14     | 7            | 100        | 700        |
 
+#########################################################################################################################################################################
 
+Query Without Base Columns):
+   कमांड:
 
+   SELECT SUM(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Sum",
+          AVG(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Avg",
+          COUNT(new_id) OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Count",
+          MIN(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Min",
+          MAX(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Max"
+   FROM test_data;
 
+३. बदललेले आउटपुट टेबल  :
 
+   - पण मूळ आयडी आणि नावे न दिसल्यामुळे आकडे नेमके कोणाचे आहेत हे ओळखणे कठीण होईल.
+
+   | Part_Sum | Part_Avg | Part_Count | Part_Min | Part_Max |
+   | 300      | 150.00   | 2          | 100      | 200      |
+   | 300      | 150.00   | 2          | 100      | 200      |
+   | 1200     | 600.00   | 2          | 500      | 700      |
+   | 1200     | 600.00   | 2          | 500      | 700      |
+   | 1000     | 333.33   | 3          | 200      | 500      |
+   | 1000     | 333.33   | 3          | 200      | 500      |
+   | 1000     | 333.33   | 3          | 200      | 500      |
