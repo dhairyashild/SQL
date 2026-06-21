@@ -1,0 +1,91 @@
+१. मूळ टेबल रचना (Original Dataset Structure):
+   | new_id | new_cat |
+   | 100    | Agni    |
+   | 200    | Agni    |
+   | 500    | Dharti  |
+   | 700    | Dharti  |
+   | 200    | Vayu    |
+   | 300    | Vayu    |
+   | 500    | Vayu    |
+
+२. स्पष्ट नावे असलेली मास्टर स्टडी कमांड (Clear Functional Column Naming Query):
+   या क्वेरीमध्ये आउटपुट कॉलम्सना 'फंक्शनचे नाव' (Sum, Avg, Count, Min, Max) देऊन रचना केली आहे, जेणेकरून नोट्स वाचताना गोंधळ होणार नाही.
+   कमांड:
+   SELECT new_id, new_cat,
+          -- A. SUM (बेरीज) गट
+          SUM(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Sum",
+          SUM(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Sum",
+          
+          -- B. AVERAGE (सरासरी) गट
+          AVG(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Avg",
+          AVG(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Avg",
+          
+          -- C. COUNT (संख्या) गट
+          COUNT(new_id) OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Count",
+          COUNT(new_id) OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Count",
+          
+          -- D. MINIMUM (सर्वात लहान) गट
+          MIN(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Min",
+          MIN(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Min",
+          
+          -- E. MAXIMUM (सर्वात मोठा) गट
+          MAX(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Max",
+          MAX(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Max"
+   FROM test_data;
+
+३. अंतिम मॅट्रीक्स आउटपुट टेबल (Final Matrix Output for Revision Notes):
+   | new_id | new_cat | Part_Sum | Global_Sum | Part_Avg | Global_Avg | Part_Count | Global_Count | Part_Min | Global_Min | Part_Max | Global_Max |
+   | 100    | Agni    | 300      | 2500       | 150.00   | 357.14     | 2          | 7            | 100      | 100        | 200      | 700        |
+   | 200    | Agni    | 300      | 2500       | 150.00   | 357.14     | 2          | 7            | 100      | 100        | 200      | 700        |
+   | 500    | Dharti  | 1200     | 2500       | 600.00   | 357.14     | 2          | 7            | 500      | 100        | 700      | 700        |
+   | 700    | Dharti  | 1200     | 2500       | 600.00   | 357.14     | 2          | 7            | 500      | 100        | 700      | 700        |
+   | 200    | Vayu    | 1000     | 2500       | 333.33   | 357.14     | 3          | 7            | 200      | 100        | 500      | 700        |
+   | 300    | Vayu    | 1000     | 2500       | 333.33   | 357.14     | 3          | 7            | 200      | 100        | 500      | 700        |
+   | 500    | Vayu    | 1000     | 2500       | 333.33   | 357.14     | 3          | 7            | 200      | 100        | 500      | 700        |
+
+##########################################################################################################################################################################
+
+
+१. मूळ टेबल रचना (Original Dataset Structure):
+   | new_id | new_cat |
+   | 100    | Agni    |
+   | 200    | Agni    |
+   | 500    | Dharti  |
+   | 700    | Dharti  |
+   | 200    | Vayu    |
+   | 300    | Vayu    |
+   | 500    | Vayu    |
+
+२. अद्ययावत कॉलम नावांसह मास्टर कमांड (Updated Naming Master Query):
+   या क्वेरीमध्ये तुमच्या मागणीनुसार आधी 'Part' गट आणि नंतर 'Global' गट अशी मांडणी ठेवून, आउटपुट कॉलम्सची नावे सुटसुटीत (Part_Sum, Global_Sum) केली आहेत.
+   कमांड:
+   SELECT new_id, new_cat,
+          -- १. पार्टीशन विंडो (कॅटेगरीनुसार स्वतंत्र गणिते)
+          SUM(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Sum",
+          AVG(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Avg",
+          COUNT(new_id) OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Count",
+          MIN(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Min",
+          MAX(new_id)   OVER(PARTITION BY new_cat ORDER BY new_id) AS "Part_Max",
+
+          -- २. ग्लोबल विंडो (संपूर्ण टेबलची एकत्र गणिते - UNBOUNDED)
+          SUM(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Sum",
+          AVG(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Avg",
+          COUNT(new_id) OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Count",
+          MIN(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Min",
+          MAX(new_id)   OVER(ORDER BY new_id ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "Global_Max"
+   FROM test_data;
+
+३. एकत्रित आलेले अंतिम आउटपुट टेबल (Comprehensive Matrix Output Table):
+   | new_id | new_cat | Part_Sum | Part_Avg | Part_Count | Part_Min | Part_Max | Global_Sum | Global_Avg | Global_Count | Global_Min | Global_Max |
+   | 100    | Agni    | 300      | 150.00   | 2          | 100      | 200      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 200    | Agni    | 300      | 150.00   | 2          | 100      | 200      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 500    | Dharti  | 1200     | 600.00   | 2          | 500      | 700      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 700    | Dharti  | 1200     | 600.00   | 2          | 500      | 700      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 200    | Vayu    | 1000     | 333.33   | 3          | 200      | 500      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 300    | Vayu    | 1000     | 333.33   | 3          | 200      | 500      | 2500       | 357.14     | 7            | 100        | 700        |
+   | 500    | Vayu    | 1000     | 333.33   | 3          | 200      | 500      | 2500       | 357.14     | 7            | 100        | 700        |
+
+
+
+
+
