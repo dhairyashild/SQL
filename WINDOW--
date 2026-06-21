@@ -2,6 +2,12 @@ SELECT   c1,     c2,
    SUM(new_id)   OVER(PARTITION BY             ORDER BY   new_id)    AS "           ",
    SUM(new_id)   OVER(ORDER BY       ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS "All_Sum",
                                      Ra   B       U         P         A   U         F
+
+✅ Key takeaway:
+ROW_NUMBER() for row identity, 
+RANK() for competition, 
+DENSE_RANK() for continuous ranking, 
+PERCENT_RANK() for relative position.
 ###########################################################################################################
 १. मूळ टेबल रचना (Original Dataset Structure):
    | new_id | new_cat |
@@ -139,14 +145,94 @@ Query Without Base Columns):
    | 500    | 6          | 5    | 4          | 0.666        |
    | 700    | 7          | 7    | 5          | 1            |
 
+
+1. Essential Interview Questions & Bullet Answers:
+
+   Q1. What does ROW_NUMBER() do?
+   Ans: Assigns a unique, sequential integer to each row starting from 1.
+
+   Q2. What is the main difference between RANK() and DENSE_RANK()?
+   Ans: RANK() skips ranks when duplicates exist (creates gaps); DENSE_RANK() does not skip ranks (no gaps).
+
+   Q3. If two rows share rank 2, what is the next rank assigned by RANK()?
+   Ans: 4 (it skips rank 3).
+
+   Q4. If two rows share rank 2, what is the next rank assigned by DENSE_RANK()?
+   Ans: 3 (continuous numbering).
+
+   Q5. What is the value range of PERCENT_RANK()?
+   Ans: 0 to 1.
+
+   Q6. What is the PERCENT_RANK() of the very first row in a partition?
+   Ans: Always 0.
+
+   Q7. What is the mathematical formula for PERCENT_RANK()?
+   Ans: (Rank - 1) / (Total Rows - 1).
+
+   Q8. What happens to ROW_NUMBER, RANK, and DENSE_RANK if the dataset has zero duplicate values?
+   Ans: All three return identical outputs.
+
+   Q9. Is the ORDER BY clause mandatory inside the OVER() clause for ranking functions?
+   Ans: Yes, ordering is required to determine ranks.
+
+   Q10. How do you restart the rank counter for different groups/categories in the table?
+   Ans: Use the PARTITION BY clause.
+
 #########################################################################################################################################################################
 
+1. Value Functions - Isolated Command (From image_2733bf.png):
+   SELECT new_id,
+          FIRST_VALUE(new_id) OVER(ORDER BY new_id) AS "FIRST_VALUE",
+          LAST_VALUE(new_id)  OVER(ORDER BY new_id) AS "LAST_VALUE",
+          LEAD(new_id)        OVER(ORDER BY new_id) AS "LEAD",
+          LAG(new_id)         OVER(ORDER BY new_id) AS "LAG"
+   FROM test_data;
 
+2. Isolated Value Functions Output Table:
+   | new_id | FIRST_VALUE | LAST_VALUE | LEAD | LAG  |
+   | 100    | 100         | 100        | 200  | null |
+   | 200    | 100         | 200        | 200  | 100  |
+   | 200    | 100         | 200        | 300  | 200  |
+   | 300    | 100         | 300        | 500  | 200  |
+   | 500    | 100         | 500        | 500  | 300  |
+   | 500    | 100         | 500        | 700  | 500  |
+   | 700    | 100         | 700        | null | 500  |
+
+3. Top 5 English Interview Questions & Bullet Answers on Value Functions:
+
+   Q1. What is the difference between LAG() and LEAD()?
+   Ans: LAG() fetches data from a previous row, while LEAD() fetches data from a subsequent row.
+
+   Q2. Why did the first row of LAG() and the last row of LEAD() return NULL?
+   Ans: Because there is no row before the first row, and no row after the last row to fetch data from.
+
+   Q3. Why is LAST_VALUE() changing per row instead of showing 700 for all?
+   Ans: Because the default window frame is "RANGE BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW". It only looks up to the current row.
+
+   Q4. How do you fix LAST_VALUE() to return the absolute last value (700) for every row?
+   Ans: Add "ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING" to the OVER clause.
+
+   Q5. What is the default offset value for LEAD() and LAG() if not specified?
+   Ans: 1 row.
 
 
 #########################################################################################################################################################################
 
+1. Value Functions with Offsets - Isolated Command (From image_272fbf.png):
+   SELECT new_id,
+          LEAD(new_id, 2) OVER( ORDER BY new_id) AS "LEAD_by2",
+          LAG(new_id, 2)  OVER( ORDER BY new_id) AS "LAG_by2"
+   FROM test_data;
 
+2. Isolated Offset Output Table:
+   | new_id | LEAD_by2 | LAG_by2 |
+   | 100    | 200      | null    |
+   | 200    | 300      | null    |
+   | 200    | 500      | 100     |
+   | 300    | 500      | 200     |
+   | 500    | 700      | 200     |
+   | 500    | null     | 300     |
+   | 700    | null     | 500     |
 
 
 
