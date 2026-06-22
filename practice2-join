@@ -12,6 +12,27 @@ ON d.dept_name = e.dept;              # IF VALUES IN IT ARE SAME THEN WE CAN USE
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
+-- WHERE = GROUP BY च्या आधी, rows वर filter
+-- HAVING = GROUP BY नंतर, groups वर filter (aggregate functions सह)
+
+-- EXAMPLE 1: WHERE (individual rows filter)
+-- प्रश्न: 50000 पेक्षा जास्त पगाराचे कर्मचारी
+SELECT * FROM employees WHERE salary > 50000;
+
+-- EXAMPLE 2: HAVING (groups filter)
+-- प्रश्न: ज्या department चा सरासरी पगार 50000 पेक्षा जास्त
+SELECT department, AVG(salary) 
+FROM employees 
+GROUP BY department 
+HAVING AVG(salary) > 50000;
+
+-- WHERE + HAVING दोन्ही एकत्र
+-- प्रश्न: 2020 नंतर join केलेल्या कर्मचाऱ्यांच्या department मध्ये सरासरी पगार 50000 पेक्षा जास्त
+SELECT department, AVG(salary) 
+FROM employees 
+WHERE hire_date >= '2020-01-01'      -- WHERE: rows filter
+GROUP BY department 
+HAVING AVG(salary) > 50000;          -- HAVING: groups filter
 ---------------------------------------------------------------------------------------------------------
 -- ============================================================
 -- JOIN COMMANDS WITH OUTPUT + MARATHI EXPLANATION
