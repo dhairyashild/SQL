@@ -13,6 +13,302 @@ ON d.dept_name = e.dept;              # IF VALUES IN IT ARE SAME THEN WE CAN USE
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
+-- ============================================================
+-- JOIN COMMANDS WITH OUTPUT + MARATHI EXPLANATION
+-- ============================================================
+
+-- 1. INNER JOIN (Scenario: "कर्मचारी आणि त्यांचा department budget")
+SELECT e.emp_name, e.dept, d.budget 
+FROM employees e 
+INNER JOIN departments d ON e.dept = d.dept_name;
+
+-- OUTPUT:
+-- emp_name      | dept      | budget
+-- Alice Chen    | IT        | 500000.00
+-- Bob Smith     | HR        | 150000.00
+-- Carol Davis   | IT        | 500000.00
+-- David Lee     | Sales     | 300000.00
+-- Eva Brown     | IT        | 500000.00
+-- Frank White   | Sales     | 300000.00
+-- Grace Kim     | HR        | 150000.00
+-- Henry Wu      | IT        | 500000.00
+-- Irene Zhao    | Marketing | 200000.00
+-- Jack Smith    | Sales     | 300000.00
+-- Karen Liu     | Marketing | 200000.00
+
+-- MARATHI: "फक्त जुळणाऱ्या रांगा" | USE: Matching records हवी असताना
+
+-- ============================================================
+
+-- 2. LEFT JOIN (Scenario: "सर्व कर्मचारी, त्यांचा budget असो वा नसो")
+SELECT e.emp_name, e.dept, d.budget 
+FROM employees e 
+LEFT JOIN departments d ON e.dept = d.dept_name;
+
+-- OUTPUT: (सर्व 11 employees, सर्वांना budget मिळेल कारण सर्व dept exist करतात)
+-- emp_name      | dept      | budget
+-- Alice Chen    | IT        | 500000.00
+-- Bob Smith     | HR        | 150000.00
+-- Carol Davis   | IT        | 500000.00
+-- David Lee     | Sales     | 300000.00
+-- Eva Brown     | IT        | 500000.00
+-- Frank White   | Sales     | 300000.00
+-- Grace Kim     | HR        | 150000.00
+-- Henry Wu      | IT        | 500000.00
+-- Irene Zhao    | Marketing | 200000.00
+-- Jack Smith    | Sales     | 300000.00
+-- Karen Liu     | Marketing | 200000.00
+
+-- MARATHI: "डाव्या टेबलच्या (employees) सर्व रांगा" | USE: सर्व employees हवे असताना
+
+-- ============================================================
+
+-- 3. LEFT JOIN (Scenario: "सर्व departments आणि त्यातील कर्मचारी")
+SELECT d.dept_name, e.emp_name 
+FROM departments d 
+LEFT JOIN employees e ON d.dept_name = e.dept;
+
+-- OUTPUT:
+-- dept_name  | emp_name
+-- IT         | Alice Chen
+-- IT         | Carol Davis
+-- IT         | Eva Brown
+-- IT         | Henry Wu
+-- HR         | Bob Smith
+-- HR         | Grace Kim
+-- Sales      | David Lee
+-- Sales      | Frank White
+-- Sales      | Jack Smith
+-- Marketing  | Irene Zhao
+-- Marketing  | Karen Liu
+-- Finance    | NULL
+
+-- MARATHI: "उजव्या टेबलच्या (employees) सर्व रांगा" | USE: सर्व departments हवे असताना
+
+-- ============================================================
+
+-- 4. RIGHT JOIN (Scenario: RIGHT JOIN चा वापर)
+SELECT d.dept_name, e.emp_name 
+FROM employees e 
+RIGHT JOIN departments d ON e.dept = d.dept_name;
+
+-- OUTPUT: LEFT JOIN (departments → employees) सारखेच
+-- MARATHI: "उजव्या टेबलच्या (departments) सर्व रांगा" | USE: LEFT JOIN अधिक सोपा
+
+-- ============================================================
+
+-- 5. FIND MISSING (Scenario: "ज्या कर्मचाऱ्यांचा department अस्तित्वात नाही")
+SELECT e.emp_name, e.dept 
+FROM employees e 
+LEFT JOIN departments d ON e.dept = d.dept_name 
+WHERE d.dept_id IS NULL;
+
+-- OUTPUT: (रिकामे, कारण सर्व dept exist करतात)
+-- emp_name | dept
+-- (no rows)
+
+-- MARATHI: "Data quality check – अनाथ (orphan) records" | USE: Orphan records शोधण्यासाठी
+
+-- ============================================================
+
+-- 6. FIND MISSING (Scenario: "ज्या department मध्ये एकही कर्मचारी नाही")
+SELECT d.dept_name 
+FROM departments d 
+LEFT JOIN employees e ON d.dept_name = e.dept 
+WHERE e.emp_id IS NULL;
+
+-- OUTPUT:
+-- dept_name
+-- Finance
+
+-- MARATHI: "व्यवसाय विश्लेषण – रिकामे departments" | USE: रिकामे departments शोधण्यासाठी
+
+-- ============================================================
+
+-- 7. JOIN with AGGREGATION (Scenario: "प्रत्येक department मधील कर्मचारी संख्या")
+SELECT d.dept_name, COUNT(e.emp_id) AS emp_count 
+FROM departments d 
+LEFT JOIN employees e ON d.dept_name = e.dept 
+GROUP BY d.dept_name;
+
+-- OUTPUT:
+-- dept_name  | emp_count
+-- IT         | 4
+-- HR         | 2
+-- Sales      | 3
+-- Marketing  | 2
+-- Finance    | 0
+
+-- MARATHI: "Dashboard/reporting – कर्मचारी संख्या" | USE: प्रत्येक विभागात किती कर्मचारी
+
+-- ============================================================
+
+-- 8. JOIN with SUM (Scenario: "प्रत्येक department चा एकूण पगार खर्च")
+SELECT d.dept_name, COALESCE(SUM(e.salary), 0) AS total_salary 
+FROM departments d 
+LEFT JOIN employees e ON d.dept_name = e.dept 
+GROUP BY d.dept_name;
+
+-- OUTPUT:
+-- dept_name  | total_salary
+-- IT         | 357500.00
+-- HR         | 101000.00
+-- Sales      | 182000.00
+-- Marketing  | 106000.00
+-- Finance    | 0.00
+
+-- MARATHI: "खर्च विश्लेषण, budgeting" | USE: प्रत्येक department चा एकूण पगार खर्च
+
+-- ============================================================
+
+-- 9. SELF JOIN (Scenario: "एकाच department मधील सहकारी")
+SELECT e1.emp_name AS employee, e2.emp_name AS colleague, e1.dept 
+FROM employees e1 
+INNER JOIN employees e2 ON e1.dept = e2.dept 
+WHERE e1.emp_id < e2.emp_id 
+ORDER BY e1.dept;
+
+-- OUTPUT (partial):
+-- employee     | colleague    | dept
+-- Alice Chen   | Carol Davis  | IT
+-- Alice Chen   | Eva Brown    | IT
+-- Alice Chen   | Henry Wu     | IT
+-- Carol Davis  | Eva Brown    | IT
+-- Carol Davis  | Henry Wu     | IT
+-- Eva Brown    | Henry Wu     | IT
+-- Bob Smith    | Grace Kim    | HR
+-- David Lee    | Frank White  | Sales
+-- David Lee    | Jack Smith   | Sales
+-- Frank White  | Jack Smith   | Sales
+-- Irene Zhao   | Karen Liu    | Marketing
+
+-- MARATHI: "समान विभागातील कर्मचारी" | USE: Team structure, hierarchy
+
+-- ============================================================
+
+-- 10. MULTIPLE JOINS (Scenario: "कर्मचारी + department budget + manager")
+SELECT e.emp_name, d.dept_name, d.budget, m.emp_name AS manager_name 
+FROM employees e 
+INNER JOIN departments d ON e.dept = d.dept_name 
+LEFT JOIN employees m ON d.manager_id = m.emp_id;
+
+-- OUTPUT (partial):
+-- emp_name     | dept_name | budget    | manager_name
+-- Alice Chen   | IT        | 500000.00 | Eva Brown
+-- Bob Smith    | HR        | 150000.00 | Grace Kim
+-- Carol Davis  | IT        | 500000.00 | Eva Brown
+-- David Lee    | Sales     | 300000.00 | Jack Smith
+-- Eva Brown    | IT        | 500000.00 | NULL
+-- Frank White  | Sales     | 300000.00 | Jack Smith
+-- Grace Kim    | HR        | 150000.00 | NULL
+-- Henry Wu     | IT        | 500000.00 | Eva Brown
+-- Irene Zhao   | Marketing | 200000.00 | NULL
+-- Jack Smith   | Sales     | 300000.00 | NULL
+-- Karen Liu    | Marketing | 200000.00 | NULL
+
+-- MARATHI: "Complex reporting – अनेक tables मधून डेटा" | USE: अनेक tables मधून information
+
+-- ============================================================
+
+-- 11. FULL OUTER JOIN (Scenario: "सर्व employees आणि सर्व departments")
+SELECT e.emp_name, e.dept, d.dept_name, d.budget 
+FROM employees e 
+FULL OUTER JOIN departments d ON e.dept = d.dept_name;
+
+-- OUTPUT:
+-- emp_name      | dept      | dept_name  | budget
+-- Alice Chen    | IT        | IT         | 500000.00
+-- Bob Smith     | HR        | HR         | 150000.00
+-- Carol Davis   | IT        | IT         | 500000.00
+-- David Lee     | Sales     | Sales      | 300000.00
+-- Eva Brown     | IT        | IT         | 500000.00
+-- Frank White   | Sales     | Sales      | 300000.00
+-- Grace Kim     | HR        | HR         | 150000.00
+-- Henry Wu      | IT        | IT         | 500000.00
+-- Irene Zhao    | Marketing | Marketing  | 200000.00
+-- Jack Smith    | Sales     | Sales      | 300000.00
+-- Karen Liu     | Marketing | Marketing  | 200000.00
+-- NULL          | NULL      | Finance    | 250000.00
+
+-- MARATHI: "दोन्ही टेबलमधील सर्व डेटा" | USE: दोन्ही टेबलमधील सर्व rows हव्या असतील
+
+-- ============================================================
+
+-- 12. CROSS JOIN (Scenario: "सर्व department-location combinations")
+SELECT d.dept_name, loc.location 
+FROM departments d 
+CROSS JOIN (SELECT DISTINCT location FROM employees) loc;
+
+-- OUTPUT: 5 departments × 5 locations = 25 rows (partial)
+-- dept_name  | location
+-- IT         | New York
+-- IT         | Boston
+-- IT         | Chicago
+-- IT         | San Francisco
+-- IT         | Los Angeles
+-- HR         | New York
+-- HR         | Boston
+-- HR         | Chicago
+-- HR         | San Francisco
+-- HR         | Los Angeles
+-- Sales      | New York
+-- Sales      | Boston
+-- ... (सर्व 25 combinations)
+
+-- MARATHI: "प्रत्येक department ची प्रत्येक location शी जोडणी" | USE: सर्व possible combinations
+
+-- ============================================================
+
+-- 13. NON-EQUI JOIN (Scenario: "एकाच department मधील उच्च पगाराचे सहकारी")
+SELECT e1.emp_name, e1.salary, e2.emp_name AS higher_paid, e2.salary 
+FROM employees e1 
+INNER JOIN employees e2 ON e1.dept = e2.dept AND e1.salary < e2.salary;
+
+-- OUTPUT (partial):
+-- emp_name     | salary  | higher_paid  | salary
+-- Alice Chen   | 82500.00| Carol Davis  | 90200.00
+-- Alice Chen   | 82500.00| Eva Brown    | 99000.00
+-- Alice Chen   | 82500.00| Henry Wu     | 85800.00
+-- Carol Davis  | 90200.00| Eva Brown    | 99000.00
+-- David Lee    | 61000.00| Jack Smith   | 63000.00
+-- Frank White  | 58000.00| Jack Smith   | 63000.00
+
+-- MARATHI: "समान department मध्ये कमी पगार → जास्त पगार" | USE: पगार तुलना, rank calculation
+
+-- ============================================================
+
+-- 14. ANTI-JOIN using NOT EXISTS (Scenario: "NOT EXISTS ने रिकामे departments")
+SELECT d.dept_name 
+FROM departments d 
+WHERE NOT EXISTS (SELECT 1 FROM employees e WHERE e.dept = d.dept_name);
+
+-- OUTPUT:
+-- dept_name
+-- Finance
+
+-- MARATHI: "Performance साठी LEFT JOIN + IS NULL पेक्षा वेगवान" | USE: रिकामे departments
+
+-- ============================================================
+
+-- 15. PRE-AGGREGATE before JOIN (Scenario: "department budget vs total salary")
+SELECT d.dept_name, d.budget, emp_stats.total_salary 
+FROM departments d 
+LEFT JOIN (
+    SELECT dept, SUM(salary) AS total_salary 
+    FROM employees 
+    GROUP BY dept
+) emp_stats ON d.dept_name = emp_stats.dept;
+
+-- OUTPUT:
+-- dept_name  | budget    | total_salary
+-- IT         | 500000.00 | 357500.00
+-- HR         | 150000.00 | 101000.00
+-- Sales      | 300000.00 | 182000.00
+-- Marketing  | 200000.00 | 106000.00
+-- Finance    | 250000.00 | NULL
+
+-- MARATHI: "Aggregation fan-out टाळण्यासाठी – महत्त्वाचे!" | USE: JOIN ने duplicate rows वाढतात तेव्हा
+
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------
