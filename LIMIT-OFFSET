@@ -1,0 +1,92 @@
+-- =====================================================================
+-- SAMPLE TABLE: orders
+-- =====================================================================
+-- order_id | customer_id | amount | status  | created_at
+-- ---------|-------------|--------|---------|------------
+--    1     |    C01      |  1500  | closed  | 2024-01-01
+--    2     |    C02      |   800  | pending | 2024-01-02
+--    3     |    C01      |  2200  | closed  | 2024-01-03
+--    4     |    C03      |   500  | pending | 2024-01-04
+--    5     |    C02      |  1200  | closed  | 2024-01-05
+--    6     |    C03      |  3000  | pending | 2024-01-06
+--    7     |    C01      |   700  | closed  | 2024-01-07
+--    8     |    C02      |  4500  | closed  | 2024-01-08
+--    9     |    C03      |   100  | pending | 2024-01-09
+--   10     |    C01      |   950  | closed  | 2024-01-10
+-- =====================================================================
+
+
+-- 1. BASIC LIMIT
+-- मराठी : फक्त पहिल्या 5 rows परत येतात — data नुसतं बघायचं असेल तर.
+-- English: Returns first 5 rows — quick peek without loading all data.
+-- Interview: Use when exploring an unknown table — never run SELECT * without LIMIT in production.
+SELECT * FROM orders LIMIT 5;
+
+
+-- 2. TOP-N WITH ORDER BY
+-- मराठी : amount सर्वात जास्त असलेल्या top 3 orders — ORDER BY शिवाय LIMIT अर्थ नाही.
+-- English: Top 3 orders by highest amount — always pair LIMIT with ORDER BY.
+-- Interview: Use when asked for top/bottom N records by any metric — salary, sales, revenue.
+SELECT order_id, amount FROM orders ORDER BY amount DESC LIMIT 3;
+
+
+-- 3. PAGINATION — PAGE 1
+-- मराठी : Page 1 — पहिल्या 3 rows. OFFSET 0 म्हणजे सुरुवातीपासून सुरू.
+-- English: Page 1 — first 3 rows. OFFSET 0 means start from the beginning.
+-- Interview: Use when building paginated APIs or dashboards to avoid sending millions of rows at once.
+SELECT * FROM orders ORDER BY order_id LIMIT 3 OFFSET 0;
+
+
+-- 4. PAGINATION — PAGE 2
+-- मराठी : OFFSET 3 म्हणजे पहिल्या 3 rows skip करून पुढच्या 3 rows आणतो.
+-- English: OFFSET 3 skips first 3 rows and fetches next 3. Formula = (page-1) * page_size.
+-- Interview: Use when building paginated APIs or dashboards to avoid sending millions of rows at once.
+SELECT * FROM orders ORDER BY order_id LIMIT 3 OFFSET 3;
+
+
+-- 5. FILTER + LIMIT
+-- मराठी : फक्त pending orders मधून नवीन 3 — WHERE आधी लागतो, LIMIT शेवटी.
+-- English: Latest 3 pending orders — WHERE filters first, then LIMIT caps the result.
+-- Interview: Use when asked for latest/oldest N records matching a condition — logs, orders, events.
+SELECT * FROM orders WHERE status = 'pending' ORDER BY created_at DESC LIMIT 3;
+
+
+-- 6. GROUP BY + LIMIT
+-- मराठी : प्रत्येक customer चा total खर्च काढून top 2 दाखवतो.
+-- English: Sums spend per customer, then shows only top 2 spenders.
+-- Interview: Use when asked to rank groups by a calculated metric — "which customer spent most".
+SELECT customer_id, SUM(amount) AS total FROM orders GROUP BY customer_id ORDER BY total DESC LIMIT 2;
+
+
+-- 7. CTE + LIMIT
+-- मराठी : आधी CTE मध्ये शेवटच्या 5 rows घेतो, मग त्यावर aggregate करतो.
+-- English: CTE fetches last 5 rows first, then aggregates on that smaller slice.
+-- Interview: Use when you need to limit data first and then run aggregation or joins on that smaller set.
+WITH recent AS (
+  SELECT * FROM orders ORDER BY created_at DESC LIMIT 5
+)
+SELECT status, COUNT(*) AS cnt FROM recent GROUP BY status;
+
+
+-- 8. PER-GROUP TOP-N (ROW_NUMBER)
+-- मराठी : प्रत्येक customer मधला सर्वात महाग order — plain LIMIT हे करू शकत नाही, window function लागते.
+-- English: Top 1 order per customer — plain LIMIT can't partition, use ROW_NUMBER() OVER (PARTITION BY).
+-- Interview: Most common window function question — "get top N per group" always needs PARTITION BY.
+SELECT * FROM (
+  SELECT *, ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY amount DESC) AS rn
+  FROM orders
+) t WHERE rn <= 1;
+
+
+-- 9. EXISTENCE CHECK (LIMIT 1)
+-- मराठी : एखादी row आहे का नाही हे तपासायला — पहिली सापडली की थांबतो, COUNT(*) पेक्षा जलद.
+-- English: Checks if any row matches — stops at first hit, faster than COUNT(*) > 0.
+-- Interview: Use instead of COUNT(*) > 0 when you only need to confirm at least one row exists.
+SELECT order_id FROM orders WHERE amount > 1000 LIMIT 1;
+
+
+-- 10. BATCH INSERT WITH LIMIT
+-- मराठी : एकाच वेळी सगळ्या rows न हलवता 3-3 करून batch मध्ये archive मध्ये टाकतो — pipeline मध्ये lock येत नाही.
+-- English: Moves 3 closed rows at a time into archive — prevents table locks in large ETL pipelines.
+-- Interview: Use in ETL pipelines to process large tables in small chunks — avoids locks and timeouts.
+INSERT INTO archive SELECT * FROM orders WHERE status = 'closed' LIMIT 3;
