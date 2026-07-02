@@ -1,0 +1,17 @@
+-- Table A: | ID | Name | Dept |  Table B: | ID | Name | Dept |
+--          | 1  | Ram  | HR   |           | 1  | Ram  | HR   | (Full row same)
+--          | 2  | Sham | IT   |           | 2  | John | IT   | (1 col 'IT' same)
+
+-- UNION Output:
+-- | 1 | Ram  | HR |
+-- | 2 | Sham | IT |
+-- | 2 | John | IT |
+
+####### REMEMBER =  (Only the full row '1, Ram, HR' was removed as a duplicate )      BUT ID 2 IS CAME 2 TIMES IT KEPT AS NOT FULL ROW IS SAME 
+
+-- UNION ALL Output:
+-- | 1 | Ram  | HR |
+-- | 2 | Sham | IT |
+-- | 1 | Ram  | HR |
+-- | 2 | John | IT |
+-- (Keeps everything, including the identical row)
