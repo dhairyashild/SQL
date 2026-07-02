@@ -15,3 +15,17 @@
 -- | 1 | Ram  | HR |
 -- | 2 | John | IT |
 -- (Keeps everything, including the identical row)
+
+
+
+1. Same number of columns: 
+   English: Both SELECT statements must return an identical number of columns.
+   Marathi: दोन्ही SELECT स्टेटमेंटमधून मिळणाऱ्या कॉलमची संख्या समान असली पाहिजे.
+
+2. Same data type: 
+   English: The data types of corresponding columns must be compatible or identical.
+   Marathi: संबंधित कॉलमचा डेटा प्रकार (Data Type) एकसारखा किंवा सुसंगत असावा.
+
+3. Same order: 
+   English: Columns must be in the same sequence in both SELECT statements.
+   Marathi: दोन्ही SELECT स्टेटमेंटमध्ये कॉलमचा क्रम (Order) सारखाच असावा.
